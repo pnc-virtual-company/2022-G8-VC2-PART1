@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import ListAllLeave from "../views/ListAllLeave.vue";
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'list_all_leave',
+    component: ListAllLeave
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/new_request',
+    name: 'new_request',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
