@@ -22,17 +22,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // leave Api
-Route::get('leaves',[LeaveController::class,"index"]);
-Route::post('leaves',[LeaveController::class,"store"]);
-Route::get('leaves/{id}',[LeaveController::class,"show"]);
+Route::get('/leaves/',[LeaveController::class,"index"]);
+Route::post('/leaves/',[LeaveController::class,"store"]);
+Route::get('/leaves/{id}',[LeaveController::class,"show"]);
 
 
 //social affair api
-Route::get('social_affairs', [SocialAffairController::class,"index"]);
-Route::post('social_affairs', [SocialAffairController::class,"store"]);
+Route::get('/social_affairs/', [SocialAffairController::class,"index"]);
+Route::post('/social_affairs/', [SocialAffairController::class,"store"]);
 
 
 //students api
-Route::get('students', [StudentController::class, "index"]);
-Route::post('students', [StudentController::class, "store"]);
-
+Route::get('/students/', [StudentController::class, "index"]);
+Route::post('/students/', [StudentController::class, "store"]);

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <form @submit.prevent="reQuest" class="leave_request">
+    <form @submit.prevent="submitR" class="leave_request">
       <div class="heading_form">
         <h1>Request Leave Form</h1>
       </div>
@@ -11,8 +11,10 @@
         </div>
         <div class="box">
           <select v-model="leave_type" id="leave_type">
-            <option value="busy">Busy</option>
-            <option value="sick">Sick</option>
+            <option value="Sick Leave">Sick Leave</option>
+            <option value="Family's event">Family's event</option>
+            <option value="Brother's or Sister's event">Brother's or Sister's event</option>
+            <option value="Other Event">Other Event</option>
           </select>
         </div>
       </div>
@@ -21,10 +23,10 @@
           <h5>Date start</h5>
         </div>
         <div class="box">
-          <input type="date" v-model="start_date"/>
-          <select v-model="start_date_status">
-            <option value="am">AM</option>
-            <option value="pm">PM</option>
+          <input type="date" v-model="start_date" />
+          <select v-model="start_time">
+            <option value="morning" selected>Morning</option>
+            <option value="afternoon">Afternoon</option>
           </select>
         </div>
       </div>
@@ -34,106 +36,114 @@
         </div>
         <div class="box">
           <input type="date" v-model="end_date">
-          <select v-model="end_date_status">
-            <option value="am">AM</option>
-            <option value="pm">PM</option>
+          <select v-model="end_time">
+            <option value="morning" selected>Morning</option>
+            <option value="afternoon">Afternoon</option>
           </select>
         </div>
       </div>
       <div class="duration">
-        <h5>Duration: {{getDuration()}}  days</h5>
+        <h5 v-if="duration == 0 || duration == 0.5|| duration == 1">Duration: <span> {{ count_duration }} day</span> </h5>
+        <h5 v-else>Duration: <span>{{ count_duration }} days</span> </h5>
       </div>
       <div class="content2">
         <div class="title">
           <h5>Cause (Reason):</h5>
         </div>
         <div class="box">
-          <textarea  id="reason" v-model="reason" cols="40" rows="5" placeholder=" you must have reason..."></textarea>
+          <textarea id="reason" v-model="reason" cols="40" rows="5" placeholder=" you must have reason..."></textarea>
         </div>
       </div>
       <div class="footer">
         <button @click="cancleR" id="cancle">Cancle</button>
-        <button @click="submitR" id="submit">Submit</button>
+        <button id="submit">Submit</button>
       </div>
-  </form>
+    </form>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+import axios from "../../axios-http.js"
 export default {
   name:"Newrequest_Form",
-  emits:['new-request'],
+  emits:['new_request'],
   data(){
     return {
-      leave_type:[],
-      start_date:null,
-      start_date_status:'',
-      end_date:null,
-      end_date_status:'',
-      reason:'',
-      duration:null,
+      leave_type:'',
+      start_date:'',
+      start_time:'',
+      end_date:'',
+      end_time:'',
+      reason: '',
+      status:'Padding',
     }
   },
   methods:{
     cancleR(){
       this.clearForm();
     },
-    submitR(){
+    submitR() {
+      console.log(this.status)
+      let object = { leave_type: this.leave_type, start_date: this.start_date, end_date: this.end_date, reason: this.reason, duration: this.count_duration,status:this.status, }
       if (
-        this.leave_type != [] &&
+        this.leave_type != ''&&
         this.start_date != '' &&
-        this.start_date_status != ''&&
+        this.start_time != ''&&
         this.end_date != '' && 
-        this.end_date_status != '' && 
+        this.end_time != '' && 
         this.reason != ''
       ){
-        this.$emit('new-request',{
-          leave_type:this.leave_type,
-          startDate:this.start_date,
-          startDateStatus:this.start_date_status,
-          endDate:this.end_date,
-          endDateStatus:this.end_date_status,
-          reason:this.reason
-        });
+        // this.$emit('new_request',object);
+        axios.post("/leaves", object).then((response) =>
+          console.log(response.data)
+        )
         this.clearForm();
       }else {
         alert('You missing some field please check again!');
       }
     },
     clearForm(){
-      this.leave_type = [];
       this.start_date='';
-      this.start_date_status = '';
+      this.start_time = '';
+      this.leave_type = '';
       this.end_date = '';
-      this.end_date_status = '';
+      this.end_time = '';
       this.reason = '';
     },
-    findDuration(){
-      if(
-        this.start_date != null &&
-        this.end_date != null && 
-        this.start_date_status != '' &&
-        this.end_date_status !=''
-      ){
-        if (this.start_date != this.end_date && this.end_date_status == this.start_date_status){
-          this.duration = (new Date(this.end_date).getTime()-new Date(this.start_date).getTime())/(1000*3600*24)
-          console.log(this.duration)
-        }
-      }
-        
-      return this.duration;
-    }
   },
   computed:{
-    getDuration(){
-      return this.findDuration;
-    }
+    count_duration() {
+      let start = moment(this.start_date);
+      let end = moment(this.end_date);
+      let start_time = this.start_time;
+      let end_time = this.end_time;
+      let result = 0;
+      if (!isNaN(end.diff(start, "days"))) {
+        result += end.diff(start, "days");
+        if (
+          (start_time == "morning" && end_time == "morning") || (start_time == "afternoon" && end_time == "afternoon")
+        ) {
+          result += 0.5;
+        }
+
+        if (
+          (start_time == "morning" && end_time == "afternoon") || (start_time == "afternoon" && end_time == "morning")
+        ) {
+          result += 1;
+        }
+      }
+      return result;
+    },
   }
   
 }
 </script>
 
 <style scoped>
+
+
+
   .about {
     width: 100%;
     display: flex;
@@ -153,7 +163,7 @@ export default {
   .heading_form {
     width: 100%;
     border-radius: 7px;
-    background-color: rgb(13, 163, 232);
+    background-color: #63BFE7;
     text-align: center;
     align-items: center;
   }
@@ -164,12 +174,12 @@ export default {
   .heading_form h1 {
     margin-top: 25px;
   }
-  .support_heading {
+  /* .support_heading {
     width: 100%;
-    background-color: rgb(13, 163, 232);
+    background-color: #63BFE7;
     padding: 1px;
     margin-top: -17px;
-  }
+  } */
   .content, .content2 {
     width: 90%;
     display: flex;
@@ -187,6 +197,10 @@ export default {
     text-align: start;
     margin: auto;
   }
+  .duration span {
+    color:red;
+    font-size: 1.2rem;
+  }
   .box {
     width: 67%;
     display: flex;
@@ -195,10 +209,18 @@ export default {
   }
   #leave_type {
     width:95% ;
+    padding: 5px;
+  }
+  select{
+    padding:5px;
+  }
+  .box input{
+    padding: 5px;
   }
   .box input, .box select {
-    width: 45%;
+    width: 40%;
     margin-left: 10px;
+    
   }
   .content2 .box {
     width: 90%;

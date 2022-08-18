@@ -30,10 +30,10 @@ export default {
         filterData() {
             let all_data = this.list_all_leaves;
             if (this.filter_status !== "Show all" && this.filter_leave_type !== "Show all") {
-                all_data = this.list_all_leaves.filter(students => (students.status == this.filter_status) && (students.leave_type == this.filter_leave_type))
+                all_data = this.list_all_leaves.filter(students => (students.status.toLowerCase() == this.filter_status.toLowerCase()) && (students.leave_type == this.filter_leave_type))
             }
             if (this.filter_status !== "Show all") {
-                all_data == this.list_all_leaves.filter(students => students.status == this.filter_status)
+                all_data == this.list_all_leaves.filter(students => students.status.toLowerCase() == this.filter_status.toLowerCase())
             }
             if (this.filter_leave_type !== "Show all") {
                 all_data == this.list_all_leaves.filter(students => students.leave_type == this.filter_leave_type)

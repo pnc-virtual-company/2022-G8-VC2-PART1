@@ -64,7 +64,7 @@ th {
     font-size: 1.2rem;
 }
 .approve{
-    color:rgb(0, 97, 0);
+    color:rgb(0, 255, 0);
     font-size: 1.2rem;
 }
 .cancelled{
