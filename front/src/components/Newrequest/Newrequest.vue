@@ -11,7 +11,6 @@
         </div>
         <div class="box">
           <select v-model="leave_type" id="leave_type">
-            <option>choose..</option>
             <option value="busy">Busy</option>
             <option value="sick">Sick</option>
           </select>
@@ -42,7 +41,7 @@
         </div>
       </div>
       <div class="duration">
-        <h5>Duration: 3 day</h5>
+        <h5>Duration: {{getDuration()}}  days</h5>
       </div>
       <div class="content2">
         <div class="title">
@@ -67,11 +66,12 @@ export default {
   data(){
     return {
       leave_type:[],
-      start_date:'',
+      start_date:null,
       start_date_status:'',
-      end_date:'',
+      end_date:null,
       end_date_status:'',
       reason:'',
+      duration:null,
     }
   },
   methods:{
@@ -107,8 +107,29 @@ export default {
       this.end_date = '';
       this.end_date_status = '';
       this.reason = '';
+    },
+    findDuration(){
+      if(
+        this.start_date != null &&
+        this.end_date != null && 
+        this.start_date_status != '' &&
+        this.end_date_status !=''
+      ){
+        if (this.start_date != this.end_date && this.end_date_status == this.start_date_status){
+          this.duration = (new Date(this.end_date).getTime()-new Date(this.start_date).getTime())/(1000*3600*24)
+          console.log(this.duration)
+        }
+      }
+        
+      return this.duration;
     }
   },
+  computed:{
+    getDuration(){
+      return this.findDuration;
+    }
+  }
+  
 }
 </script>
 
@@ -196,10 +217,6 @@ export default {
     width: 100%;
     resize: none;
     background-color: rgb(163, 163, 163);
-    color: white;
-  }
- ::placeholder {
-    color: white;
   }
   .footer {
     width: 93%;
