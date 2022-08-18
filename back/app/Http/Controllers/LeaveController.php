@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
 use App\Models\Leave;
 use Illuminate\Http\Request;
+use App\Mail\LeaveMail;
 
 class LeaveController extends Controller
 {
@@ -36,6 +37,8 @@ class LeaveController extends Controller
         $leave->status=$request->status;
 
         $leave->save();
+        // Sending mail to admin
+        Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
         return response()->json(['leave'=>"leave is added"]);
     }
 
