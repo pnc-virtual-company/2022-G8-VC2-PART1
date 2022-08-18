@@ -7,10 +7,10 @@
 
 .about {
   box-sizing: border-box;
-  margin-top: 5%;
+  margin-top: 4.5%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #cccc;
+  /* background: #cccc; */
 }
 </style>

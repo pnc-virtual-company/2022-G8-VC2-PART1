@@ -28,7 +28,6 @@ export default {
     },
     computed: {
         filterData() {
-
             let all_data = this.list_all_leaves;
             if (this.filter_status !== "Show all" && this.filter_leave_type !== "Show all") {
                 all_data = this.list_all_leaves.filter(students => (students.status == this.filter_status) && (students.leave_type == this.filter_leave_type))
@@ -45,7 +44,6 @@ export default {
                 return this.list_all_leaves
             }
         }
-
     }
 }
 </script>

@@ -12,7 +12,9 @@
                 </div>
             </div>
             <div class="user_name">
-                <h1>Phearun Chhun</h1>
+                <div class="user_profile">
+                    <router-link to="/profile">Phearun Chhun</router-link>
+                </div>
                 <div class="btn_sign_out">
                     <button>Signout</button>
                 </div>
@@ -29,10 +31,12 @@ export default {
 
 <style scoped>
 
+
+
 * {
     padding: 0;
     margin: 0;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto Slab', serif;
 }
 nav {
     background: #63BFE7;
@@ -50,17 +54,31 @@ nav a {
     text-decoration: none;
     color: #ffff;
     display: flex;
+    margin: 10px;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
 }
-
-nav  a.router-link-exact-active {
+nav .router a.router-link-exact-active {
+    color:#fff;
+    background: orange;
+    padding: 12px;
+    /* margin: 10px; */
+}
+nav .user_name a.router-link-exact-active {
+    color:#63BFE7;
+    padding: 12px;
+    background: #fff;
+    
+    /* margin: 10px; */
+}
+/* nav  a.router-link-exact-active {
     color: #ffff;
     background: orange;
     padding: 12px;
     margin: 10px;
-}
+} */
+
 .logo_display {
     display: flex;
     align-items: center;
@@ -77,7 +95,8 @@ nav  a.router-link-exact-active {
 
 .left_side_bar{
     width: 40%;
-    display: flex;justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 .router {
@@ -93,5 +112,10 @@ nav  a.router-link-exact-active {
 }
 .user_name .btn_sign_out {
     margin: 10px;
+}
+.user_profile button{
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 </style>

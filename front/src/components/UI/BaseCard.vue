@@ -10,6 +10,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .card{
+      margin-top: 4.5%;
+    }
 </style>

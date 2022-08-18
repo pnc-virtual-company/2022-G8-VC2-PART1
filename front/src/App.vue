@@ -11,17 +11,18 @@ export default {
 }
 
 </script>
-<style >
+<style>
 
 
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&family=Roboto:wght@100;300&display=swap');
 * {
   padding: 0;
   margin: 0;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
 #app{
-  background: #ccc;
-  height: 100vh;
+  /* background: #ccc; */
   box-sizing: border-box;
 }
 
