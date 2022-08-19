@@ -35,16 +35,17 @@ class LeaveController extends Controller
             'status' => 'String',
         ]);
         $leave = new Leave();
-        // $leave->student_id=$request->student_id;
-        // $leave->social_affair_id=$request->social_affair_id;
+        $leave->student_id=$request->student_id;
+        $leave->user_id=$request->user_id;
         $leave->start_date= $request->start_date;
         $leave->end_date= $request->end_date;
         $leave->duration= $request->duration;
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
-        $leave->status=$request->status;
+        $leave->status= 'Pending';
 
         $leave->save();
+        
         // Sending mail to admin
         // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
         return response()->json(['leave'=>"leave is added"]);
