@@ -19,7 +19,7 @@ return new class extends Migration
             // $table->foreignId('student_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('start_date');
             $table->string('end_date');
-            $table->integer('duration');
+            $table->decimal('duration');
             $table->string('leave_type');
             $table->string('reason');
             $table->string('status');
