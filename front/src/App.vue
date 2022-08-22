@@ -1,15 +1,28 @@
 <template>
-  <nav-bar></nav-bar>
-  <router-view/>
+  <login></login>
+  <nav-bar ></nav-bar>
+  <router-view />
 </template>
 <script>
+import Login from "@/components/formlogin/FormLogin.vue"
 import NavBar from "@/components/menu/NavBar.vue"
 export default {
   components: {
-    "nav-bar": NavBar
+    "nav-bar": NavBar,
+    "login":Login
+  },
+  data() {
+    return {
+      isLogin: false,
+    }
+  },
+  methods: {
+    showMeu(loginn) {
+      this.isLogin = loginn;
+      this.$router.push("/new_request");
+    },
   }
 }
-
 </script>
 <style>
 

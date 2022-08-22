@@ -11,6 +11,8 @@
                 <div class="router">
                     <router-link to="/">List All Leaves</router-link> 
                     <router-link to="/new_request">New Request</router-link>
+                    <router-link to="/studentlist">Student list</router-link>
+                    <router-link to="/checkleave">Check Leave</router-link>
                 </div>
             <div class="user_name">
                 <div class="user_profile">
