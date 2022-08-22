@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('student_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('start_date');
             $table->string('end_date');
-            $table->decimal('duration');
+            $table->float('duration');
             $table->string('leave_type');
             $table->string('reason');
             $table->string('status');
