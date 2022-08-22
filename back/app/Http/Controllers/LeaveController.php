@@ -26,6 +26,14 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
+        $leave = $request->validate([
+            'leave_type' => 'required|String',
+            'start_date' => 'required|Date',
+            'end_date' => 'required|Date',
+            'duration' => 'required|numeric',
+            'reason' => 'String',
+            'status' => 'String',
+        ]);
         $leave = new Leave();
         $leave->student_id=$request->student_id;
         $leave->user_id=$request->user_id;
@@ -39,7 +47,7 @@ class LeaveController extends Controller
         $leave->save();
         
         // Sending mail to admin
-        Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
+        // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
         return response()->json(['leave'=>"leave is added"]);
     }
 
@@ -76,4 +84,4 @@ class LeaveController extends Controller
     {
         //
     }
-}
+}   
