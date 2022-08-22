@@ -21,7 +21,7 @@ Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
 
 
-// Route::group(['middleware'=>['auth:sanctum']], function(){
+ Route::group(['middleware'=>['auth:sanctum']], function(){
     // leave route manage by social affair
     Route::get('social_affairs/leaves',[LeaveController::class,"index"]);
     Route::get('social_affairs/leaves/{id}',[LeaveController::class,"show"]);
@@ -45,7 +45,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::put('students/profile/{id}', [StudentController::class, "updateProfile"]);
     Route::put('students/password/{id}', [StudentController::class, "resetPassword"]);
 
-    //social affair api
+    //social affair route
     Route::get('social_affairs', [UserController::class,"index"]);
     Route::get('social_affairs/{id}', [UserController::class,"show"]);
     Route::post('social_affairs', [UserController::class,"store"]);
@@ -62,5 +62,5 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     
    
 
-// });
+});
 
