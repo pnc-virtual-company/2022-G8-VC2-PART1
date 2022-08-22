@@ -15,7 +15,10 @@ export default {
   },
   data() {
     return {
-      list_all_leaves: [],
+      list_all_leaves: [
+        { created_at: "08-Feb-2022", start_date: "08-Feb-2022", end_date: "09-Feb-2022", reason: "Headache", duration: "1", status: "Padding", leave_type: "Family's event" },
+        { created_at: "08-Feb-2022", start_date: "08-Feb-2022", end_date: "09-Feb-2022", reason: "Headache", duration: "1", status: "Approve", leave_type: "Wedding" },
+      ]
     }
   },
   methods: {
@@ -31,8 +34,7 @@ export default {
   },
   provide() {
     return {
-      list_all_leaves: this.list_all_leaves,
-      request:this.request
+      list_all_leaves: this.list_all_leaves
     }
   },
   mounted() {

@@ -128,8 +128,10 @@ export default {
         this.leave_type != null &&
         this.reason != null &&
         this.status != null) {
-        axios.post("leaves", object).then((response) =>
-          console.log(response.data)
+        axios.post("leaves", object).then(() =>
+        {
+          return this.$router.push({ name: "list_all_leave" });
+        }
         )
         this.clearForm();
       }

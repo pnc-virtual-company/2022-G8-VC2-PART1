@@ -1,6 +1,6 @@
 <template>
     <div class="form_login">
-        <form action="">
+        <form >
             <div class="header">
                 <header>Student Leave Management System</header>
             </div>
@@ -10,22 +10,22 @@
                 </div>
                 <div class="form">
                     <div class="selection">
-                        <select name="" id="">
+                        <select name="" id="" v-model="select_role">
                             <option value="admin">Admin</option>
                             <option value="student">Student</option>
                         </select>
                     </div>
                     <div class="input">
-                        <input type="text" placeholder="username">
-                        <input type="email" placeholder="email">
-                        <input type="password" placeholder="password">
+                        <!-- <input type="text" placeholder="username" v-model="username"> -->
+                        <input type="email" placeholder="email" v-model="email">
+                        <input type="password" placeholder="password" v-model="password">
                     </div>
                 </div>
             </div>
             <div class="btn_login">
-                <button>
+                <button @click="Login">
                     <span>Login</span>
-                    <img src="../../assets/next-button.png" alt="" >
+                    <img src="../../assets/next-button.png" alt="">
                 </button>
 
             </div>
@@ -34,8 +34,38 @@
 </template>
 
 <script>
+// import axios from "../../axios-http.js"
 export default {
+    data() {
+        return {
+            select_role: null,
+            email: null,
+            password: null
+        }
+    },
+    methods: {
+        login() {
+            // let user_data = {
+            //     role:this.select_role,
+            //     email: this.email,
+            //     password: this.password,
+            // }
+            console.log(this.select_role)
+            console.log(this.email)
+            console.log(this.password)
+            // if (this.email !== null && this.password.length !== null) { 
+            //     if (this.select_role == "admin") {
+            //         axios.post("social_affairs/login", user_data).then((response) => {
+            //             this.$emit("log-in", true);
+            //             localStorage.setItem('user', JSON.stringify(response.data.user));
+            //             // let roles = JSON.parse(localStorage.getItem('user'));
+            //             console.log(JSON.parse(localStorage.getItem('user')))
+            //         })
+            //     }
+            // }
+        }
 
+    }
 }
 </script>
 
