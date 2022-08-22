@@ -1,29 +1,16 @@
 <template>
-  <new_request @new_request="addRequest">
-  </new_request>
+  <new_request></new_request>
 </template>
 <script>
-import Newrequest from '@/components/Newrequest/Newrequest.vue';
+import NewRequest from '@/components/Newrequest/NewRequest.vue';
 // import axios from "../../axios-http"
 export default {
   name:"About-view",
   components:{
-    "new_request":Newrequest,
+    "new_request":NewRequest,
   },
   mehtods: {
-    // getData() {
-    //   axios.get("/leaves").then((response) => {
-    //    console.log(response.data);
-    //   }
-
-    //   )
-    // },  
-  //   addRequest(body) {
-  //     console.log(body);
-  //     axios.post("/leaves", body)
-  //     // this.getData()
-  //   }
-    // }
+   
   }
 }
 </script>

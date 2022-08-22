@@ -1,62 +1,91 @@
 <template>
-  <div class="about">
-    <form @submit.prevent="submitR" class="leave_request">
-      <div class="heading_form">
-        <h1>Request Leave Form</h1>
-      </div>
-      <div class="support_heading"></div>
-      <div class="content">
-        <div class="title">
-          <h5>Leave type :</h5>
-        </div>
-        <div class="box">
-          <select v-model="leave_type" id="leave_type">
-            <option value="Sick Leave">Sick Leave</option>
-            <option value="Family's event">Family's event</option>
-            <option value="Brother's or Sister's event">Brother's or Sister's event</option>
-            <option value="Other Event">Other Event</option>
-          </select>
+  <div class="form_request">
+    <form @submit.prevent="addRequest">
+      <div class="header">
+        <div class=""></div>
+        <span>Form Leave Request</span>
+        <div class="btn_close">
+          <router-link to="/">&#10060;</router-link>
         </div>
       </div>
-      <div class="content">
-        <div class="title">
-          <h5>Date start</h5>
+      <div class="body">
+        <div class="main_container">
+          <div class="side_left">
+            <div class="leave_type">
+              <span>Leave Type:</span>
+              <div class="option_type">
+                <select name="" id="" v-model="leave_type" @change="is_select_leave_type = false">
+
+                  <option value="Sick Leave"> Sick Leave </option>
+                  <option value="Family's event">Family's event</option>
+                  <option value="Wedding">Wedding</option>
+                  <option value="Brother's or Sister's event">Brother's or Sister's event</option>
+                  <option value="Other Event">Other Event</option>
+                </select>
+                <div class="error">
+                  <p v-if="is_select_leave_type">Please select leave tpye!</p>
+                </div>
+              </div>
+            </div>
+            <div class="date">
+              <div class="start_date">
+                <span>Start Date:</span>
+                <div class="select_date">
+                  <input type="date" v-model="start_date" :min="getCurrentDate" @change="is_select_start_date=false">
+                  <select name="" class="express_time" v-model="express_time_start"
+                    @change="is_select_expression_time_start=false">
+                    <option value="morning"> Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                  </select>
+                </div>
+                <div class="error">
+                  <p v-if="is_select_start_date || is_select_expression_time_start">Please choose and select start date
+                    and
+                    start time!</p>
+                </div>
+              </div>
+              <div class="end_date">
+                <span>End Date:</span>
+                <div class="select_date">
+                  <input type="date" v-model="end_date" :min=" start_date " @change="is_select_end_date=false">
+                  <select name="" class="express_time" v-model="express_time_end"
+                    @change="is_select_expression_time_end=false">
+                    <option value="morning"> Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                  </select>
+                </div>
+                <div class="error">
+                  <p v-if="is_select_end_date || is_select_expression_time_end"> Please choose and select end date and
+                    end
+                    time!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="side_right">
+            <div class="duration">
+              <span v-if="changeDuration <= 1">Duration: <strong style="color:red">{{ changeDuration }}
+                  day</strong></span>
+              <span v-else>Duration: <strong style="color:red">{{ changeDuration }} days</strong></span>
+            </div>
+            <div class="reason">
+              <div class="header_reason">
+                <span>Cause(reason):</span>
+              </div>
+              <div class="input">
+                <textarea id="reason" v-model="reason" rows="6" placeholder=" you must have reason..."
+                  @change="is_reason_not_complete =false"></textarea>
+                <div class="error">
+                  <p v-if="is_reason_not_complete"> Please write your reason!</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <div class="box">
-          <input type="date" v-model="start_date" />
-          <select v-model="start_time">
-            <option value="morning" selected>Morning</option>
-            <option value="afternoon">Afternoon</option>
-          </select>
+        <div class="btn_submit">
+          <button >SUBMIT</button>
         </div>
-      </div>
-      <div class="content">
-        <div class="title">
-          <h5>Date end</h5>
-        </div>
-        <div class="box">
-          <input type="date" v-model="end_date">
-          <select v-model="end_time">
-            <option value="morning" selected>Morning</option>
-            <option value="afternoon">Afternoon</option>
-          </select>
-        </div>
-      </div>
-      <div class="duration">
-        <h5 v-if="duration == 0 || duration == 0.5|| duration == 1">Duration: <span> {{ count_duration }} day</span> </h5>
-        <h5 v-else>Duration: <span>{{ count_duration }} days</span> </h5>
-      </div>
-      <div class="content2">
-        <div class="title">
-          <h5>Cause (Reason):</h5>
-        </div>
-        <div class="box">
-          <textarea id="reason" v-model="reason" cols="40" rows="5" placeholder=" you must have reason..."></textarea>
-        </div>
-      </div>
-      <div class="footer">
-        <button @click="cancleR" id="cancle">Cancle</button>
-        <button id="submit">Submit</button>
       </div>
     </form>
   </div>
@@ -65,199 +94,260 @@
 <script>
 import moment from "moment";
 import axios from "../../axios-http.js"
+import Swal from "sweetalert2";
 export default {
-  name:"Newrequest_Form",
-  emits:['new_request'],
-  data(){
+  data() {
     return {
-      leave_type:'',
-      start_date:'',
-      start_time:'',
-      end_date:'',
-      end_time:'',
-      reason: '',
-      status:'Padding',
+      leave_type: null,
+      start_date: null,
+      end_date: null,
+      reason: null,
+      express_time_start: null,
+      express_time_end: null,
+      status: "Padding",
+      student_id: 1,
+      user_id: 1,
+      is_select_leave_type: false,
+      is_select_expression_time_start:false,
+      is_select_expression_time_end: false,
+      is_select_start_date:false,
+      is_select_end_date: false,
+      is_reason_not_complete: false,
+      is_already_complete:false
     }
   },
-  methods:{
-    cancleR(){
-      this.clearForm();
-    },
-    submitR() {
-      console.log(this.status)
-      let object = { leave_type: this.leave_type, start_date: this.start_date, end_date: this.end_date, reason: this.reason, duration: this.count_duration,status:this.status, }
-      if (
-        this.leave_type != ''&&
-        this.start_date != '' &&
-        this.start_time != ''&&
-        this.end_date != '' && 
-        this.end_time != '' && 
-        this.reason != ''
-      ){
-        // this.$emit('new_request',object);
-        axios.post("/leaves", object).then((response) =>
+  methods: {
+    
+    addRequest() {
+      this.checkValidation()
+      let object = { leave_type: this.leave_type, start_date: this.start_date, end_date: this.end_date, reason: this.reason, duration: this.changeDuration, status: this.status,user_id:this.user_id,student_id:this.student_id, }
+      if (this.start_date != null &&
+        this.end_date != null &&
+        this.express_time_start != null &&
+        this.express_time_end != null &&
+        this.leave_type != null &&
+        this.reason != null &&
+        this.status != null) {
+        axios.post("leaves", object).then((response) =>
           console.log(response.data)
         )
         this.clearForm();
-      }else {
-        alert('You missing some field please check again!');
       }
+        
     },
-    clearForm(){
-      this.start_date='';
-      this.start_time = '';
-      this.leave_type = '';
+    clearForm() {
+      this.start_date = '';
       this.end_date = '';
-      this.end_time = '';
+      this.leave_type = '';
+      this.express_time_start = '';
+      this.express_time_end = '';
       this.reason = '';
     },
+    // validation form request
+    checkValidation() {
+      this.is_select_leave_type = false
+      this.is_select_start_date = false;
+      this.is_select_end_date = false;
+      this.is_select_expression_time_start = false;
+      this.is_select_expression_time_end = false;
+      this.is_reason_not_complete = false;
+      if (this.leave_type == null) {
+        this.is_select_leave_type = true;
+      }
+      if (this.start_date == null) {
+        this.is_select_start_date = true;
+      }
+      if (this.express_time_start == null) {
+        this.is_select_expression_time_start = true;
+      } 
+      if (this.express_time_end == null) {
+        this.is_select_expression_time_end = true;
+      }
+      if (this.end_date == null) { 
+        this.is_select_end_date = true;
+      }
+      if (this.reason == null) {
+        this.is_reason_not_complete = true
+      }
+    },
+    submitSave() {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    },
+
+   
+    
   },
-  computed:{
-    count_duration() {
+  computed: {
+    
+    changeDuration() {
       let start = moment(this.start_date);
       let end = moment(this.end_date);
-      let start_time = this.start_time;
-      let end_time = this.end_time;
+      let express_time_start = this.express_time_start;
+      let express_time_end = this.express_time_end;
       let result = 0;
-      if (!isNaN(end.diff(start, "days"))) {
-        result += end.diff(start, "days");
-        if (
-          (start_time == "morning" && end_time == "morning") || (start_time == "afternoon" && end_time == "afternoon")
-        ) {
-          result += 0.5;
-        }
+      if (this.end_date >= this.start_date) {
+        if (!isNaN(end.diff(start, "days"))) {
+          result += end.diff(start, "days");
+          if (
+            (express_time_start == "morning" && express_time_end == "morning") || (express_time_start == "afternoon" && express_time_end == "afternoon")
+          ) {
+            result += 0.5;
+          }
 
-        if (
-          (start_time == "morning" && end_time == "afternoon") || (start_time == "afternoon" && end_time == "morning")
-        ) {
-          result += 1;
+          if (
+            (express_time_start == "morning" && express_time_end == "afternoon") || (express_time_start == "afternoon" && express_time_end == "morning")
+          ) {
+            result += 1;
+          }
         }
+      } 
+        return result;
+    },
+    getCurrentDate() {
+      var date = new Date();
+      var tday = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getUTCFullYear();
+      if (tday < 10) {
+        tday = "0" + tday
       }
-      return result;
+      if (month < 10) {
+        month = "0" + month
+      }
+      return year + "-" + month + "-" + tday
     },
   }
-  
 }
 </script>
 
 <style scoped>
+.form_request {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 9%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px, rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+  border-radius: 7px 7px 0 0;
+  color: #63BFE7;
+  padding: 10px;
+}
+.header span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.body {
+  border-radius: 0 0 7px 7px;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px, rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+}
+.body span {
+  font-size: 1.2rem;
+}
+.body .leave_type,
+.start_date,
+.end_date,
+.duration,
+.header_reason,
+.input {
+  padding: 10px;
+  font-weight: bold;
+}
+.body .leave_type select {
+  width: 100%;
+  padding: 5px;
+  font-size: 1.1rem;
+  outline: none;
+}
+.body .leave_type select option {
+  font-size: 1.1rem;
+}
 
+.main_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.main_container .side_left,
+.side_right {
+  width: 49.5%;
+  margin: auto;
+}
 
-  .about {
-    width: 100%;
-    display: flex;
-  }
+.side_right {
+  margin-top: 1%;
+}
 
-  .leave_request {
-    width: 35%;
-    display: flex;
-    flex-wrap: wrap;
-    margin:auto;
-    background-color: #ccc;
-    font-family:sans-serif;
-    border-radius: 7px;
-    height: 75vh;
-    margin-top: 3%;
-  }
-  .heading_form {
-    width: 100%;
-    border-radius: 7px;
-    background-color: #63BFE7;
-    text-align: center;
-    align-items: center;
-  }
-  .heading_form h1 {
-    font-size: 25px;
-    color: white;
-  }
-  .heading_form h1 {
-    margin-top: 25px;
-  }
-  /* .support_heading {
-    width: 100%;
-    background-color: #63BFE7;
-    padding: 1px;
-    margin-top: -17px;
-  } */
-  .content, .content2 {
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    margin:5px auto;
-  }
-  .title {
-    width: 30%;
-    text-align: start;
-    margin: auto;
-    
-  }
-  .duration {
-    width:88%;
-    text-align: start;
-    margin: auto;
-  }
-  .duration span {
-    color:red;
-    font-size: 1.2rem;
-  }
-  .box {
-    width: 67%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  #leave_type {
-    width:95% ;
-    padding: 5px;
-  }
-  select{
-    padding:5px;
-  }
-  .box input{
-    padding: 5px;
-  }
-  .box input, .box select {
-    width: 40%;
-    margin-left: 10px;
-    
-  }
-  .content2 .box {
-    width: 90%;
-    margin: 5px auto;
-  }
-  .content2 .title {
-    width: 97%;
-    margin: auto;
-  }
-  .content2 .box {
-    width: 98%;
-  }
-  .content2 .title {
-    text-align: start;
-  }
-  .content2 .box textarea {
-    width: 100%;
-    resize: none;
-    background-color: rgb(163, 163, 163);
-  }
-  .footer {
-    width: 93%;
-    margin: 10px auto;
-    text-align: end;
-  }
-  .footer button {
-    padding: 8px;
-    margin: 2px;
-    border: none;
-    border-radius: 7px;
-    color:white;
-    cursor: pointer;
-  }
-  #cancle {
-    background-color: orange;
-  }
-  #submit {
-    background-color: rgb(13, 163, 232) ;
-  }
+.select_date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select_date input {
+  width: 45%;
+  padding: 7px;
+  font-size: 1.1rem;
+}
+
+.select_date select {
+  width: 45%;
+  padding: 10px;
+  font-size: 1.1rem;
+  outline: none;
+}
+
+.reason textarea {
+  width: 96%;
+  padding: 5px;
+  resize: none;
+  font-size: 1.2rem;
+  background-color: #fff;
+}
+.btn_submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn_submit button {
+  width: 170px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  background: #63BFE7;
+  color: #ffff;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.btn_close button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.btn_close a {
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+.error{
+  color:red;
+  padding: 5px;
+}
 </style>

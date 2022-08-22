@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-    margin-top: 5%;
-}
+/* .container {
+    margin-top: 1%;
+} */
 </style>

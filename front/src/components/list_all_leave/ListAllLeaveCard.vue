@@ -2,24 +2,39 @@
     <div class="list_card">
         <base_card>
             <table>
-                <tr>
-                    <th>Request Date</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Reason</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th>Leave Type</th>
-                </tr>
-                <tr v-for="list in filterData" :key="list">
-                    <td>{{list.created_at}}</td>
-                    <td>{{list.start_date}}</td>
-                    <td>{{list.end_date}}</td>
-                    <td>{{list.reason}}</td>
-                    <td>{{list.duration}}</td>
-                    <td :class="list.status.toLowerCase()">{{list.status}}</td>
-                    <td style="width:120px">{{list.leave_type}}</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Request Date</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Leave Type</th>
+                    </tr>
+                </thead>
+                <tbody v-if="filterData.length > 0">
+                    <tr v-for="list in filterData" :key="list">
+                        <td style="width:100px">{{list.created_at}}</td>
+                        <td> {{list.start_date}}</td>
+                        <td>{{list.end_date}}</td>
+                        <td style="width:100px">{{list.reason}}</td>
+                        <td>{{list.duration}}</td>
+                        <td :class="list.status.toLowerCase()">{{list.status}}</td>
+                        <td style="width:120px">{{list.leave_type}}</td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;color:red;font-size:2rem;font-weight:bold;">No leave found!</td>
+                        <td style="border:none"></td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                    </tr>
+                </tbody>
             </table>
         </base_card>
     </div>
@@ -29,7 +44,6 @@
 <script>
 import BaseCard from "@/components/UI/BaseCard.vue"
 export default {
-    // props: ['request_date', 'start_date', 'end_date', 'reason', 'duration', 'status', 'leave_type'],
     inject: ['list_all_leaves'],
     props: ['filterData'],
     components: {
@@ -43,8 +57,13 @@ export default {
 
 
 
+
 .list_card {
     background: #ffff;
+}
+table{
+    width: 1000px;
+    box-sizing: border-box;
 }
 table,
 tr,
@@ -59,10 +78,12 @@ th {
     background: #63BFE7;
     color:#fff;
 }
-.padding{
+
+.padding,.pending {
     color:gold;
     font-size: 1.2rem;
 }
+
 .approve{
     color:rgb(0, 255, 0);
     font-size: 1.2rem;
@@ -71,7 +92,7 @@ th {
     color:#000;
     font-size: 1.2rem;
 }
-.rejected {
+.reject {
     color:red;
     font-size: 1.2rem;
 }
