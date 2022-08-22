@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        return User::all();
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
         return response()->json(['message'=>"social affair is added"]);
     }
 
-
+    //.. LOG IN FOR ADMIN.............//
     public function login(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::findOrFail($id);
     }
 
     /**
@@ -96,7 +96,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->gender=$request->gender;
+        $user->email=$request->email;
+        $user->password=bcrypt($request->password);
+        $user->position=$request->position;
+
+        $imageFile = $request->file('image');
+        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
+        $imageFile->move(public_path('images'), $imgName);
+        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
+
+        $user->image = $image;
+
+        $user-> save();
+        return response()->json(['message'=>"social affair is updated"]);
     }
 
     /**
@@ -107,6 +123,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return User::destroy($id);
     }
 }
