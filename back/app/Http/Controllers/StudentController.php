@@ -59,6 +59,7 @@ class StudentController extends Controller
         return response()->Json(["message"=>"student is added"]);
     }
 
+    // Get image
     public function getImage($imageName)
     {
         $path = public_path('images/' . $imageName);
@@ -75,59 +76,7 @@ class StudentController extends Controller
 
         return $response;
     }
-    
-    // public function login(Request $request)
-    // {
-    //     if (Auth::attempt($request->only('email', 'password'))) {
-    //         $student = Auth::student();
-    //         $token = $student->createToken($student->first_name + $student->last_name)->plainTextToken;
-    //         $cookie = cookie('jwt', $token, 60 * 24);
-    //         return response()->json(["sms"=>"success","token"=>$token], 200)->withCookie($cookie);
-    //     } else {
-    //         return response()->json(['sms'=>"Log in failed"], 404);
-    //     }
-           
-    // }
-    
-    // public function logout(Request $request)
-    // {
-    //     $cookie = Cookie::forget('jwt');
-    //     return Response()->json(['message'=>"log out success"], 200)->withCookie($cookie);
-        
-
-    // }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+     ///.....WHAT STUDENT CAN DO....///
+         //....LOG IN...//
+   
 }

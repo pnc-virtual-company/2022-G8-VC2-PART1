@@ -21,28 +21,46 @@ Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
 
 
-//Route::group(['middleware'=>['auth:sanctum']], function(){
-    // leave Api
-    Route::get('leaves',[LeaveController::class,"index"]);
-    Route::post('leaves',[LeaveController::class,"store"]);
-    Route::get('leaves/{id}',[LeaveController::class,"show"]);
+// Route::group(['middleware'=>['auth:sanctum']], function(){
+    // leave route manage by social affair
+    Route::get('social_affairs/leaves',[LeaveController::class,"index"]);
+    Route::get('social_affairs/leaves/{id}',[LeaveController::class,"show"]);
+    Route::put('social_affairs/leaves/{id}', [LeaveController::class, "update"]);
+    Route::delete('social_affairs/leaves/{id}', [LeaveController::class, "destroy"]);
 
-    //students api
-    Route::get('students', [StudentController::class, "index"]);
-    Route::post('students', [StudentController::class, "store"]);
+    //leave route manage by students
+    Route::get('students/leaves',[LeaveController::class,"index"]);
+    Route::post('students/leaves',[LeaveController::class,"store"]);
+    
+    
+    //students routes manage by social affair(user)
+
+    Route::get('social_affairs/students', [StudentController::class, "index"]);
+    Route::get('social_affairs/students/{id}', [StudentController::class, "show"]);
+    Route::post('social_affairs/students', [StudentController::class, "store"]);
+    Route::put('social_affairs/students/{id}', [StudentController::class, "update"]);
+    Route::delete('social_affiars/students/{id}', [StudentController::class, "destroy"]);
+
+    //students routes manage by students
+    Route::put('students/profile/{id}', [StudentController::class, "updateProfile"]);
+    Route::put('students/password/{id}', [StudentController::class, "resetPassword"]);
 
     //social affair api
     Route::get('social_affairs', [UserController::class,"index"]);
-    Route::post('social_affairs', [UserController::class,"logout"]);
+    Route::get('social_affairs/{id}', [UserController::class,"show"]);
+    Route::post('social_affairs', [UserController::class,"store"]);
+    Route::put('social_affairs', [UserController::class,"update"]);
     
-    
-    
-
     //logout
     Route::post('students/logout',[StudentController::class, "logout"]);
-    Route::post('social_affairs/logout', [UserController::class,"store"]);
+    Route::post('social_affairs/logout', [UserController::class,"logout"]);
 
     // get image
     Route::get('students/image/{image_name}',[StudentController::class, "getImage"]);
     Route::get('social_affair/image/{image_name}',[UserController::class, "getImage"]);
-//});
+
+    
+   
+
+// });
+
