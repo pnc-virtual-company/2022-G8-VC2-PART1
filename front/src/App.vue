@@ -1,15 +1,15 @@
 <template>
-  <login></login>
+  <!-- <login></login> -->
   <nav-bar ></nav-bar>
   <router-view />
 </template>
 <script>
-import Login from "@/components/formlogin/FormLogin.vue"
+// import Login from "@/components/formlogin/FormLogin.vue"
 import NavBar from "@/components/menu/NavBar.vue"
 export default {
   components: {
     "nav-bar": NavBar,
-    "login":Login
+    // "login":Login
   },
   data() {
     return {

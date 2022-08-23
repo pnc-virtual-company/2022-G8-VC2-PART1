@@ -47,7 +47,7 @@
               <div class="end_date">
                 <span>End Date:</span>
                 <div class="select_date">
-                  <input type="date" v-model="end_date" :min=" start_date " @change="is_select_end_date=false">
+                  <input type="date" v-model="end_date" :min=" start_date" @change="is_select_end_date=false">
                   <select name="" class="express_time" v-model="express_time_end"
                     @change="is_select_expression_time_end=false">
                     <option value="morning"> Morning</option>

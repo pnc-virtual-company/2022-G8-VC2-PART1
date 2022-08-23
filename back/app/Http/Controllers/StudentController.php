@@ -36,11 +36,7 @@ class StudentController extends Controller
     {
        return Student::with('leaves')->findOrFail($id);
     }
-
     
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -67,7 +63,6 @@ class StudentController extends Controller
         }
 
         $student->image = $image;
-        
         $student->email=$request->email;
         $student->password=bcrypt(12345678);
         $student->class=$request->class;
@@ -139,6 +134,7 @@ class StudentController extends Controller
         }
     }
    
+
     /** 
      * Update the specified resource in storage.
     *
@@ -180,3 +176,4 @@ class StudentController extends Controller
     }
          
 }
+

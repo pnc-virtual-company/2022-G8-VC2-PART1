@@ -15,13 +15,13 @@
                 </thead>
                 <tbody v-if="filterData.length > 0">
                     <tr v-for="list in filterData" :key="list">
-                        <td style="width:100px">{{list.created_at}}</td>
+                        <td >{{list.created_at}}</td>
                         <td> {{list.start_date}}</td>
                         <td>{{list.end_date}}</td>
-                        <td style="width:100px">{{list.reason}}</td>
+                        <td >{{list.reason}}</td>
                         <td>{{list.duration}}</td>
                         <td :class="list.status.toLowerCase()">{{list.status}}</td>
-                        <td style="width:120px">{{list.leave_type}}</td>
+                        <td >{{list.leave_type}}</td>
                     </tr>
                 </tbody>
                 <tbody v-else>
@@ -62,7 +62,7 @@ export default {
     background: #ffff;
 }
 table{
-    width: 1000px;
+    width: 970px;
     box-sizing: border-box;
 }
 table,

@@ -38,6 +38,7 @@ export default {
 
 
 
+
 * {
     padding: 0;
     margin: 0;
@@ -45,6 +46,7 @@ export default {
 }
 nav {
     background: #63BFE7;
+    box-shadow: rgba(60, 64, 67, 1) 0px 1px 2px 0px, rgba(60, 64, 67, 0.1) 0px 2px 6px 2px;
     position: fixed;
     top: 0;
     right: 0;
@@ -83,6 +85,7 @@ nav .user_name a.router-link-exact-active {
 .logo_display img{
     width: 60px;
     height: 60px;
+    margin-left: 10%;
 }
 .logo_display p{
     color:#ffff;
