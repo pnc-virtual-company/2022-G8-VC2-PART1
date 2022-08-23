@@ -23,6 +23,7 @@ class StudentTableSeeder extends Seeder
             "email"=> "sreyleak.official@gmail.com",
             "password" => Hash::make("1234ewq"),
             "class" => "2022WEB-A",
+            "phone" => "077932529",
             "batch"=> 2022,
             "image"=> 'image'
         ];

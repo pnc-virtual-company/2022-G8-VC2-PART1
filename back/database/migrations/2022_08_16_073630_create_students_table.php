@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('class');
             $table->integer('batch');
+            $table->integer('phone');
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
