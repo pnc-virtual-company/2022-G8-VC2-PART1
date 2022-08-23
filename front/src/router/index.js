@@ -4,6 +4,7 @@ import ProfileUser from "@/views/user/ProfileUser.vue"
 import Login from "@/components/formlogin/FormLogin.vue"
 import CheckLeave from "@/views/admin/CheckleaveView.vue"
 import StudentList from "@/views/admin/StudentlistView.vue";
+
 const routes = [
   {
     path: "/login",
@@ -30,6 +31,7 @@ const routes = [
     name: "studentlist",
     component: StudentList,
   },
+
   {
     path: "/new_request",
     name: "new_request",
