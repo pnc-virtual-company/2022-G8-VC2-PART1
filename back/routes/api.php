@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
+<<<<<<< HEAD
+
+
+ Route::group(['middleware'=>['auth:sanctum']], function(){
+=======
 //Route::group(['middleware'=>['auth:sanctum']], function(){
     // leave Api
     Route::get('leaves',[LeaveController::class,"index"]);
@@ -38,6 +43,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::get('social_affair/image/{image_name}',[UserController::class, "getImage"]);
 //});
 // Route::group(['middleware'=>['auth:sanctum']], function(){
+>>>>>>> 2b23e50031859af80d44c58d5ae780cf4d186eb8
     // leave route manage by social affair
     Route::get('social_affairs/leaves',[LeaveController::class,"index"]);
     Route::get('social_affairs/leaves/{id}',[LeaveController::class,"show"]);
@@ -61,7 +67,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::put('students/profile/{id}', [StudentController::class, "updateProfile"]);
     Route::put('students/password/{id}', [StudentController::class, "resetPassword"]);
 
-    //social affair api
+    //social affair route
     Route::get('social_affairs', [UserController::class,"index"]);
     Route::get('social_affairs/{id}', [UserController::class,"show"]);
     Route::post('social_affairs', [UserController::class,"store"]);
@@ -78,4 +84,9 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     
    
 
+<<<<<<< HEAD
+});
+
+=======
 // });
+>>>>>>> 2b23e50031859af80d44c58d5ae780cf4d186eb8

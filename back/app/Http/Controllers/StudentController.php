@@ -75,7 +75,72 @@ class StudentController extends Controller
 
         return $response;
     }
-     ///.....WHAT STUDENT CAN DO....///
-         //....LOG IN...//
+     
+         
+     
+         /** 
+          * Display the specified resource.
+          *
+          * @param  int  $id
+          * @return \Illuminate\Http\Response
+          */
+         public function show($id)
+         {
+             return Student::findOrFail($id);
+         }
+           ///.....change Profile...//     
+         public function updateProfile(Request $request, $id)
+         {
+             $student= Student::findOrFail($id);
+     
+             $imageFile = $request->file('image');
+             $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
+             $imageFile->move(public_path('images'), $imgName);
+             $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
+     
+             $student->image = $image;
+             $student->save();
+             return response()->Json(["message"=>"image is changed"]);
+         }
+          
+         /** 
+          * Update the specified resource in storage.
+          *
+          * @param  \Illuminate\Http\Request  $request
+          * @param  int  $id
+          * @return \Illuminate\Http\Response
+          */
+         
+          //students are updated by admin........./
+         public function update(Request $request, $id)
+         {
+             $student= Student::findOrFail($id);
+     
+             $imageFile = $request->file('image');
+             $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
+             $imageFile->move(public_path('images'), $imgName);
+             $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
+     
+             $student->image = $image;
+             
+             $student->email=$request->email;
+             $student->password=bcrypt($request->password);
+             $student->class=$request->class;
+             $student->generation=$request->generation;
+             
+             $student->save();
+             return response()->Json(["message"=>"student is added"]);
+         }
+     
+         /**
+          * Remove the specified resource from storage.
+          *
+          * @param  int  $id
+          * @return \Illuminate\Http\Response
+          */
+         public function destroy($id)
+         {
+             return Student::destroy($id);
+         }
    
 }
