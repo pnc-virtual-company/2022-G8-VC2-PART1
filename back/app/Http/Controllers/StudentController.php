@@ -49,7 +49,6 @@ class StudentController extends Controller
         }
 
         $student->image = $image;
-        
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->class=$request->class;
