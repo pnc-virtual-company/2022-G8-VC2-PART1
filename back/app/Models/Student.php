@@ -27,5 +27,10 @@ class Student extends Authenticatable
         'password',
         'remember_token'
     ];
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
+    }
     
 }

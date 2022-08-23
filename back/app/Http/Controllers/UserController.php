@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,6 +19,8 @@ class UserController extends Controller
     {
         return User::all();
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
@@ -32,7 +35,7 @@ class UserController extends Controller
         $user->last_name=$request->last_name;
         $user->gender=$request->gender;
         $user->email=$request->email;
-        $user->password=bcrypt($request->password);
+        $user->password= Hash::make($request->password);
         $user->position=$request->position;
 
         

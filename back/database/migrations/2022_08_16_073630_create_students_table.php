@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('class');
-            $table->integer('generation');
+            $table->integer('batch');
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
