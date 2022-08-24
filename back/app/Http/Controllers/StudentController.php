@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -46,51 +45,20 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student= new Student();
+        $student->user_id=$request->user_id;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        
-        $image = 'girl.png';
-        if (!$request->image) {
-            if ($request->gender == "male") {
-                $image = 'boy.png';
-            }
-        } else {
-            $image = $request->file('image');
-            $imgName = date('d-m-Y-H-i-s').$image->getClientOriginalName();
-            $image->move(public_path('images'), $imgName);
-            $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-        }
-
-        $student->image = $image;
+        $student->image =$request->image;
         $student->email=$request->email;
         $student->password=bcrypt(12345678);
         $student->class=$request->class;
+        $student->phone=$request->phone;
         $student->batch=$request->batch;
         
         $student->save();
         return response()->Json(["message"=>"student is added"]);
     }
-
-    // Get image
-    public function getImage($imageName)
-    {
-        $path = public_path('images/' . $imageName);
-
-        if (File::exists($path)) {
-            $file = File::get($path);
-        } else {
-            abort(404);
-        }
-
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
-    }
-    
-         
      
     /** 
      * Display the specified resource.
@@ -102,21 +70,17 @@ class StudentController extends Controller
     {
         return Student::findOrFail($id);
     }
+    ///.....WHAT STUDENT CAN DO....///
+
     ///.....change Profile...//     
     public function updateProfile(Request $request, $id)
     {
         $student= Student::findOrFail($id);
 
-        $imageFile = $request->file('image');
-        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
-        $imageFile->move(public_path('images'), $imgName);
-        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-
-        $student->image = $image;
+        $student->image = $request->image;
         $student->save();
         return response()->Json(["message"=>"image is changed"]);
     }
-
     ///....change password...//
     public function resetPassword(Request $request, $id)
     {
@@ -134,6 +98,37 @@ class StudentController extends Controller
         }
     }
    
+    
+    //....LOG IN...//
+    public function login(Request $request)
+    {
+       //check email
+       $student = Student::where('email', $request->email)->first();
+
+       //check password
+        if($student){
+            if(Hash::check($request->password, $student->password)){
+                $token = $student->createToken('mytoken')->plainTextToken;
+                $respone = [
+                    'student'=>$student,
+                    'token'=>$token
+                ];
+                return response()->json($respone);
+            } else {
+                return response()->json(['sms'=>'Invalid password'],401);
+            }
+        } else {
+           return response()->json(['sms'=>'Log in fail'],401);
+        }
+       
+    }
+
+
+    public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json(['message'=>"loged out"]);
+    }
 
     /** 
      * Update the specified resource in storage.
@@ -147,17 +142,14 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $student= Student::findOrFail($id);
-
-        $imageFile = $request->file('image');
-        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
-        $imageFile->move(public_path('images'), $imgName);
-        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-
-        $student->image = $image;
+        $student->first_name=$request->first_name;
+        $student->last_name=$request->last_name;
+        $student->image = $request->image;
         
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->class=$request->class;
+        $student->phone=$request->phone;
         $student->batch=$request->batch;
         
         $student->save();
@@ -177,3 +169,10 @@ class StudentController extends Controller
          
 }
 
+
+
+
+
+
+
+    
