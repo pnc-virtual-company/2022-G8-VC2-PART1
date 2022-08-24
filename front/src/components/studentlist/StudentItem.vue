@@ -2,7 +2,8 @@
     <li>
         <div class="main_card">
             <div class="profile">
-                <img src="../../assets/pn-logo.png" alt="" style="width:70px; height:70px">
+                <img :src="image" alt="" style="width:110px; height:110px;margin-left: 5%;">
+                {{image}}
             </div>
             <div class="student_info">
                 <div class="student_name">
@@ -10,13 +11,13 @@
                     <p>Email: <span>{{ email }}</span></p>
                 </div>
                 <div class="student_class">
-                    <p>Class: <span>{{ student_class }}</span></p>
+                    <p>Batch: <span>{{ batch }}</span></p>
                 </div>
             </div>
             <div class="btn">
                 <button class="btn_details">DETAILS</button>
                 <button class="btn_edit">EDIT</button>
-                <button class="btn_delete">DELETE</button>
+                <button class="btn_delete">DELETE</button>  
             </div>
         </div>
     </li>
@@ -24,7 +25,7 @@
 
 <script>
 export default {
-    props: ['first_name', 'last_name', 'email', 'student_class']
+    props: ['first_name', 'last_name', 'email', 'batch','image']
 }
 </script>
 
@@ -39,8 +40,8 @@ li {
     width: 70%;
     margin-left: 15%;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0) 0px 4px 6px -1px, rgba(255, 255, 255, 0) 0px 1px 0px inset;
-    padding: 20px;
-    font-size: 1.2rem;
+    /* padding: 10px; */
+    font-size: 1.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,7 +60,6 @@ li {
 
 .btn button {
     width: 120px;
-    padding: 10px;
     margin: 10px;
     font-size: 1rem;
     text-decoration: none;

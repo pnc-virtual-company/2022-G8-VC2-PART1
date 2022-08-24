@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('class');
-            $table->integer('generation');
+            $table->string('batch');
+            $table->string('phone');
             $table->string('image')->nullable();
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
     }

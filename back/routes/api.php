@@ -19,28 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
-//  Route::group(['middleware'=>['auth:sanctum']], function(){
-//Route::group(['middleware'=>['auth:sanctum']], function(){
-    // leave Api
-    Route::get('leaves',[LeaveController::class,"index"]);
-    Route::post('leaves',[LeaveController::class,"store"]);
-    Route::get('leaves/{id}',[LeaveController::class,"show"]);
-    //students api
-    Route::get('students', [StudentController::class, "index"]);
-    Route::post('students', [StudentController::class, "store"]);
-    //social affair api
-    Route::get('social_affairs', [UserController::class,"index"]);
-    Route::post('social_affairs', [UserController::class,"logout"]);
-    //logout
-    Route::post('students/logout',[StudentController::class, "logout"]);
-    Route::post('social_affairs/logout', [UserController::class,"store"]);
-    // get image
-    Route::get('students/image/{image_name}',[StudentController::class, "getImage"]);
-    Route::get('social_affair/image/{image_name}',[UserController::class, "getImage"]);
-//});
 // Route::group(['middleware'=>['auth:sanctum']], function(){
+
+// Route::group(['middleware'=>['auth:sanctum']], function(){
+
     // leave route manage by social affair
     Route::get('social_affairs/leaves',[LeaveController::class,"index"]);
+    Route::post('social_affairs/leaves',[LeaveController::class,"store"]);
     Route::get('social_affairs/leaves/{id}',[LeaveController::class,"show"]);
     Route::put('social_affairs/leaves/{id}', [LeaveController::class, "update"]);
     Route::delete('social_affairs/leaves/{id}', [LeaveController::class, "destroy"]);
@@ -54,13 +39,19 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
 
     Route::get('social_affairs/students', [StudentController::class, "index"]);
     Route::get('social_affairs/students/{id}', [StudentController::class, "show"]);
+
     Route::post('social_affairs/students', [StudentController::class, "store"]);
     Route::put('social_affairs/students/{id}', [StudentController::class, "update"]);
     Route::delete('social_affiars/students/{id}', [StudentController::class, "destroy"]);
 
+    Route::get('social_affairs/students_leaves', [StudentController::class, "getStudentsAndLeaves"]);
+    Route::get('social_affairs/students_leaves/{id}', [StudentController::class, "getOneStudentAndLeaves"]);
+    Route::get('social_affairs/student_count_leaves', [StudentController::class, "countStudentsLeaves"]);
+    
+
     //students routes manage by students
     Route::put('students/profile/{id}', [StudentController::class, "updateProfile"]);
-    Route::put('students/password/{id}', [StudentController::class, "resetPassword"]);
+    Route::put('students/reset_password/{id}', [StudentController::class, "resetPassword"]);
 
     //social affair route
     Route::get('social_affairs', [UserController::class,"index"]);
@@ -75,5 +66,3 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     // get image
     Route::get('students/image/{image_name}',[StudentController::class, "getImage"]);
     Route::get('social_affair/image/{image_name}',[UserController::class, "getImage"]);
-
-    
