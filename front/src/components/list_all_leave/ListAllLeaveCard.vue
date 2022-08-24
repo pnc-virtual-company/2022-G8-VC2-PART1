@@ -62,7 +62,7 @@ export default {
     background: #ffff;
 }
 table{
-    width: 970px;
+    width: 983px;
     box-sizing: border-box;
 }
 table,

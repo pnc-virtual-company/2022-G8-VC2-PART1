@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get("/leaves").then((response) =>
+      axios.get("/students/leaves").then((response) =>
       {
         for (let k = 0; k < response.data.length; k++) { 
           this.list_all_leaves.push(response.data[k])

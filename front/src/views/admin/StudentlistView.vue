@@ -13,24 +13,27 @@ export default {
     data() {
         return {
             students: [
-                {id: 1, first_name: "Phearun", last_name: "Chhun", gender: "Male", email: "phearunchhun10@gmail.com", class: "WEP-2022A", generation: "2022" },
-                { id: 2, first_name: "Mengyi", last_name: "Yoeng", gender: "Male", email: "menyi@gmail.com", class: "WEP-2022A", generation: "2022" },
-                { id: 3, first_name: "Sreyleak", last_name: "El", gender: "Female", email: "sreyleak@gmail.com", class: "WEP-2022A", generation: "2022" },
-                { id: 4, first_name: "Sreyleak", last_name: "El", gender: "Female", email: "sreyleak@gmail.com", class: "WEP-2022A", generation: "2022" },
-                { id: 5, first_name: "Sreyleak", last_name: "El", gender: "Female", email: "sreyleak@gmail.com", class: "WEP-2022A", generation: "2022" },
+                // {id: 1, first_name: "Phearun", last_name: "Chhun", gender: "Male", email: "phearunchhun10@gmail.com", batch: "BATCH 2022", phone: "012 36 04 77" ,password:"12345678",image:"" },
+                // { id: 2, first_name: "Mengyi", last_name: "Yoeng", gender: "Male", email: "menyi@gmail.com", batch: "BATCH 2022", phone: "012 36 04 77" },
             ],
         }
     },
     methods: {
         studentList() {
-            axios.get("social_affairs/students").then((response) => {
-                console.log(response.data);
+            axios.get("/social_affairs/students").then((response) => {
+                for (let k = 0; k < response.data.length; k++) {
+                    console.log(response.data[k]);
+                    this.students.push(response.data[k])
+                }
             })
         },
     },
+    mounted(){
+        this.studentList();
+    }
 }
 </script>
 
 <style scoped>
-    
+
 </style>

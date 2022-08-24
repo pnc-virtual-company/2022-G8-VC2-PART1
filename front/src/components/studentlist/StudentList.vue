@@ -1,10 +1,10 @@
 <template>
-    <div class="card">
+    <div class="student_list">
             <add_student></add_student>
         <ul>
             <student_item v-for="student of students" :key="student.id" :student_id="student.id"
-                :first_name="student.first_name" :last_name="student.last_name" :student_class="student.class"
-                :email="student.email" :generation="student.generation">
+                :first_name="student.first_name" :last_name="student.last_name" :batch="student.batch"
+                :email="student.email" :image="student.image">
             </student_item>
         </ul>
     </div>
@@ -25,8 +25,9 @@ export default {
 
 <style scoped>
 
-.card {
-    margin-top: 5%;
+
+.student_list {
+    margin-top: 6%;
 }
 
 

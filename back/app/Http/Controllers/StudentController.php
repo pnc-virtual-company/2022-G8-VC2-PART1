@@ -53,7 +53,6 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt(12345678);
         $student->class=$request->class;
-        $student->phone=$request->phone;
         $student->batch=$request->batch;
         
         $student->save();
@@ -76,7 +75,6 @@ class StudentController extends Controller
     public function updateProfile(Request $request, $id)
     {
         $student= Student::findOrFail($id);
-
         $student->image = $request->image;
         $student->save();
         return response()->Json(["message"=>"image is changed"]);
@@ -145,7 +143,6 @@ class StudentController extends Controller
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->image = $request->image;
-        
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->class=$request->class;
@@ -167,12 +164,7 @@ class StudentController extends Controller
         return Student::destroy($id);
     }
          
+
 }
 
 
-
-
-
-
-
-    
