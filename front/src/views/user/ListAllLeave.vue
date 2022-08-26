@@ -45,11 +45,11 @@ export default {
 </script>
 <style scoped>
 .home {
-  width: 75%;
-  margin-left: 12.5%;
+  width: 100%;
+  /* margin-left: 10%; */
   margin-top:8%;
-  background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* background: #fff; */
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
   border-radius: 7px;
   padding: 30px;
   box-sizing: border-box;

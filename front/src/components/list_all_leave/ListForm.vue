@@ -10,7 +10,6 @@
                 <option value="Reject">Reject</option>
             </select>
         </div>
-
         <div class="filter_by_leave_types">
             <span>Filter By Leave Types</span>
             <select name="cars" id="cars" v-model="leave_type">
@@ -83,9 +82,9 @@ export default {
 }
 
 .btn_search button {
-    /* margin: 10px; */
-    margin-top: 20px;
-    padding: 15px 30px;
+    width: 160px;
+    margin-top: 27px;
+    padding: 12px 15px;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
@@ -103,7 +102,6 @@ export default {
 }
 .btn_search button:hover {
     background-position: right center;
-    /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
 }

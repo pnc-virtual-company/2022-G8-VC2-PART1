@@ -12,21 +12,22 @@ export default {
     },
     data() {
         return {
-            students: [
-                // {id: 1, first_name: "Phearun", last_name: "Chhun", gender: "Male", email: "phearunchhun10@gmail.com", batch: "BATCH 2022", phone: "012 36 04 77" ,password:"12345678",image:"" },
-                // { id: 2, first_name: "Mengyi", last_name: "Yoeng", gender: "Male", email: "menyi@gmail.com", batch: "BATCH 2022", phone: "012 36 04 77" },
-            ],
+            students: [],
         }
     },
     methods: {
         studentList() {
             axios.get("/social_affairs/students").then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
-                    console.log(response.data[k]);
                     this.students.push(response.data[k])
                 }
             })
         },
+    },
+    provide() {
+        return {
+            students:this.students
+        }
     },
     mounted(){
         this.studentList();

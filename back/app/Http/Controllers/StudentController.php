@@ -49,20 +49,9 @@ class StudentController extends Controller
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        $image = 'girl.png';
-        if (!$request->image) {
-            if ($request->gender == "male") {
-                $image = 'boy.png';
-            }
-        } else {
-            $image = $request->file('images');
-            $imgName = date('d-m-Y-H-i-s').$image->getClientOriginalName();
-            $image->move(public_path('images'), $imgName);
-            $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-        }
-
-        $student->image = $image;
+        $student->image = $request->image;
         $student->email=$request->email;
+        $student->class=$request->class;
         $student->password=bcrypt(12345678);
         $student->phone=$request->phone;
         $student->batch=$request->batch;
@@ -153,7 +142,6 @@ class StudentController extends Controller
         $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
 
         $student->image = $image;
-        
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->class=$request->class;
@@ -171,7 +159,13 @@ class StudentController extends Controller
     */
     public function destroy($id)
     {
-        return Student::destroy($id);
+         $student = Student::where('id',$id);
+        if(!empty($student)){
+            $student->delete();
+            
+            return response()->json(['sms'=>'student deleted successfully']);
+        }
+        return response()->json(['sms'=>'student could not be deleted']);
     }
          
 }

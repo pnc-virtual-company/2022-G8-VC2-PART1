@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('class');
             $table->string('batch');
             $table->string('phone');
             $table->string('image')->nullable();
