@@ -25,13 +25,11 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
 
     // leave route manage by social affair
     Route::get('social_affairs/leaves',[LeaveController::class,"index"]);
-    Route::post('social_affairs/leaves',[LeaveController::class,"store"]);
     Route::get('social_affairs/leaves/{id}',[LeaveController::class,"show"]);
     Route::put('social_affairs/leaves/{id}', [LeaveController::class, "update"]);
     Route::delete('social_affairs/leaves/{id}', [LeaveController::class, "destroy"]);
 
     //leave route manage by students
-    Route::get('students/leaves',[LeaveController::class,"index"]);
     Route::post('students/leaves',[LeaveController::class,"store"]);
     
     
@@ -57,7 +55,8 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::get('social_affairs', [UserController::class,"index"]);
     Route::get('social_affairs/{id}', [UserController::class,"show"]);
     Route::post('social_affairs', [UserController::class,"store"]);
-    Route::put('social_affairs', [UserController::class,"update"]);
+    Route::put('social_affairs/{id}', [UserController::class,"update"]);
+    Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
     
     //logout
     Route::post('students/logout',[StudentController::class, "logout"]);

@@ -37,22 +37,7 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->password= Hash::make($request->password);
         $user->position=$request->position;
-
-        
-        $image = 'girl.png';
-        if (!$request->image) {
-            if ($request->gender == "male") {
-                $image = 'boy.png';
-            }
-        } else {
-            $image = $request->file('image');
-            $imgName = date('d-m-Y-H-i-s').$image->getClientOriginalName();
-            $image->move(public_path('images'), $imgName);
-            $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-        }
-
-        $user->image = $image;
-
+        $user->image = $request ->image;
         $user-> save();
         return response()->json(['message'=>"social affair is added"]);
     }
@@ -106,13 +91,7 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->password=bcrypt($request->password);
         $user->position=$request->position;
-
-        $imageFile = $request->file('image');
-        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
-        $imageFile->move(public_path('images'), $imgName);
-        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
-
-        $user->image = $image;
+        $user->image =$request->image;
 
         $user-> save();
         return response()->json(['message'=>"social affair is updated"]);
