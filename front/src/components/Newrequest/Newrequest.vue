@@ -18,7 +18,7 @@
                   <option value="Sick Leave"> Sick Leave </option>
                   <option value="Family's event">Family's event</option>
                   <option value="Wedding">Wedding</option>
-                  <option value="Brother's or Sister's event">Brother's or Sister's event</option>
+                  <option value="Brother's and Sister's event">Brother's and Sister's event</option>
                   <option value="Other Event">Other Event</option>
                 </select>
                 <div class="error">
@@ -215,7 +215,7 @@ export default {
           }
 
           if (
-            (express_time_start == "morning" && express_time_end == "afternoon") || (express_time_start == "afternoon" && express_time_end == "morning")
+            (express_time_start == "morning" && express_time_end == "afternoon")
           ) {
             result += 1;
           }

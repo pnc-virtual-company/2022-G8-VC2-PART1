@@ -34,14 +34,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
-
-
-
-
 .user_profile{
     width: 40%;
     padding: 20px;

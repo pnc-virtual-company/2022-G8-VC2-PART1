@@ -36,7 +36,7 @@ class LeaveController extends Controller
         ]);
         $leave = new Leave();
         // $leave->student_id=1;
-        // $leave->user_id=1;
+        // $leave->user_id= $request->user_id;
         $leave->start_date= $request->start_date;
         $leave->end_date= $request->end_date;
         $leave->duration= $request->duration;

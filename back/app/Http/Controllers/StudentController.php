@@ -45,16 +45,17 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student= new Student();
-        $student->user_id=$request->user_id;
+        // $student->user_id=1;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
+        $student->studentID=$request->studentID;
         $student->gender=$request->gender;
         $student->image = $request->image;
         $student->email=$request->email;
         $student->class=$request->class;
         $student->password=bcrypt(12345678);
-        $student->class=$request->class;
         $student->batch=$request->batch;
+        $student->phone=$request->phone;
         
         $student->save();
         return response()->Json(["message"=>"student is added"]);
@@ -146,7 +147,7 @@ class StudentController extends Controller
         $imageFile->move(public_path('images'), $imgName);
         $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
 
-        $student->image = $image;
+        $student->user_id=$request->user_id;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->image = $request->image;

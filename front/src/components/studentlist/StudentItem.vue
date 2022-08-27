@@ -29,7 +29,7 @@
         </thead>
         <tbody v-if="filterData.length > 0">
           <tr v-for="(student,index) of filterData" :key="student" :index="index">
-            <th scope="row">{{student.id}}</th>
+            <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>
             <td>{{student.class}}</td>
@@ -88,22 +88,11 @@ export default {
       this.student_id = id;
       this.index = index;
     },
-
   }
 };
 </script>
 
 <style scoped>
-
-
-
-
-
-
-
-
-
-
 li {
   padding: 7px;
   list-style-type: none;
@@ -177,8 +166,6 @@ th {
   inset: 0;
   background: rgba(0, 0, 0, 0.7) ;
 }
-
-
 .question_mark{
   font-size: 7rem;
   color:red;

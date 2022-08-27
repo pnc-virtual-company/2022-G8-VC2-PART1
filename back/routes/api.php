@@ -31,6 +31,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
 
     //leave route manage by students
     Route::post('students/leaves',[LeaveController::class,"store"]);
+    Route::get('students/leaves',[LeaveController::class,"index"]);
     
     
     //students routes manage by social affair(user)
