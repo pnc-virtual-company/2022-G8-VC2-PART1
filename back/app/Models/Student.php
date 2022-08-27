@@ -33,4 +33,8 @@ class Student extends Authenticatable
         return $this->hasMany(Leave::class);
     }
     
+    public function user()
+    {
+       return $this->belongsTo(User::class);
+    }
 }

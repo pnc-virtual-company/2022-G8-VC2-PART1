@@ -4,6 +4,7 @@ import ProfileUser from "@/views/user/ProfileUser.vue"
 import Login from "@/components/formlogin/FormLogin.vue"
 import CheckLeave from "@/views/admin/CheckleaveView.vue"
 import StudentList from "@/views/admin/StudentlistView.vue";
+import StudentDetail from "@/views/admin/StudentDetailView.vue";
 
 const routes = [
   {
@@ -30,6 +31,12 @@ const routes = [
     path: "/studentlist",
     name: "studentlist",
     component: StudentList,
+  },
+  {
+    path: "/student_details/:studentId",
+    name: "student_details",
+    component: StudentDetail,
+    props: true
   },
 
   {

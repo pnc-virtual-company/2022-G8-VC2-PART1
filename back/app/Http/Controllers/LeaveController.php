@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Leave;
 use Illuminate\Http\Request;
 use App\Mail\LeaveMail;
+use App\Models\Student;
 
 class LeaveController extends Controller
 {
@@ -18,6 +19,12 @@ class LeaveController extends Controller
         return Leave::all();
     }
 
+    public function countAllLeaves()
+    {
+       return Leave::all()->count();
+    }
+
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -35,19 +42,19 @@ class LeaveController extends Controller
             'status' => 'String',
         ]);
         $leave = new Leave();
-        // $leave->student_id=1;
-        // $leave->user_id=1;
+        $leave->student_id=$request->student_id;
+        $leave->user_id=$request->user_id;
         $leave->start_date= $request->start_date;
         $leave->end_date= $request->end_date;
         $leave->duration= $request->duration;
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
-        $leave->status= $request->status;
+        $leave->status= "panding";
         $leave->save();
         
         // Sending mail to admin
         // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
-        // return response()->json(['leave'=>"leave is added"]);
+         return response()->json(['leave'=>"leave is added"]);
     }
 
     /**
@@ -61,6 +68,17 @@ class LeaveController extends Controller
         return $leave = Leave::findOrFail($id); 
     }
 
+    public function upateStatus(Request $request, $id)
+    {
+       $leave=Leave::findOrFail($id);
+       $leave->status= $request->status;
+
+       $leave->save();
+       return response()->json(['sms'=>"status is updated"]);
+    }
+
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -68,9 +86,18 @@ class LeaveController extends Controller
      * @param  \App\Models\Leave  $leave
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Leave $leave)
+    public function update(Request $request, $id)
     {
-        //
+        $leave = Leave::findOrFail($id);
+        $leave->start_date= $request->start_date;
+        $leave->end_date= $request->end_date;
+        $leave->duration= $request->duration;
+        $leave->leave_type= $request->leave_type;
+        $leave->reason= $request->reason;
+        $leave->status= $request->status;
+
+        $leave->save();
+        return response()->Json(["message"=>"status is updated"]);
     }
 
     /**
@@ -79,8 +106,8 @@ class LeaveController extends Controller
      * @param  \App\Models\Leave  $leave
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Leave $leave)
+    public function destroy($id)
     {
-        //
+        return Leave::destroy($id);
     }
 }   

@@ -24,18 +24,18 @@ class StudentController extends Controller
         return Student::all();
     }
 
-    // get students with their leave
-
-    public function getStudentsAndLeaves()
+    public function countAllStudents()
     {
-        return Student::with('leaves')->get();
+        return Student::all()->count();
     }
+
+    // get students with their leave
 
     public function getOneStudentAndLeaves($id)
     {
        return Student::with('leaves')->findOrFail($id);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,7 +45,9 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student= new Student();
+       
         $student->user_id=$request->user_id;
+        $student->stu_id = $request->stu_id;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
@@ -54,6 +56,7 @@ class StudentController extends Controller
         $student->password=bcrypt(12345678);
         $student->class=$request->class;
         $student->batch=$request->batch;
+        $student->phone=$request->phone;
         
         $student->save();
         return response()->Json(["message"=>"student is added"]);
@@ -161,7 +164,13 @@ class StudentController extends Controller
     */
     public function destroy($id)
     {
-        return Student::destroy($id);
+        $student = Student::where('id',$id);
+        if(!empty($student)){
+            $student->delete();
+            
+            return response()->json(['sms'=>'student deleted successfully']);
+        }
+        return response()->json(['sms'=>'student could not be deleted']);
     }
          
 

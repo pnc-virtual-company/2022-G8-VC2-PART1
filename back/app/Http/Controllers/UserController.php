@@ -20,7 +20,7 @@ class UserController extends Controller
         return User::all();
     }
 
-    
+    //get admin and their students
 
     /**
      * Store a newly created resource in storage.

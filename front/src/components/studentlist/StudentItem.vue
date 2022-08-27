@@ -15,9 +15,9 @@
                 </div>
             </div>
             <div class="btn">
-                <button class="btn_details">DETAILS</button>
+                <button class="btn_details"><router-link :to="/student_details/ + student_id">DETAILS</router-link></button>
                 <button class="btn_edit">EDIT</button>
-                <button class="btn_delete">DELETE</button>  
+                <button class="btn_delete" @click="$emit('delete-student', student_id)">DELETE</button>  
             </div>
         </div>
     </li>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    props: ['first_name', 'last_name', 'email', 'batch','image']
+    props: ['first_name', 'last_name', 'email', 'batch','image', 'student_id'],
 }
 </script>
 

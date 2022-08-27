@@ -2,7 +2,7 @@
   <new_request></new_request>
 </template>
 <script>
-import NewRequest from '@/components/Newrequest/New/Request.vue';
+import NewRequest from '@/components/Newrequest/NewRequest.vue';
 // import axios from "../../axios-http"
 export default {
   name:"About-view",

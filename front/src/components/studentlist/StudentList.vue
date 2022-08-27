@@ -19,7 +19,7 @@ export default {
     components: {
         'student_item': StudentItem,
         'add_student': AddStudent,
-    }
+    },
 }
 </script>
 
