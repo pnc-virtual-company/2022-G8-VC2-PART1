@@ -1,7 +1,7 @@
 <template>
 
     <li>
-        <div class="main_card">
+        <!-- <div class="main_card">
             <div class="profile">
                 <img :src="image" alt="" style="width:110px; height:110px;margin-left: 5%;">
                 {{image}}
@@ -20,8 +20,7 @@
                 <button class="btn_edit">EDIT</button>
                 <button class="btn_delete" @click="$emit('delete-student', student_id)">DELETE</button>  
             </div>
-
-    <li>
+        </div> -->
     <div class="pop_up  " v-if="showPopup">
       <div class="background">
         <div class="text text-center">
@@ -51,13 +50,14 @@
         </thead>
         <tbody v-if="filterData.length > 0">
           <tr v-for="(student,index) of filterData" :key="student" :index="index">
-            <th scope="row">{{student.id}}</th>
+            <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>
             <td>{{student.class}}</td>
             <td>{{student.batch.toUpperCase()}}</td>
             <td>
-              <router-link to="/" class="btn btn_detail text-decoration-none text-light"> DETAIL
+              <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
+                DETAILS
               </router-link>
             </td>
             <td class="btn_edit_delete">
@@ -87,12 +87,12 @@
 <script>
 import axios from "@/axios-http.js"
 export default {
-  props: ['first_name', 'last_name', 'email', 'batch','image', 'student_id', 'filterData'],
-  inject: ['students'],
+  props: ['filterData'],
+  inject: ['students',],
   data() {
     return {
       showPopup: false,
-      student_id: null,
+      students_id: null,
       index: null
     }
   },
@@ -107,25 +107,14 @@ export default {
     },
     onDelete(index,id) {
       this.showPopup = true;
-      this.student_id = id;
+      this.students_id = id;
       this.index = index;
     },
-
   }
 };
 </script>
 
 <style scoped>
-
-
-
-
-
-
-
-
-
-
 li {
   padding: 7px;
   list-style-type: none;
@@ -199,8 +188,6 @@ th {
   inset: 0;
   background: rgba(0, 0, 0, 0.7) ;
 }
-
-
 .question_mark{
   font-size: 7rem;
   color:red;

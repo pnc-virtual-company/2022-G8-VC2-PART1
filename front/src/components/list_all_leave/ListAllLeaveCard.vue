@@ -1,6 +1,6 @@
 <template>
     <div class="list_card">
-        <base_card>
+        <li>
             <table>
                 <thead>
                     <tr>
@@ -14,14 +14,14 @@
                     </tr>
                 </thead>
                 <tbody v-if="filterData.length > 0">
-                    <tr v-for="list in filterData" :key="list">
-                        <td>{{list.created_at}}</td>
-                        <td> {{list.start_date}}</td>
-                        <td>{{list.end_date}}</td>
-                        <td style="max-width:200px">{{list.reason}}</td>
-                        <td>{{list.duration}}</td>
-                        <td :class="list.status.toLowerCase()">{{list.status}}</td>
-                        <td>{{list.leave_type}}</td>
+                    <tr v-for="list  in filterData" :key="list">
+                        <td scope="row">{{list.created_at}}</td>
+                        <td scope="row"> {{list.start_date}}</td>
+                        <td scope="row">{{list.end_date}}</td>
+                        <td scope="row" style="max-width:200px">{{list.reason}}</td>
+                        <td scope="row">{{list.duration}}</td>
+                        <td scope="row" :class="list.status.toLowerCase()">{{list.status}}</td>
+                        <td scope="row">{{list.leave_type}}</td>
                     </tr>
                 </tbody>
                 <tbody v-else>
@@ -36,49 +36,46 @@
                     </tr>
                 </tbody>
             </table>
-        </base_card>
+        </li>
     </div>
 
 </template>
 
 <script>
-import BaseCard from "@/components/UI/BaseCard.vue"
 export default {
     inject: ['list_all_leaves'],
     props: ['filterData'],
-    components: {
-        "base_card":BaseCard,
-    }
+
 }
 </script>
 
 <style scoped>
 
-
-
-
-
 .list_card {
     background: #ffff;
+    width: 100%;
+
 }
-table{
-    width:1200px;
+table {
+    width: 1200px;
     box-sizing: border-box;
 }
+
 table,
 tr,
-th,td {
-
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 10px;
-
-}
 th {
-    background: #63BFE7;
-    color:#fff;
-}
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
 
+}
+td{
+    padding: 5px;
+}
+li {
+    list-style: none;
+}
 .padding,.pending {
     color:gold;
     font-size: 1.2rem;

@@ -49,7 +49,7 @@ class LeaveController extends Controller
         $leave->duration= $request->duration;
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
-        $leave->status= "panding";
+        $leave->status= "pending";
         $leave->save();
         
         // Sending mail to admin
@@ -68,15 +68,6 @@ class LeaveController extends Controller
         return $leave = Leave::findOrFail($id); 
     }
 
-    public function upateStatus(Request $request, $id)
-    {
-       $leave=Leave::findOrFail($id);
-       $leave->status= $request->status;
-
-       $leave->save();
-       return response()->json(['sms'=>"status is updated"]);
-    }
-
 
 
     /**
@@ -89,6 +80,8 @@ class LeaveController extends Controller
     public function update(Request $request, $id)
     {
         $leave = Leave::findOrFail($id);
+        $leave->student_id=$request->student_id;
+        $leave->user_id=$request->user_id;
         $leave->start_date= $request->start_date;
         $leave->end_date= $request->end_date;
         $leave->duration= $request->duration;

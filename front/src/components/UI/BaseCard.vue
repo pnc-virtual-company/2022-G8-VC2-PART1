@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="main_card">
     <slot></slot>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-    .card{
-      margin-top: 4.5%;
+    .main_card{
+      margin-top: 2%;
     }
 </style>

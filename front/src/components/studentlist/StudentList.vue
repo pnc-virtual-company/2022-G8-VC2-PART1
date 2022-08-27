@@ -18,7 +18,7 @@
             </div>
         </div>
         <ul>
-            <student_item :filterData="filterData">
+            <student_item :students="students" :filterData="filterData">
             </student_item>
         </ul>
     </div>

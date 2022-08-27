@@ -45,20 +45,30 @@
               </div>
             </div>
           </div>
-          <div class="student_class mb-3">
-            <label class="form-label required" for="student_class">Class</label>
-            <select class="form-select  form-select-md  " aria-label=".form-select-lg example" v-model="student_class"
-              @change="is_class_valid=false">
-              <option value="SNA">SAN</option>
-              <option value="WEB A">WEB A</option>
-              <option value="WEB B">WEB B</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-            </select>
-            <div class="error">
-              <p v-if="is_class_valid">Please select class</p>
+          <div class="student_class_id  mb-3">
+            <div class="student_class ">
+              <label class="form-label required" for="student_class">Class</label>
+              <select class="form-select  form-select-md  " aria-label=".form-select-lg example" v-model="student_class"
+                @change="is_class_valid=false">
+                <option value="SNA">SAN</option>
+                <option value="WEB A">WEB A</option>
+                <option value="WEB B">WEB B</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+              <div class="error">
+                <p v-if="is_class_valid">Please select class</p>
+              </div>
+            </div>
+            <div class="student_id ">
+              <label class="form-label required" for="student_id">Student ID</label>
+              <input class="form-control " type="number" min="0" id="student_id" placeholder="Student ID" v-model="student_id"
+                @change="is_student_id_valid = false">
+              <div class="error">
+                <p v-if="is_student_id_valid ">Please enter student ID</p>
+              </div>
             </div>
           </div>
         </div>
@@ -136,7 +146,8 @@ export default {
       password: "12345678",
       phone: "",
       images: "",
-      student_class:'',
+      student_class: '',
+      student_id:"",
       is_first_name_valid: false,
       is_last_name_valid: false,
       is_email_valid: false,
@@ -148,6 +159,7 @@ export default {
       showPassword: false,
       is_class_valid: false,
       is_email_exists:false,
+      is_student_id_valid:false,
     }
   },
   methods: {
@@ -161,10 +173,12 @@ export default {
       this.email = "";
       this.batch = "";
       this.image = "";
+      this.student_id = "";
     },
     addStudent() {
       this.validateForm();
       let object = {
+        user_id: 1,
         first_name: this.first_name,
         last_name: this.last_name,
         gender: this.gender,
@@ -173,9 +187,10 @@ export default {
         phone: this.phone,
         // image: this.image.name,
         email: this.email,
+        studentID:this.student_id,
         class:this.student_class
       } 
-      if (this.first_name  && this.last_name  && this.gender  && this.batch  && this.password && this.phone  || this.image && this.email ) {
+      if (this.first_name  && this.last_name  && this.gender  && this.batch  && this.password && this.phone  || this.image && this.email && this.student_id) {
         axios.post("/social_affairs/students", object).then(() => {
           Swal.fire({
             position: 'center',
@@ -200,6 +215,7 @@ export default {
       this.is_email_valid = false;
       this.is_password_valid = false;
       this.is_phone_valid = false;
+      this.is_student_id_valid = false;
       this.is_class_valid = false;
       if (this.first_name == "") {
         this.is_first_name_valid = true;
@@ -225,6 +241,9 @@ export default {
       if (this.student_class == "") { 
         this.is_class_valid = true;
       }
+      if (this.student_id == "") { 
+        this.is_student_id_valid = true;
+      }
     },
     toggleShow() {
       this.showPassword = !this.showPassword;
@@ -247,7 +266,6 @@ export default {
 </script >
 
 <style scoped>
-
 
 
 .form_add_student {
@@ -319,6 +337,17 @@ export default {
   width: 99%;
   margin-left: 0.7%;
 }
+.student_class_id {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.student_id, .student_class{
+  width: 49.8%;
+}
 
 .form_footer a {
   width: 130px;
@@ -331,6 +360,7 @@ export default {
   background: #63BFE7;
   color: #fff;
 }
+
 .error{
   color:red;
 }

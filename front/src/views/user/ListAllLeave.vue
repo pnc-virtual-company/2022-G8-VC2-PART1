@@ -1,24 +1,21 @@
 <template>
   <div class="home">
-    <leave_view></leave_view>
+    <list_form></list_form>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LeaveView from "@/components/list_all_leave/ListAllLeaveView.vue";
+import LeaveForm from "@/components/list_all_leave/ListForm.vue";
 import axios from "../../axios-http.js";
 export default {
   name: 'HomeView',
   components: {
-    "leave_view":LeaveView
+    "list_form": LeaveForm
   },
   data() {
     return {
-      list_all_leaves: [
-        { created_at: "08-Feb-2022", start_date: "08-Feb-2022", end_date: "09-Feb-2022", reason: "Headache", duration: "1", status: "Padding", leave_type: "Family's event" },
-        { created_at: "08-Feb-2022", start_date: "08-Feb-2022", end_date: "09-Feb-2022", reason: "Headache", duration: "1", status: "Approve", leave_type: "Wedding" },
-      ]
+      list_all_leaves: []
     }
   },
   methods: {
@@ -46,16 +43,10 @@ export default {
 <style scoped>
 .home {
   width: 100%;
-  /* margin-left: 10%; */
-  margin-top:8%;
-  /* background: #fff; */
-  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+  margin-top:6%;
   border-radius: 7px;
   padding: 30px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 </style>

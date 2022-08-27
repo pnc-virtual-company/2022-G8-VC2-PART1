@@ -30,11 +30,20 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::get('social_affairs/count_all_students_leaves', [LeaveController::class, "countAllLeaves"]);
     ///Route::delete('social_affairs/leaves/{id}', [LeaveController::class, "destroy"]);
 
+
 //leave route manage by students
     Route::post('students/leaves', [LeaveController::class,"store"]);
     Route::get('students/leaves/{id}', [LeaveController::class,"show"]);
 
 //students routes manage by social affair(user)
+
+    //leave route manage by students
+    Route::post('students/leaves',[LeaveController::class,"store"]);
+    Route::get('students/leaves',[LeaveController::class,"index"]);
+    
+    
+    //students routes manage by social affair(user)
+
 
     Route::get('social_affairs/students', [StudentController::class, "index"]);
     Route::get('social_affairs/students/{id}', [StudentController::class, "show"]);
@@ -48,7 +57,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     
     //count all students
 
-    Route::get('social_affairs/count_all_students_leaves', [StudentController::class, "countAllStudents"]);
+    Route::get('social_affairs/count_all_students', [StudentController::class, "countAllStudents"]);
 
 
 

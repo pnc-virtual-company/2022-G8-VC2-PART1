@@ -18,7 +18,7 @@ class StudentTableSeeder extends Seeder
     {
         $student = [
             "user_id"=> 1,
-            "stu_id"=>1,
+            "studentID"=>1,
             "first_name"=> "dyna",
             "last_name"=>"khorn",
             "gender"=> "male",

@@ -4,7 +4,7 @@
            <h1>Detail Info Of : {{student.first_name}} {{student.last_name}}</h1>
         </div>
         <div class="card_body">
-            <h4>ID      : {{student.stu_id}}</h4>
+            <h4>ID      : {{student.studentID}}</h4>
             <h4>Name    : {{student.first_name}} {{student.last_name}}</h4>
             <h4>gender  : {{student.gender}}</h4>
             <h4>Email   : {{student.email}}</h4>

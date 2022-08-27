@@ -47,15 +47,14 @@ class StudentController extends Controller
         $student= new Student();
        
         $student->user_id=$request->user_id;
-        $student->stu_id = $request->stu_id;
+        $student->studentID = $request->studentID;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        $student->image = $request->image;
+        // $student->image = $request->image;
         $student->email=$request->email;
         $student->class=$request->class;
-        $student->password=bcrypt(12345678);
-        $student->class=$request->class;
+        $student->password=Hash::make(12345678);
         $student->batch=$request->batch;
         $student->phone=$request->phone;
         
@@ -73,7 +72,7 @@ class StudentController extends Controller
     {
         return Student::findOrFail($id);
     }
-    ///.....WHAT STUDENT CAN DO....///
+    
 
     ///.....change Profile...//     
     public function updateProfile(Request $request, $id)
@@ -124,7 +123,7 @@ class StudentController extends Controller
         }
        
     }
-
+    //LOGOUT
 
     public function logout(Request $request)
     {
@@ -144,21 +143,17 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $student= Student::findOrFail($id);
-        $imageFile = $request->file('image');
-        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
-        $imageFile->move(public_path('images'), $imgName);
-        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
 
-        $student->image = $image;
+        $student->studentID = $request->studentID;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
+        $student->gender=$request->gender;
         $student->image = $request->image;
-        $student->class = $request->class;
         $student->email=$request->email;
-        $student->password=bcrypt($request->password);
         $student->class=$request->class;
-        $student->phone=$request->phone;
+        $student->password=Hash::make($request->password);
         $student->batch=$request->batch;
+        $student->phone=$request->phone;
         
         $student->save();
         return response()->Json(["message"=>"student is added"]);
@@ -172,11 +167,8 @@ class StudentController extends Controller
     */
     public function destroy($id)
     {
-<<<<<<< HEAD
         $student = Student::where('id',$id);
-=======
          $student = Student::where('id',$id);
->>>>>>> 8a408803517a76dc80f0cc58f66508397628a8f2
         if(!empty($student)){
             $student->delete();
             
