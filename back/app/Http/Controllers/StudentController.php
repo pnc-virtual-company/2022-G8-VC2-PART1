@@ -51,8 +51,9 @@ class StudentController extends Controller
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        $student->image =$request->image;
+        $student->image = $request->image;
         $student->email=$request->email;
+        $student->class=$request->class;
         $student->password=bcrypt(12345678);
         $student->class=$request->class;
         $student->batch=$request->batch;
@@ -143,9 +144,16 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $student= Student::findOrFail($id);
+        $imageFile = $request->file('image');
+        $imgName = date('d-m-Y-H-i-s').$imageFile->getClientOriginalName();
+        $imageFile->move(public_path('images'), $imgName);
+        $image = 'http://127.0.0.1:8000/api/students/image/' .  $imgName;
+
+        $student->image = $image;
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->image = $request->image;
+        $student->class = $request->class;
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->class=$request->class;
@@ -164,7 +172,11 @@ class StudentController extends Controller
     */
     public function destroy($id)
     {
+<<<<<<< HEAD
         $student = Student::where('id',$id);
+=======
+         $student = Student::where('id',$id);
+>>>>>>> 8a408803517a76dc80f0cc58f66508397628a8f2
         if(!empty($student)){
             $student->delete();
             
@@ -175,5 +187,3 @@ class StudentController extends Controller
          
 
 }
-
-

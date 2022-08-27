@@ -4,24 +4,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Request Date</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Reason</th>
-                        <th>Duration</th>
-                        <th>Status</th>
-                        <th>Leave Type</th>
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Leave Type</th>
                     </tr>
                 </thead>
                 <tbody v-if="filterData.length > 0">
                     <tr v-for="list in filterData" :key="list">
-                        <td >{{list.created_at}}</td>
+                        <td>{{list.created_at}}</td>
                         <td> {{list.start_date}}</td>
                         <td>{{list.end_date}}</td>
-                        <td >{{list.reason}}</td>
+                        <td style="max-width:200px">{{list.reason}}</td>
                         <td>{{list.duration}}</td>
                         <td :class="list.status.toLowerCase()">{{list.status}}</td>
-                        <td >{{list.leave_type}}</td>
+                        <td>{{list.leave_type}}</td>
                     </tr>
                 </tbody>
                 <tbody v-else>
@@ -62,7 +62,7 @@ export default {
     background: #ffff;
 }
 table{
-    width: 983px;
+    width:1200px;
     box-sizing: border-box;
 }
 table,

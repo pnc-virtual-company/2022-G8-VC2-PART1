@@ -15,7 +15,6 @@
               <span>Leave Type:</span>
               <div class="option_type">
                 <select name="" id="" v-model="leave_type" @change="is_select_leave_type = false">
-
                   <option value="Sick Leave"> Sick Leave </option>
                   <option value="Family's event">Family's event</option>
                   <option value="Wedding">Wedding</option>
@@ -49,7 +48,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
               <div class="end_date_end_time">
                 <span>End Date:</span>
@@ -96,12 +94,12 @@
         </div>
         <div class="btn">
           <div class="btn_cancel">
-            <router-link to="/" class="btn_cancel">
+            <router-link to="/" class="btn btn-md btn_cancel ">
               CANCEL
             </router-link>
           </div>
           <div class="btn_submit">
-            <button :disabled="disableButton">SUBMIT</button>
+            <button :disabled="disableButton" class="btn btn-md">SUBMIT</button>
           </div>
         </div>
       </div>
@@ -189,7 +187,7 @@ export default {
         this.is_reason_not_complete = true
       }
     },
-   
+
     submitSave() {
       Swal.fire({
         position: 'center',
@@ -239,11 +237,11 @@ export default {
       return year + "-" + month + "-" + tday
     },
     disableButton() {
-     let btn_disabled = true;
-      if (this.leave_type  || this.start_date  || this.end_date  || this.reasons  || this.express_time_start  || this.express_time_end ) {
-         btn_disabled = false;
+      let btn_disabled = true;
+      if (this.leave_type || this.start_date || this.end_date || this.reasons
+        || this.express_time_start || this.express_time_end) {
+        btn_disabled = false;
       }
-      console.log(btn_disabled);
       return btn_disabled
     },
   }
@@ -251,6 +249,7 @@ export default {
 </script>
 
 <style scoped>
+
 .form_request {
   width: 60%;
   margin-left: 20%;
@@ -394,10 +393,10 @@ export default {
 }
 
 .btn_submit button {
-  width: 170px;
-  padding: 10px;
+  width: 120px;
+  padding: 5px;
   margin: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -418,10 +417,10 @@ export default {
 }
 
 .btn_cancel a {
-  width: 170px;
-  padding: 10px;
+  width: 120px;
+  padding: 5px;
   margin: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
   cursor: pointer;
   background: none;

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="main_container">
         <list_form @filters="getFilters"></list_form>
         <list_card :filterData="filterData"></list_card>
     </div>
@@ -49,7 +49,4 @@ export default {
 </script>
 
 <style scoped>
-/* .container {
-    margin-top: 1%;
-} */
 </style>
