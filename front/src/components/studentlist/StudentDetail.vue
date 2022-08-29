@@ -15,16 +15,22 @@
             <h4>Number of approved  : {{countApproved}}</h4>
             <h4>Number of rejected  : {{countRejected}}</h4>
             <h4>Number of pending   : {{countPending}}</h4>
+            <!-- <p>{{student.leaves}}</p> -->
+            
         </div>
         <div class="card_footer">
+            <leave_detail v-for:="leave in student.leaves" :leave="leave"></leave_detail>
         </div>
     </div>
 </template>
 
 <script>
-
+import LeaveDetail from "@/components/studentlist/LeaveDetail.vue"
 export default {
-    props: ['student', 'countApproved', 'countRejected', 'countPending', 'countLeaves']
+    props: ['student', 'countApproved', 'countRejected', 'countPending', 'countLeaves'],
+    components: {
+        'leave_detail': LeaveDetail,
+    },
 }
 </script>
 <style scoped>

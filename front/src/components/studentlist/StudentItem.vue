@@ -1,26 +1,7 @@
 <template>
 
     <li>
-        <!-- <div class="main_card">
-            <div class="profile">
-                <img :src="image" alt="" style="width:110px; height:110px;margin-left: 5%;">
-                {{image}}
-            </div>
-            <div class="student_info">
-                <div class="student_name">
-                    <p>Name: <span>{{ first_name }}{{ " " }}{{ last_name }}</span></p>
-                    <p>Email: <span>{{ email }}</span></p>
-                </div>
-                <div class="student_class">
-                    <p>Batch: <span>{{ batch }}</span></p>
-                </div>
-            </div>
-            <div class="btn">
-                <button class="btn_details"><router-link :to="/student_details/ + student_id">DETAILS</router-link></button>
-                <button class="btn_edit">EDIT</button>
-                <button class="btn_delete" @click="$emit('delete-student', student_id)">DELETE</button>  
-            </div>
-        </div> -->
+        
     <div class="pop_up  " v-if="showPopup">
       <div class="background">
         <div class="text text-center">
@@ -49,7 +30,7 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr v-for="(student,index) of filterData" :key="student" :index="index">
+          <tr v-for="(student,index) of filterData" :key="student" :index="index" >
             <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>

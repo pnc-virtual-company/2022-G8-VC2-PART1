@@ -1,6 +1,10 @@
 <template>
 <div class="hw">
-    <student_detail :student="student" :countLeaves="countLeaves" :countApproved="countApproved" :countRejected="countRejected" :countPending="countPending" ></student_detail> 
+    <student_detail 
+    :student="student" :countLeaves="countLeaves"
+    :countApproved="countApproved" :countRejected="countRejected" 
+    :countPending="countPending"
+    ></student_detail> 
 </div>
 </template>
 
