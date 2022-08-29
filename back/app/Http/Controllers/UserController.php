@@ -45,14 +45,18 @@ class UserController extends Controller
     //.. LOG IN FOR ADMIN.............//
     public function login(Request $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
-            $token = $user->createToken($user->first_name)->plainTextToken;
-            $cookie = cookie('jwt', $token, 60 * 24);
-            return response()->json(["sms"=>"success","token"=>$token], 200)->withCookie($cookie);
-        } else {
-            return response()->json(['sms'=>"Log in failed"], 404);
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Fail'], 401);
         }
+
+        $token = $user->createToken('mytoken')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ]);
            
     }
     

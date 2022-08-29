@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
 
-//Route::group(['middleware'=>['auth:sanctum']], function(){
+Route::group(['middleware'=>['auth:sanctum']], function(){
 
 // leave route manage by social affair
     Route::get('social_affairs/leaves', [LeaveController::class,"index"]);
@@ -82,4 +82,4 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     
     
 
-//});
+});

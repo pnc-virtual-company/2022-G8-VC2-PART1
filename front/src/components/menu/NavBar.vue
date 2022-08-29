@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        
         <nav>
             <div class="left_side_bar">
                 <div class="logo_display">
@@ -9,17 +8,17 @@
                 </div>
             </div>
                 <div class="router">
-                    <router-link to="/">List All Leaves</router-link> 
-                    <router-link to="/new_request">New Request</router-link>
-                    <router-link to="/studentlist">Student list</router-link>
-                    <router-link to="/checkleave">Check Leave</router-link>
+                    <router-link to="/" v-if="userRole=='student'">List All Leaves</router-link> 
+                    <router-link to="/new_request" v-if="userRole=='student'">New Request</router-link>
+                    <router-link to="/studentlist" v-if="userRole=='admin'">Student list</router-link>
+                    <router-link to="/checkleave" v-if="userRole=='admin'">Check Leave</router-link>
                 </div>
             <div class="user_name">
                 <div class="user_profile">
                     <router-link to="/profile">Phearun Chhun</router-link>
                 </div>
                 <div class="btn_sign_out">
-                    <button>
+                    <button @click="$emit('request-logout')">
                         <img src="../../assets/logout.png" alt="" style="width:40px;height:40px">
                     </button>
                 </div>
@@ -30,7 +29,8 @@
 
 <script>
 export default {
-
+    emits:['request-logout'],
+    props:['userRole'],
 }
 </script>
 
