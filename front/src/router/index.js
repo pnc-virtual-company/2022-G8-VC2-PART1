@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import ListAllLeave from "../views/user/ListAllLeave.vue";
-import ProfileUser from "@/views/user/ProfileUser.vue"
+import ProfileUser from "@/views/user/ProfileUser.vue";
 import Login from "@/authentication/FormLogin.vue";
-import CheckLeave from "@/views/admin/CheckleaveView.vue"
+import CheckLeave from "@/views/admin/CheckleaveView.vue";
 import StudentList from "@/views/admin/StudentlistView.vue";
-import StudentDetail from "@/components/studentlist/StudentDetail.vue"
+import StudentDetail from "@/components/studentlist/StudentDetail.vue";
+import Addstudent from "@/components/studentlist/AddStudent.vue";
 const routes = [
   {
     path: "/",
@@ -52,6 +53,15 @@ const routes = [
     name: "student_details",
     component: StudentDetail,
     props: true,
+    meta:{
+      needLogin:true,
+      needUser:true,
+    }
+  },
+  {
+    path:"/addstudent",
+    name:"addstudent",
+    component:Addstudent,
     meta:{
       needLogin:true,
       needUser:true,

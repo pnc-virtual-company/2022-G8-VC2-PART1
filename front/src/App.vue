@@ -3,7 +3,7 @@
   <router-view  @request-login="login"/>
 </template>
 <script>
-import axiosApi from './api/api.js';
+import axiosApi from './api/api';
 import NavBar from "@/components/menu/NavBar.vue"
 export default {
   name:'App',
