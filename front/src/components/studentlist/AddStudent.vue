@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import axios from "../../axios-http.js";
+import axios from "../../api/api.js";
 import Swal from "sweetalert2";
 
 export default {
@@ -199,7 +199,7 @@ export default {
             showConfirmButton: false,
             timer: 1000
           })
-            return this.$router.push({ name: "studentlist" });
+          return this.$router.push({ name: "studentlist" });
         })
         this.clearForm();
       }

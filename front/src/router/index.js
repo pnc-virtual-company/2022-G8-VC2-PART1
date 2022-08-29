@@ -5,64 +5,75 @@ import Login from "@/authentication/FormLogin.vue";
 import CheckLeave from "@/views/admin/CheckleaveView.vue"
 import StudentList from "@/views/admin/StudentlistView.vue";
 import StudentDetail from "@/components/studentlist/StudentDetail.vue"
+import AddStudent from "@/components/studentlist/AddStudent.vue";
+
 const routes = [
   {
     path: "/",
-    name:"list_all_leave",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    name: "list_all_leave",
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
-    component:ListAllLeave,
+    component: ListAllLeave,
   },
   {
-    path:'/login',
-    name:"login",
-    component:Login,
+    path: "/login",
+    name: "login",
+    component: Login,
   },
   {
     path: "/profile",
     name: "profile",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: ProfileUser,
   },
   {
     path: "/checkleave",
     name: "checkleave",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: CheckLeave,
   },
   {
     path: "/studentlist",
     name: "studentlist",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: StudentList,
+  },
+  {
+    path: "/addstudent",
+    name: "addstudent",
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
+    component: AddStudent,
   },
   {
     path: "/student_details/:studentId",
     name: "student_details",
     component: StudentDetail,
     props: true,
-    meta:{
-      needLogin:true,
-      needUser:true,
-    }
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
   },
   {
     path: "/new_request",
     name: "new_request",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

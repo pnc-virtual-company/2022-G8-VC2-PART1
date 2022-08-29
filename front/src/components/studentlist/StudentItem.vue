@@ -1,26 +1,6 @@
 <template>
-
-    <li>
-        <!-- <div class="main_card">
-            <div class="profile">
-                <img :src="image" alt="" style="width:110px; height:110px;margin-left: 5%;">
-                {{image}}
-            </div>
-            <div class="student_info">
-                <div class="student_name">
-                    <p>Name: <span>{{ first_name }}{{ " " }}{{ last_name }}</span></p>
-                    <p>Email: <span>{{ email }}</span></p>
-                </div>
-                <div class="student_class">
-                    <p>Batch: <span>{{ batch }}</span></p>
-                </div>
-            </div>
-            <div class="btn">
-                <button class="btn_details"><router-link :to="/student_details/ + student_id">DETAILS</router-link></button>
-                <button class="btn_edit">EDIT</button>
-                <button class="btn_delete" @click="$emit('delete-student', student_id)">DELETE</button>  
-            </div>
-        </div> -->
+  <li>
+    <!--======== delete pop up =========-->
     <div class="pop_up  " v-if="showPopup">
       <div class="background">
         <div class="text text-center">
@@ -31,10 +11,11 @@
         </div>
         <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
           <button class="btn btn-cancel btn-danger" @click="showPopup =false">Cancel</button>
-          <button class="btn btn-delete " @click="deleteStudent(index,student_id)">Delete</button>
+          <button class="btn btn-delete " @click="deleteStudent(index,students_id)">Delete</button>
         </div>
       </div>
     </div>
+    <!-- ===== student card ===== -->
     <div class="main_card">
       <table>
         <thead>
@@ -49,7 +30,12 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr v-for="(student,index) of filterData" :key="student" :index="index">
+          <tr v-for="(student,index) of filterData" 
+          :key="student" 
+          :index="index" 
+          :first_name="student.first_name"
+          :last_name="student.last_name"
+          >
             <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>
@@ -59,6 +45,7 @@
               <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
                 DETAILS
               </router-link>
+              <!-- <button class="btn  bg-primary text-center text-light" @click="onDetail()">DETAILS</button> -->
             </td>
             <td class="btn_edit_delete">
               <button class="btn btn_delete bg-danger text-center text-light"
@@ -85,13 +72,14 @@
 </template>
 
 <script>
-import axios from "@/axios-http.js"
+import axios from "../../api/api.js"
 export default {
-  props: ['filterData'],
-  inject: ['students',],
+  props: ['filterData',],
+  inject: ['students'],
   data() {
     return {
       showPopup: false,
+      // showDetailPopup: false,
       students_id: null,
       index: null
     }
@@ -105,16 +93,23 @@ export default {
       this.students.splice(index, 1)
       this.showPopup = false
     },
-    onDelete(index,id) {
+    onDelete(index, id) {
+      console.log(index,id)
       this.showPopup = true;
       this.students_id = id;
       this.index = index;
     },
+    // onDetail() {
+    //   this.showDetailPopup = true;
+    // }
   }
 };
 </script>
 
 <style scoped>
+
+
+
 li {
   padding: 7px;
   list-style-type: none;
@@ -187,6 +182,29 @@ th {
   left: 0;
   inset: 0;
   background: rgba(0, 0, 0, 0.7) ;
+}
+.pop_up_detail {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: center;
+  right: 0;
+  left: 0;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7) ;
+}
+.pop_up_detail .background{
+  width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.pop_up_detail .header{
+  background: blue;
+  color:#fff;
 }
 .question_mark{
   font-size: 7rem;

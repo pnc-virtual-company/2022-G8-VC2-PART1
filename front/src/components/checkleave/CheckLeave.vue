@@ -1,23 +1,25 @@
 <template>
   <div class="filter_banner">
-    <div class="filter_status">
-      <p>Filter By Status</p>
-      <select name="status" v-model="filterStatus" @change="getLeaveFilter">
-        <option value="Show all">Show all</option>
-        <option value="Padding">Padding</option>
-        <option value="Approved">Approve</option>
-        <option value="Rejected">Reject</option>
-      </select>
-    </div>
-    <div class="filter_type">
-      <p>Filter By Leave Types</p>
-      <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
-        <option value="Show all">Show all</option>
-        <option value="SICK">Sick</option>
-        <option value="WIDDING">Wedding</option>
-        <option value="FAMILY-EVENT">Family-event</option>
-        <option value="OTHER">Other</option>
-      </select>
+    <div class="filter_bar">
+      <div class="filter_status">
+        <p>Filter By Status</p>
+        <select name="status" v-model="filterStatus" @change="getLeaveFilter">
+          <option value="Show all">Show all</option>
+          <option value="Padding">Padding</option>
+          <option value="Approved">Approve</option>
+          <option value="Rejected">Reject</option>
+        </select>
+      </div>
+      <div class="filter_type">
+        <p>Filter By Leave Types</p>
+        <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
+          <option value="Show all">Show all</option>
+          <option value="SICK">Sick</option>
+          <option value="WIDDING">Wedding</option>
+          <option value="FAMILY-EVENT">Family-event</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
     </div>
   </div>
   <div class="all_card" v-if="leaves.length != 0">
@@ -106,15 +108,23 @@ select{
   padding: 8px;
 }
 .filter_banner{
-  margin: auto;
-  margin-top:90px ;
-  width: 60%;
-  display: flex;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  margin-top: 15%;
 }
-
+.filter_bar {
+  border-radius: 10px;
+  padding: 15px;
+  margin-top:90px ;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  position: fixed;
+  top: 12%;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
 span{
   text-align: center;
   font-size: 2rem;
@@ -170,18 +180,16 @@ img{
 
 .card_leave{
   padding: 10px;
-  border-left: 2px solid #63bfe7;
+  border-left: 5px solid #63bfe7;
   margin: 10px;
   display: flex;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 .all_card{
-  width: 98%;
+  width: 90%;
   margin: auto;
   padding: 10px;
-  height: 51.5vh;
-  overflow: scroll;
 }
 
 </style>

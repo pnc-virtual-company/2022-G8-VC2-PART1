@@ -6,7 +6,7 @@
 
 <script>
 import StudentDetail from '@/components/studentlist/StudentDetail.vue'
-import axios from "../../axios-http.js"
+import axios from "../../api/api.js"
 export default {
     components: {
         "student_detail": StudentDetail
@@ -30,7 +30,6 @@ export default {
                     counter++;
                 }
             });
-
             return counter;
         },
 
@@ -41,7 +40,6 @@ export default {
                     counter++;
                 }
             });
-
             return counter;
         },
 
@@ -52,7 +50,6 @@ export default {
                     counter++;
                 }
             });
-
             return counter;
         },
     },
@@ -63,7 +60,7 @@ export default {
             this.leaves = res.data.leaves;
             this.countLeaves = res.data.leaves.length;
         })
-    }
+    },
 };
 </script>
 <style scoped>
