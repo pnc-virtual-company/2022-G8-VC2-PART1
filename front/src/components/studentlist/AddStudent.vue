@@ -64,8 +64,8 @@
             </div>
             <div class="student_id ">
               <label class="form-label required" for="student_id">Student ID</label>
-              <input class="form-control " type="number" min="0" id="student_id" placeholder="Student ID" v-model="student_id"
-                @change="is_student_id_valid = false">
+              <input class="form-control " type="number" min="0" id="student_id" placeholder="Student ID"
+                v-model="student_id" @change="is_student_id_valid = false">
               <div class="error">
                 <p v-if="is_student_id_valid ">Please enter student ID</p>
               </div>
@@ -75,8 +75,14 @@
         <div class="side_right p-2  mb-3">
           <div class="email mb-3">
             <label class="form-label required" for="email">Email</label>
-            <input class="form-control w-100" type="email" id="email" placeholder="email" v-model="email"
-              @change="is_email_valid = false">
+            <div class="student_email d-flex">
+              <input class="form-control " type="text" id="email" placeholder="e.g: sok.nhok" v-model="name"
+                @change="is_email_valid = false">
+              <select name="" class="form-select" id="" v-model="email">
+                <option value="@student.passerellesnumeriques.org">@student.passerellesnumeriques.org</option>
+              </select>
+            </div>
+
             <div class="error">
               <p v-if="is_email_valid ">Please enter student's email</p>
             </div>
@@ -132,7 +138,7 @@
 </template>
 
 <script>
-import axios from "../../api/api.js";
+import axios from "../../api/api";
 import Swal from "sweetalert2";
 
 export default {
@@ -143,6 +149,7 @@ export default {
       gender: "",
       batch: "",
       email: "",
+      name: "",
       password: "12345678",
       phone: "",
       images: "",
@@ -171,6 +178,7 @@ export default {
       this.student_class = "";
       // this.password = "";
       this.email = "";
+      this.name = "";
       this.batch = "";
       this.image = "";
       this.student_id = "";
@@ -186,7 +194,7 @@ export default {
         password: this.password,
         phone: this.phone,
         // image: this.image.name,
-        email: this.email,
+        email: this.name+this.email ,
         studentID:this.student_id,
         class:this.student_class
       } 
@@ -266,6 +274,8 @@ export default {
 </script >
 
 <style scoped>
+
+
 
 
 .form_add_student {
@@ -348,7 +358,18 @@ input[type=number]::-webkit-inner-spin-button {
 .student_id, .student_class{
   width: 49.8%;
 }
-
+.student_email input{
+  width: 40%;
+  outline: none;
+  border-radius: 7px 0 0 7px;
+  border-right:none;
+}
+.student_email select{
+  outline:none;
+  width: 60%;
+  border-radius: 0 7px 7px 0;
+  border-left:none;
+}
 .form_footer a {
   width: 130px;
   font-size: 1.1rem;

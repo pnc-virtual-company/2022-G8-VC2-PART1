@@ -14,9 +14,9 @@
         <p>Filter By Leave Types</p>
         <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
           <option value="Show all">Show all</option>
-          <option value="SICK">Sick</option>
+          <option value="Sick Leave">Sick leave</option>
           <option value="WIDDING">Wedding</option>
-          <option value="FAMILY-EVENT">Family-event</option>
+          <option value="Family's event">Family-event</option>
           <option value="OTHER">Other</option>
         </select>
       </div>
@@ -32,8 +32,10 @@
       </div>
       <div class="btn">
         <div class="btn_action" v-if="leave.status === null">
-          <button class="approve" @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
-          <button class="reject" @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+          <button class="approve"
+            @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
+          <button class="reject"
+            @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
         </div>
         <p v-else class="status">{{leave.status}}</p>
       </div>
@@ -43,7 +45,8 @@
 </template>
 
 <script>
-import axiosApi from '../../axios-http'
+import axios from "../../api/api.js";
+
 export default {
   data() {
     return {
@@ -58,32 +61,32 @@ export default {
   methods: {
     replyBack(indexId,message) {
       console.log(indexId,message);
-      axiosApi.put('social_affairs/leaves/' + indexId,message).then(res => {
+      axios.put('social_affairs/leaves/' + indexId,message).then(res => {
         console.log(res.data);
         window.location.reload();
       });
     },
     getAllLeave() {
-      axiosApi.get('social_affairs/leaves/').then(res =>{
+      axios.get('social_affairs/leaves/').then(res =>{
         this.leaves = res.data;
         console.log(this.leaves);
       });
     },
     getLeaveFilter() {
       if ((this.filterStatus != 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
           
           this.leaves = res.data.filter(leave => (leave.status == this.filterStatus) && (leave.leave_type == this.filterLeaveType));
         });
       }
       else if ((this.filterStatus == 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
           
           this.leaves = res.data.filter(leave => leave.leave_type == this.filterLeaveType);
         });
       }
       else if ((this.filterLeaveType == 'Show all') && ((this.filterStatus != 'Show all'))) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
   
           this.leaves = res.data.filter(leave => leave.status == this.filterStatus);
         });

@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import ListAllLeave from "../views/user/ListAllLeave.vue";
-import ProfileUser from "@/views/user/ProfileUser.vue"
+import ProfileUser from "@/views/user/ProfileUser.vue";
 import Login from "@/authentication/FormLogin.vue";
-import CheckLeave from "@/views/admin/CheckleaveView.vue"
+import CheckLeave from "@/views/admin/CheckleaveView.vue";
 import StudentList from "@/views/admin/StudentlistView.vue";
-import StudentDetail from "@/components/studentlist/StudentDetail.vue"
 import AddStudent from "@/components/studentlist/AddStudent.vue";
-
+import StudentDetail from "@/views/admin/StudentDetailView.vue";
+import Addstudent from "@/components/studentlist/AddStudent.vue";
 const routes = [
   {
     path: "/",
@@ -69,6 +69,15 @@ const routes = [
     },
   },
   {
+    path:"/addstudent",
+    name:"addstudent",
+    component:Addstudent,
+    meta:{
+      needLogin:true,
+      needUser:true,
+    }
+  },
+  {
     path: "/new_request",
     name: "new_request",
     meta: {
@@ -86,7 +95,7 @@ const routes = [
 function authenticationGuard (to, from, next) {
   let needLogin = to.meta.needLogin;
   if (needLogin) {
-    if (!localStorage.userId) {
+    if (!localStorage.userRole) {
       next('/login');
       return;
     }
@@ -99,6 +108,7 @@ function authenticationGuard (to, from, next) {
       }
     }
   }
+  
   else {
     if (localStorage.userId) {
       if (to.path === '/login') {

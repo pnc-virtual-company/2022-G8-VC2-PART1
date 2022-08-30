@@ -16,7 +16,8 @@
         />
       </div>
       <div class="side-left w-50 fs-5">
-        <p>Firstname <span>:</span> {{ student.first_name }}</p>
+        {{student}}
+        <!-- <p>Firstname <span>:</span> {{ student.first_name }}</p>
         <p>
           Lastname <span style="margin-left: 5px">:</span>
           {{ student.last_name }}
@@ -33,7 +34,7 @@
 
         <p>
           Phone <span style="margin-left: 35px">:</span> {{ student.phone }}
-        </p>
+        </p> -->
       </div>
     </div>
     <div class="card-footer text-center">
@@ -62,13 +63,14 @@
 
 <script>
 export default {
-  props: [
-    "student",
-    "countApproved",
-    "countRejected",
-    "countPending",
-    "countLeaves",
-  ],
+  // props: [
+  //   "student",
+  //   "countApproved",
+  //   "countRejected",
+  //   "countPending",
+  //   "countLeaves",
+  // ],
+  inject:['students'],
 };
 </script>
 <style scoped>

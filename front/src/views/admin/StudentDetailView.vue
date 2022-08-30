@@ -1,6 +1,6 @@
 <template>
 <div class="hw">
-    <student_detail :student="student" :countLeaves="countLeaves" :countApproved="countApproved" :countRejected="countRejected" :countPending="countPending" ></student_detail> 
+    <student_detail :student="students" :countLeaves="countLeaves" :countApproved="countApproved" :countRejected="countRejected" :countPending="countPending" ></student_detail> 
 </div>
 </template>
 
@@ -12,8 +12,8 @@ export default {
         "student_detail": StudentDetail
     },
     
-    props: ['studentId'],
-
+    props: ['studentId','students'],
+    inject:['students'],
     data(){
         return{
             student:{},
@@ -61,6 +61,11 @@ export default {
             this.countLeaves = res.data.leaves.length;
         })
     },
+    provide() {
+        return {
+            students: this.students,
+        }
+    }
 };
 </script>
 <style scoped>

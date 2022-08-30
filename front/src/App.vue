@@ -3,7 +3,7 @@
   <router-view  @request-login="login"/>
 </template>
 <script>
-import axiosApi from './api/api.js';
+import axiosApi from './api/api';
 import NavBar from "@/components/menu/NavBar.vue"
 export default {
   name:'App',
@@ -40,7 +40,7 @@ export default {
     axiosApi.post('http://127.0.0.1:8000/api/students/login',userInfo).then((resoponse)=>{
       this.user = resoponse.data.student;
       localStorage.setItem('token',resoponse.data.token);
-      localStorage.setItem('userId',resoponse.data.student.id)
+      localStorage.setItem('studentID',resoponse.data.student.id)
       console.log(resoponse.data)
       localStorage.setItem('userRole',"student");
       this.$router.push('/');

@@ -22,7 +22,7 @@ class StudentTableSeeder extends Seeder
             "first_name"=> "dyna",
             "last_name"=>"khorn",
             "gender"=> "male",
-            "email"=> "sreyleak.official@gmail.com",
+            "email"=> "sreyleak.student@gmail.com",
             "password" => Hash::make("1234ewq"),
             "class" => "2022WEB-A",
             "phone" => "077932529",

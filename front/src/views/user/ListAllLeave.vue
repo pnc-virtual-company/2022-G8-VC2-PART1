@@ -7,7 +7,7 @@
 <script>
 // @ is an alias to /src
 import LeaveForm from "@/components/list_all_leave/ListForm.vue";
-import axios from "../../axios-http.js";
+import axios from "../../api/api.js";
 export default {
   name: 'HomeView',
   components: {
@@ -23,7 +23,10 @@ export default {
       axios.get("/students/leaves").then((response) =>
       {
         for (let k = 0; k < response.data.length; k++) { 
-          this.list_all_leaves.push(response.data[k])
+          if (localStorage.getItem("studentID") == response.data[k].student_id) {
+            this.list_all_leaves.push(response.data[k])
+          }
+          console.log(response.data[k]);
         }
       }
       )

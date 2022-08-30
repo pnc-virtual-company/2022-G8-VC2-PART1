@@ -30,12 +30,8 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr v-for="(student,index) of filterData" 
-          :key="student" 
-          :index="index" 
-          :first_name="student.first_name"
-          :last_name="student.last_name"
-          >
+          <tr v-for="(student,index) of filterData" :key="student" :index="index" :first_name="student.first_name"
+            :last_name="student.last_name">
             <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>
@@ -45,7 +41,7 @@
               <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
                 DETAILS
               </router-link>
-              <!-- <button class="btn  bg-primary text-center text-light" @click="onDetail()">DETAILS</button> -->
+              
             </td>
             <td class="btn_edit_delete">
               <button class="btn btn_delete bg-danger text-center text-light"
@@ -79,7 +75,6 @@ export default {
   data() {
     return {
       showPopup: false,
-      // showDetailPopup: false,
       students_id: null,
       index: null
     }
@@ -99,9 +94,7 @@ export default {
       this.students_id = id;
       this.index = index;
     },
-    // onDetail() {
-    //   this.showDetailPopup = true;
-    // }
+
   }
 };
 </script>

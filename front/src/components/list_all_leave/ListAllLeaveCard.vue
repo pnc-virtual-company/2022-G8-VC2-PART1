@@ -51,6 +51,9 @@ export default {
 
 <style scoped>
 
+
+
+
 .list_card {
     background: #ffff;
     width: 100%;
@@ -77,19 +80,23 @@ li {
     list-style: none;
 }
 .padding,.pending {
-    color:gold;
+    color:orange;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
 .approve{
     color:rgb(0, 255, 0);
+    font-weight: bold;
     font-size: 1.2rem;
 }
 .cancelled{
     color:#000;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 .reject {
+    font-weight: bold;
     color:red;
     font-size: 1.2rem;
 }
