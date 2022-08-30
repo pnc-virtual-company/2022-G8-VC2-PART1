@@ -11,6 +11,7 @@
 <script>
 import StudentDetail from '@/components/studentlist/StudentDetail.vue'
 import axios from "../../axios-http.js"
+
 export default {
     components: {
         "student_detail": StudentDetail

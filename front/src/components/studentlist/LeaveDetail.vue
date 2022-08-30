@@ -9,7 +9,7 @@
         <h4>Leave Type   : {{leave.leave_type}}</h4>
         <h4>Reason    : {{leave.reason}}</h4>
         <h4>Status  : {{leave.status}}</h4>
-        <hr>
+        <hr> 
     </div>
 </template>
 

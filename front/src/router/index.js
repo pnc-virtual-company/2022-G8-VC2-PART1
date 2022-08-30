@@ -4,7 +4,7 @@ import ProfileUser from "@/views/user/ProfileUser.vue";
 import Login from "@/authentication/FormLogin.vue";
 import CheckLeave from "@/views/admin/CheckleaveView.vue";
 import StudentList from "@/views/admin/StudentlistView.vue";
-import StudentDetail from "@/components/studentlist/StudentDetail.vue";
+import StudentDetailView from "@/views/admin/StudentDetailView.vue";
 import Addstudent from "@/components/studentlist/AddStudent.vue";
 const routes = [
   {
@@ -51,7 +51,7 @@ const routes = [
   {
     path: "/student_details/:studentId",
     name: "student_details",
-    component: StudentDetail,
+    component: StudentDetailView,
     props: true,
     meta:{
       needLogin:true,

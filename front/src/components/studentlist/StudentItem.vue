@@ -12,7 +12,7 @@
         </div>
         <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
           <button class="btn btn-cancel btn-danger" @click="showPopup =false">Cancel</button>
-          <button class="btn btn-delete " @click="deleteStudent(index,student_id)">Delete</button>
+          <button class="btn btn-delete " @click="deleteStudent(index,students_id)">Delete</button>
         </div>
       </div>
     </div>

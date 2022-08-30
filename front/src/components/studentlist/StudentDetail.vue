@@ -3,6 +3,7 @@
         <div class="card_header">
            <h1>Detail Info Of : {{student.first_name}} {{student.last_name}}</h1>
         </div>
+        
         <div class="card_body">
             <h4>ID      : {{student.studentID}}</h4>
             <h4>Name    : {{student.first_name}} {{student.last_name}}</h4>
@@ -14,10 +15,12 @@
             <h4>Number of Leaves    : {{countLeaves}}</h4>
             <h4>Number of approved  : {{countApproved}}</h4>
             <h4>Number of rejected  : {{countRejected}}</h4>
-            <h4>Number of pending   : {{countPending}}</h4>
-            <!-- <p>{{student.leaves}}</p> -->
+            <h4>Number of pending   : {{countPending}}</h4> 
+           
+
             
         </div>
+        
         <div class="card_footer">
             <leave_detail v-for:="leave in student.leaves" :leave="leave"></leave_detail>
         </div>
