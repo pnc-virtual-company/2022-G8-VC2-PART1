@@ -1,47 +1,259 @@
 <template>
-
-    <li>
-        <!-- <div class="main_card">
-            <div class="profile">
-                <img :src="image" alt="" style="width:110px; height:110px;margin-left: 5%;">
-                {{image}}
-            </div>
-            <div class="student_info">
-                <div class="student_name">
-                    <p>Name: <span>{{ first_name }}{{ " " }}{{ last_name }}</span></p>
-                    <p>Email: <span>{{ email }}</span></p>
-                </div>
-                <div class="student_class">
-                    <p>Batch: <span>{{ batch }}</span></p>
-                </div>
-            </div>
-            <div class="btn">
-                <button class="btn_details"><router-link :to="/student_details/ + student_id">DETAILS</router-link></button>
-                <button class="btn_edit">EDIT</button>
-                <button class="btn_delete" @click="$emit('delete-student', student_id)">DELETE</button>  
-            </div>
-        </div> -->
-    <div class="pop_up  " v-if="showPopup">
+  <li>
+    <div class="pop_up" v-if="showPopup">
       <div class="background">
         <div class="text text-center">
           <p class="fs-2">Are you sure to delete?</p>
-          <span class="question_mark material-symbols-outlined">
-            help
-          </span>
+          <span class="question_mark material-symbols-outlined"> help </span>
         </div>
-        <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
-          <button class="btn btn-cancel btn-danger" @click="showPopup =false">Cancel</button>
-          <button class="btn btn-delete " @click="deleteStudent(index,student_id)">Delete</button>
+        <div
+          class="
+            btn btn_cancel_delete
+            d-flex
+            justify-content-between
+            align-items-center
+          "
+        >
+          <button class="btn btn-cancel btn-danger" @click="showPopup = false">
+            Cancel
+          </button>
+          <button
+            class="btn btn-delete"
+            @click="deleteStudent(index, student_id)"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
-    <div class="main_card">
+
+    <!-- <div class="pop_up  " v-if="showEditPopup">
+      <div class="background">
+        <div class="text text-center">
+          <p class="fs-2">Are you sure to edit?</p>
+          
+        </div>
+        <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
+          <button class="btn btn-cancel btn-danger" @click="showEditPopup =false">Cancel</button>
+          <button class="btn btn-delete " @click="editStudent(index,student_id)">Edit</button>
+        </div>
+      </div>
+    </div> -->
+    <div class="form_add_student" v-if="showEditPopup">
+      <form @submit.prevent="editStudent(index)">
+        <div class="form_header d-flex justify-content-center align-center">
+          <span class="text-center" v-for="student in students" :key="student"
+            >Edit Student {{ student.first_name }}</span
+          >
+        </div>
+        <div class="form_body">
+          <div class="side_left p-2">
+            <div class="username d-flex">
+              <div class="first_name">
+                <label class="form-label required" for="first_name"
+                  >First Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="first_name"
+                  placeholder="firstname"
+                  v-model="first_name"
+                  @change="is_first_name_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_first_name_valid">Please enter firstname</p>
+                </div>
+              </div>
+              <div class="last_name">
+                <label class="form-label required" for="last_name"
+                  >Last Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="last_name"
+                  placeholder="lastname"
+                  v-model="last_name"
+                  @change="is_last_name_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_last_name_valid">Please enter lastname</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="
+                gender_batch
+                d-flex
+                justify-content-between
+                align-items-center
+              "
+            >
+              <div class="gender mb-3">
+                <label class="form-label required" for="gender">Gender</label>
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="gender"
+                  @change="is_gender_valid = false"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                <div class="error">
+                  <p v-if="is_gender_valid">Please select gender</p>
+                </div>
+              </div>
+              <div class="batch">
+                <label class="form-label required" for="batch">Batch</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="batch"
+                  placeholder="batch"
+                  v-model="batch"
+                  @change="is_batch_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_batch_valid">Please enter student batch</p>
+                </div>
+              </div>
+            </div>
+            <div class="student_class_id mb-3">
+              <div class="student_class">
+                <label class="form-label required" for="student_class"
+                  >Class</label
+                >
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="student_class"
+                  @change="is_class_valid = false"
+                >
+                  <option value="SNA">SAN</option>
+                  <option value="WEB A">WEB A</option>
+                  <option value="WEB B">WEB B</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+                <div class="error">
+                  <p v-if="is_class_valid">Please select class</p>
+                </div>
+              </div>
+              <div class="student_id">
+                <label class="form-label required" for="student_id"
+                  >Student ID</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  id="student_id"
+                  placeholder="Student ID"
+                  v-model="student_id"
+                  @change="is_student_id_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_student_id_valid">Please enter student ID</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="side_right p-2 mb-3">
+            <div class="email mb-3">
+              <label class="form-label required" for="email">Email</label>
+              <input
+                class="form-control w-100"
+                type="email"
+                id="email"
+                placeholder="email"
+                v-model="email"
+                @change="is_email_valid = false"
+              />
+              <div class="error">
+                <p v-if="is_email_valid">Please enter student's email</p>
+              </div>
+            </div>
+            <div class="password">
+              <label class="form-label required" for="password">Password</label>
+              <div class="psw d-flex">
+                <input
+                  v-if="showPassword"
+                  class="form-control w-100 psw"
+                  type="text"
+                  id="password"
+                  placeholder="password"
+                  v-model="password"
+                  @change="is_password_valid = false"
+                />
+                <input
+                  v-else
+                  class="form-control w-100 psw"
+                  type="password"
+                  id="password"
+                  placeholder="password"
+                  v-model="password"
+                  @change="is_password_valid = false"
+                />
+                <div class="btn_show_psw">
+                  <button @click="toggleShow">
+                    <span class="material-symbols-outlined" v-if="showPassword">
+                      visibility
+                    </span>
+                    <span class="material-symbols-outlined" v-else>
+                      visibility_off
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div class="error">
+                <p v-if="is_password_valid">Please enter student's password</p>
+              </div>
+            </div>
+            <div class="phonenumber mt-3">
+              <label class="form-label required" for="phonenumber">Phone</label>
+              <input
+                class="form-control w-100"
+                type="text"
+                name=""
+                id="phonenumber"
+                placeholder="phone number"
+                v-model="phone"
+                @change="is_phone_valid = false"
+              />
+              <div class="error">
+                <p v-if="is_phone_valid">Please enter student's phone number</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="form_footer btn d-flex justify-content-end align-items-center"
+        >
+          <router-link
+            to="studentlist"
+            @click="showEditPopup = false"
+            class="btn btn-danger btn-md m-1"
+          >
+            Cancel
+          </router-link>
+          <button type="submit" class="btn btn_register btn-md m-1">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="main_card" v-else>
       <table>
         <thead>
           <tr>
             <th scope="col">ID</th>
             <th scope="col">STUDENT</th>
-            <th scope="col" style="width:250px">EMAIL</th>
+            <th scope="col" style="width: 250px">EMAIL</th>
             <th scope="col">CLASS</th>
             <th scope="col">BATCH</th>
             <th scope="col">INFO</th>
@@ -49,22 +261,37 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr v-for="(student,index) of filterData" :key="student" :index="index">
-            <th scope="row">{{student.studentID}}</th>
-            <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
-            <td style="width:190px">{{student.email}}</td>
-            <td>{{student.class}}</td>
-            <td>{{student.batch.toUpperCase()}}</td>
+          <tr
+            v-for="(student, index) of filterData"
+            :key="student"
+            :index="index"
+          >
+            <th scope="row">{{ student.studentID }}</th>
+            <td>{{ student.first_name }}{{ " " }}{{ student.last_name }}</td>
+            <td style="width: 190px">{{ student.email }}</td>
+            <td>{{ student.class }}</td>
+            <td>{{ student.batch.toUpperCase() }}</td>
             <td>
-              <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
+              <router-link
+                :to="/student_details/ + student.id"
+                class="btn btn_detail text-decoration-none text-light"
+              >
                 DETAILS
               </router-link>
             </td>
             <td class="btn_edit_delete">
-              <button class="btn btn_delete bg-danger text-center text-light"
-                @click="onDelete(index,student.id)">DELETE</button>
-              <router-link to="/new_request" class="btn btn_edit text-decoration-none  text-light m-1">EDIT
-              </router-link>
+              <button
+                class="btn btn_delete bg-danger text-center text-light"
+                @click="onDelete(index, student.id)"
+              >
+                DELETE
+              </button>
+              <button
+                class="btn btn_edit text-decoration-none text-light m-1"
+                @click="onEdit(index, student.id)"
+              >
+                EDIT
+              </button>
             </td>
           </tr>
         </tbody>
@@ -85,36 +312,296 @@
 </template>
 
 <script>
-import axios from "@/axios-http.js"
+import axios from "@/axios-http.js";
 export default {
-  props: ['filterData'],
-  inject: ['students',],
+  props: ["filterData"],
+  inject: ["students"],
   data() {
     return {
       showPopup: false,
+      showEditPopup: false,
       students_id: null,
-      index: null
-    }
+      index: null,
+
+      first_name:this.students.first_name,
+      last_name: "",
+      gender: "",
+      batch: "",
+      email: "",
+      password: "12345678",
+      phone: "",
+      images: "",
+      student_class: "",
+      student_id: null,
+      is_first_name_valid: false,
+      is_last_name_valid: false,
+      is_email_valid: false,
+      is_phone_valid: false,
+      is_password_valid: false,
+      is_gender_valid: false,
+      is_batch_valid: false,
+      is_wrong_email: false,
+      showPassword: false,
+      is_class_valid: false,
+      is_email_exists: false,
+      is_student_id_valid: false,
+    };
   },
-  methods:{
+  methods: {
+    getData() {
+      this.students
+    },
     deleteStudent(index, id) {
       console.log(index, id);
       axios.delete("social_affiars/students/" + id).then((res) => {
-        console.log(res)
-      })
-      this.students.splice(index, 1)
-      this.showPopup = false
+        console.log("This is delete data " + res);
+      });
+      this.students.splice(index, 1);
+      this.showPopup = false;
     },
-    onDelete(index,id) {
+    // clearForm() {
+    //   this.first_name = "";
+    //   this.last_name = "";
+    //   this.gender = "";
+    //   this.phone = "";
+    //   this.student_class = "";
+    //   // this.password = "";
+    //   this.email = "";
+    //   this.batch = "";
+    //   this.image = "";
+    //   this.student_id = "";
+    // },
+    editStudent(id) {
+      // this.validateForm();
+      // console.log(index);
+      
+      let object = {
+        user_id: 1,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        gender: this.gender,
+        batch: this.batch,
+        password: this.password,
+        phone: this.phone,
+        // image: this.image.name,
+        email: this.email,
+        studentID: this.student_id,
+        class: this.student_class,
+      };
+      if (
+        this.first_name !== "" &&
+        this.last_name !== "" &&
+        this.gender !== "" &&
+        this.batch !== "" &&
+        this.password !== "" &&
+        this.phone !== "" &&
+        this.email !== "" &&
+        this.student_id !== ""
+      ) {
+        axios.put("social_affairs/students/" +id, object).then((res) => {
+          // return this.$router.push({ object });
+          // object.first_name = this.first_name;
+          object = res.data
+          console.log("Hey you edit already ");
+        });
+        // this.clearForm();
+      }
+      // console.log("Edit Successfully");
+      console.log(this.first_name)
+      console.log(this.last_name)
+      this.showEditPopup = false;
+    },
+    //   // validateForm() {
+    //   //   this.is_first_name_valid = false;
+    //   //   this.is_last_name_valid = false;
+    //   //   this.is_gender_valid = false;
+    //   //   this.is_batch_valid = false;
+    //   //   this.is_email_valid = false;
+    //   //   this.is_password_valid = false;
+    //   //   this.is_phone_valid = false;
+    //   //   this.is_student_id_valid = false;
+    //   //   this.is_class_valid = false;
+    //   //   if (this.first_name == "") {
+    //   //     this.is_first_name_valid = true;
+    //   //   }
+    //   //   if (this.last_name == "") {
+    //   //     this.is_last_name_valid = true;
+    //   //   }
+    //   //   if (this.gender == "") {
+    //   //     this.is_gender_valid = true;
+    //   //   }
+    //   //   if (this.batch == "") {
+    //   //     this.is_batch_valid = true;
+    //   //   }
+    //   //   if (this.email == "") {
+    //   //     this.is_email_valid = true;
+    //   //   }
+    //   //   if (this.password == "") {
+    //   //     this.is_password_valid = true;
+    //   //   }
+    //   //   if (this.phone == "") {
+    //   //     this.is_phone_valid = true;
+    //   //   }
+    //   //   if (this.student_class == "") {
+    //   //     this.is_class_valid = true;
+    //   //   }
+    //   //   if (this.student_id == "") {
+    //   //     this.is_student_id_valid = true;
+    //   //   }
+    //   // },
+    //   // toggleShow() {
+    //   //   this.showPassword = !this.showPassword;
+    //   // }
+    // },
+    // editStudent(index, id) {
+    //   console.log(index, id);
+    //   axios.post("social_affiars/students/" + id).then((res) => {
+    //     console.log(res);
+    //   });
+    //   // this.students.splice(index, 1)
+    //   this.showEditPopup = false;
+    // },
+    onDelete(index, id) {
       this.showPopup = true;
       this.students_id = id;
       this.index = index;
     },
-  }
+    onEdit(index, id) {
+      this.showEditPopup = true;
+      this.students_id = id;
+      this.index = index;
+    },
+    //   computed: {
+    //   disableButtonSubmit() {
+    //     let disableSubmit = true;
+    //     if (this.first_name || this.last_name || this.gender || this.batch || this.email || this.student_class || this.phone) {
+    //       disableSubmit = false;
+    //     }
+    //     return disableSubmit;
+    //   },
+
+    // }
+  },
 };
 </script>
 
 <style scoped>
+.form_add_student {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 5%;
+  border-radius: 0 0 7px 7px;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+}
+
+.form_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+  border-radius: 7px 7px 0 0;
+  color: #63bfe7;
+  padding: 10px;
+}
+
+.form_header span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.form_body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form_body span {
+  font-size: 1.2rem;
+}
+
+.side_left {
+  width: 49%;
+}
+
+.side_right {
+  width: 49%;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.first_name .form-control {
+  width: 99%;
+}
+
+.last_name .form-control {
+  width: 99%;
+}
+.gender_batch {
+  width: 100%;
+}
+.gender {
+  width: 57%;
+  margin-top: 17px;
+}
+.gender .form-select {
+  margin-right: 20px;
+}
+.batch .form-control {
+  width: 99%;
+  margin-left: 0.7%;
+}
+.student_class_id {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.student_id,
+.student_class {
+  width: 49.8%;
+}
+
+.form_footer a {
+  width: 130px;
+  font-size: 1.1rem;
+}
+
+.btn_register {
+  width: 130px;
+  font-size: 1.1rem;
+  background: #63bfe7;
+  color: #fff;
+}
+
+.error {
+  color: red;
+}
+.psw {
+  border-right: none;
+}
+.psw button {
+  background: none;
+  border: none;
+}
+.psw input {
+  border-radius: 7px 0px 0px 7px;
+}
+.btn_show_psw {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 0 7px 7px 0;
+}
 li {
   padding: 7px;
   list-style-type: none;
@@ -138,39 +625,40 @@ table {
 table,
 tr,
 th {
-
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px;
   text-align: center;
-
 }
-.btn_detail{
+.btn_detail {
   width: 70%;
   font-size: 0.9rem;
   background: orange;
   margin: auto;
 }
-.btn_edit_delete .btn_delete, .btn_edit{
+.btn_edit_delete .btn_delete,
+.btn_edit {
   width: 40%;
   font-size: 0.9rem;
 }
- .btn_edit{
-  background: #63BFE7;
+.btn_edit {
+  background: #63bfe7;
 }
-.btn-cancel, .btn-delete{
+.btn-cancel,
+.btn-delete {
   width: 80px;
 }
-.btn-delete{
-  background: #63BFE7;
-  color:#fff;
+.btn-delete {
+  background: #63bfe7;
+  color: #fff;
 }
-.background{
+.background {
   width: 35%;
   margin: auto;
   padding: 20px;
   background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 .btn_cancel_delete {
   width: 50%;
@@ -186,10 +674,10 @@ th {
   right: 0;
   left: 0;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7) ;
+  background: rgba(0, 0, 0, 0.7);
 }
-.question_mark{
+.question_mark {
   font-size: 7rem;
-  color:red;
+  color: red;
 }
 </style>
