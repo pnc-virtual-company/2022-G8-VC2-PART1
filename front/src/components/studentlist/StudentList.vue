@@ -27,7 +27,7 @@
 <script>
 import StudentItem from "@/components/studentlist/StudentItem.vue"
 export default {
-    props: { students: Object },
+    props: { students: Object  },
     inject: ['students'],
     components: {
         'student_item': StudentItem,

@@ -15,11 +15,12 @@
                 </div>
             <div class="user_name">
                 <div class="user_profile">
-                    <router-link to="/profile">Phearun Chhun</router-link>
+                    <router-link to="/profile_student" v-if="userRole=='student'">Phearun Chhun</router-link>
+                    <router-link to="/profile_admin" v-if="userRole=='admin'">Phearun Chhun</router-link>
                 </div>
                 <div class="btn_sign_out">
                     <button @click="$emit('request-logout')">
-                        <img src="../../assets/logout.png" alt="" style="width:40px;height:40px">
+                        <img src="../../assets/logout.png" alt="" style="width:30px;height:30px;color:#fff;">
                     </button>
                 </div>
             </div>
@@ -35,10 +36,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
 * {
     padding: 0;
     margin: 0;

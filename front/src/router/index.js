@@ -4,59 +4,79 @@ import ProfileUser from "@/views/user/ProfileUser.vue";
 import Login from "@/authentication/FormLogin.vue";
 import CheckLeave from "@/views/admin/CheckleaveView.vue";
 import StudentList from "@/views/admin/StudentlistView.vue";
+import AddStudent from "@/components/studentlist/AddStudent.vue";
 import StudentDetailView from "@/views/admin/StudentDetailView.vue";
 import Addstudent from "@/components/studentlist/AddStudent.vue";
+import ProfileAdmin from "@/views/admin/ProfileAdmin.vue";
 const routes = [
   {
     path: "/",
-    name:"list_all_leave",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    name: "list_all_leave",
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
-    component:ListAllLeave,
+    component: ListAllLeave,
   },
   {
-    path:'/login',
-    name:"login",
-    component:Login,
+    path: "/login",
+    name: "login",
+    component: Login,
   },
   {
-    path: "/profile",
-    name: "profile",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    path: "/profile_student",
+    name: "profile_student",
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: ProfileUser,
   },
   {
+    path: "/profile_admin",
+    name: "profile",
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
+    component: ProfileAdmin,
+  },
+  {
     path: "/checkleave",
     name: "checkleave",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: CheckLeave,
   },
   {
     path: "/studentlist",
     name: "studentlist",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     component: StudentList,
+  },
+  {
+    path: "/addstudent",
+    name: "addstudent",
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
+    component: AddStudent,
   },
   {
     path: "/student_details/:studentId",
     name: "student_details",
     component: StudentDetailView,
     props: true,
-    meta:{
-      needLogin:true,
-      needUser:true,
-    }
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
   },
   {
     path:"/addstudent",
@@ -75,9 +95,9 @@ const routes = [
   {
     path: "/new_request",
     name: "new_request",
-    meta:{
-      needLogin:true,
-      needUser:true,
+    meta: {
+      needLogin: true,
+      needUser: true,
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -90,7 +110,7 @@ const routes = [
 function authenticationGuard (to, from, next) {
   let needLogin = to.meta.needLogin;
   if (needLogin) {
-    if (!localStorage.userId) {
+    if (!localStorage.userRole) {
       next('/login');
       return;
     }
@@ -103,6 +123,7 @@ function authenticationGuard (to, from, next) {
       }
     }
   }
+  
   else {
     if (localStorage.userId) {
       if (to.path === '/login') {

@@ -50,7 +50,7 @@ export default {
             image: null,
             isFileUploaded: false,
             uploadedImage: null,
-            allowExtension: ['jpg', 'png', 'jpeg'],
+            allowExtension: ['jpg', 'png', 'jpeg', 'gif', 'psd', 'webp'],
         }
     },
     components: {
@@ -110,42 +110,42 @@ export default {
 
 <style scoped>
 
-body {
-    background-color: #efefef;
-}
+    body {
+        background-color: #efefef;
+    }
 
-.container {
-    width: 100%;
-    display: flex;
-    /* flex-direction: column; */
-    align-content: center;
-}
+    .container {
+        width: 100%;
+        display: flex;
+        /* flex-direction: column; */
+        align-content: center;
+    }
 
-.user_profile{
-   
-    margin: auto;
-    width: 50%;
-    padding: 20px;
-    margin-top: 10%;
-    background: rgb(187, 186, 186);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 7px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center ;
-}
+    .user_profile{
+    
+        margin: auto;
+        width: 50%;
+        padding: 20px;
+        margin-top: 10%;
+        background: rgb(187, 186, 186);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 7px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center ;
+    }
 
-.profile-img {
-    width: 128px;
-    height: 128px;
-    display: block;
-} 
-.profile{
-    width: 40%;
-}
-.user_information{
-    width: 60%;
-}
+    .profile-img {
+        width: 128px;
+        height: 128px;
+        display: block;
+    } 
+    .profile{
+        width: 40%;
+    }
+    .user_information{
+        width: 60%;
+    }
 
 .image-preview-container {
     width: 100%;

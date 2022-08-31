@@ -1,50 +1,59 @@
 <template>
-  <div>
-    <div class="filter_banner">
-    <div class="filter_status">
-      <p>Filter By Status</p>
-      <select name="status" v-model="filterStatus" @change="getLeaveFilter">
-        <option value="Show all">Show all</option>
-        <option value="Padding">Padding</option>
-        <option value="Approved">Approve</option>
-        <option value="Rejected">Reject</option>
-      </select>
-    </div>
-    <div class="filter_type">
-      <p>Filter By Leave Types</p>
-      <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
-        <option value="Show all">Show all</option>
-        <option value="SICK">Sick</option>
-        <option value="WIDDING">Wedding</option>
-        <option value="FAMILY-EVENT">Family-event</option>
-        <option value="OTHER">Other</option>
-      </select>
-    </div>
-  </div>
-  <div class="all_card" v-if="leaves.length != 0">
-    <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
-      <div class="leave_info">
-        <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
-        <p>Date Start: <strong>{{leave.start_date}}</strong></p>
-        <p>Date End: <strong>{{leave.end_date}}</strong></p>
-        <p>Duration: <strong>{{leave.duration}} days</strong></p>
+  <div class="filter_banner">
+    <div class="filter_bar">
+      <div class="filter_status">
+        <p>Filter By Status</p>
+        <select name="status" v-model="filterStatus" @change="getLeaveFilter">
+          <option value="Show all">Show all</option>
+          <option value="Padding">Padding</option>
+          <option value="Approved">Approve</option>
+          <option value="Rejected">Reject</option>
+        </select>
       </div>
-      <div class="btn">
-        <div class="btn_action" v-if="leave.status === null">
-          <button class="approve" @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
-          <button class="reject" @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+      <div class="filter_type">
+        <p>Filter By Leave Types</p>
+        <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
+          <option value="Show all">Show all</option>
+          <option value="Sick Leave">Sick leave</option>
+          <option value="WIDDING">Wedding</option>
+          <option value="Family's event">Family-event</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div class="all_card" v-if="leaves.length != 0">
+        <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
+          <div class="leave_info">
+            <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
+            <p>Date Start: <strong>{{leave.start_date}}</strong></p>
+            <p>Date End: <strong>{{leave.end_date}}</strong></p>
+            <p>Duration: <strong>{{leave.duration}} days</strong></p>
+          </div>
+          <div class="btn">
+            <div class="btn_action" v-if="leave.status === null">
+              <button class="approve"
+                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
+              <button class="reject"
+                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+            </div>
+            <div v-else class="leave_status">
+              <p  class="status">{{leave.status}}</p>
+            </div>
+          </div>
         </div>
-        <p v-else class="status">{{leave.status}}</p>
+      </div>
+      <div v-else class="no_leave d-flex justify-content-center align-items-center" style="margin-top:25%;">
+        <span  class="no_leave text-danger" style="font-size:4rem">No Leave found!!!</span>
       </div>
     </div>
-  </div>
-  <span v-else class="no_leave">No Leave</span>
   </div>
  
 </template>
 
 <script>
-import axiosApi from '../../axios-http'
+import axios from "../../api/api.js";
+
 export default {
   data() {
     return {
@@ -59,32 +68,32 @@ export default {
   methods: {
     replyBack(indexId,message) {
       console.log(indexId,message);
-      axiosApi.put('social_affairs/leaves/' + indexId,message).then(res => {
+      axios.put('social_affairs/leaves/' + indexId,message).then(res => {
         console.log(res.data);
         window.location.reload();
       });
     },
     getAllLeave() {
-      axiosApi.get('social_affairs/leaves/').then(res =>{
+      axios.get('social_affairs/leaves/').then(res =>{
         this.leaves = res.data;
         console.log(this.leaves);
       });
     },
     getLeaveFilter() {
       if ((this.filterStatus != 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
           
           this.leaves = res.data.filter(leave => (leave.status == this.filterStatus) && (leave.leave_type == this.filterLeaveType));
         });
       }
       else if ((this.filterStatus == 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
           
           this.leaves = res.data.filter(leave => leave.leave_type == this.filterLeaveType);
         });
       }
       else if ((this.filterLeaveType == 'Show all') && ((this.filterStatus != 'Show all'))) {
-        axiosApi.get('social_affairs/leaves/').then(res =>{
+        axios.get('social_affairs/leaves/').then(res =>{
   
           this.leaves = res.data.filter(leave => leave.status == this.filterStatus);
         });
@@ -109,15 +118,23 @@ select{
   padding: 8px;
 }
 .filter_banner{
-  margin: auto;
-  margin-top:90px ;
-  width: 60%;
-  display: flex;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  margin-top: 15%;
 }
-
+.filter_bar {
+  border-radius: 10px;
+  padding: 15px;
+  margin-top:90px ;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  position: fixed;
+  top: 12%;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
 span{
   text-align: center;
   font-size: 2rem;
@@ -173,18 +190,16 @@ img{
 
 .card_leave{
   padding: 10px;
-  border-left: 2px solid #63bfe7;
+  border-left: 5px solid #63bfe7;
   margin: 10px;
   display: flex;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 .all_card{
-  width: 98%;
+  width: 90%;
   margin: auto;
   padding: 10px;
-  height: 51.5vh;
-  overflow: scroll;
 }
 
 </style>

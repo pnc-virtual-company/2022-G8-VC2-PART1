@@ -5,7 +5,7 @@
 
 <script>
 import StudentList from "@/components/studentlist/StudentList.vue"
-import axios from "../../axios-http.js"
+import axios from "../../api/api.js"
 export default {
     components: {
         "student_list":StudentList
@@ -21,7 +21,6 @@ export default {
                 for (let k = 0; k < response.data.length; k++) {
                     console.log(response.data);
                     this.students.push(response.data[k]);
-
                 }
             })
         },

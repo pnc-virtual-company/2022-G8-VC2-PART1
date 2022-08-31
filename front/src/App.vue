@@ -3,6 +3,7 @@
   <router-view  @request-login="login"/>
 </template>
 <script>
+import Swal from "sweetalert2";
 import axiosApi from './api/api';
 import NavBar from "@/components/menu/NavBar.vue"
 export default {
@@ -20,10 +21,33 @@ export default {
   methods: {
    login(userInfo){
       if (userInfo.email.search('admin') != -1){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Login success!',
+          showConfirmButton: false,
+          timer: 950
+        })
         this.adminLogin(userInfo);
-    }else if (userInfo.email.search('student') != -1){
+      } else if (userInfo.email.search('student') != -1) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Login success!',
+          showConfirmButton: false,
+          timer: 950
+        })
       this.studentLogin(userInfo);
-    }
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Login unsuccess!',
+          text: "Please login again!",
+          showConfirmButton: false,
+          timer: 1200
+        })
+      }
    },
    adminLogin(userInfo){
       axiosApi.post('http://127.0.0.1:8000/api/social_affairs/login',userInfo).then((response)=>{
@@ -40,7 +64,7 @@ export default {
     axiosApi.post('http://127.0.0.1:8000/api/students/login',userInfo).then((resoponse)=>{
       this.user = resoponse.data.student;
       localStorage.setItem('token',resoponse.data.token);
-      localStorage.setItem('userId',resoponse.data.student.id)
+      localStorage.setItem('studentID',resoponse.data.student.id)
       console.log(resoponse.data)
       localStorage.setItem('userRole',"student");
       this.$router.push('/');
@@ -49,7 +73,14 @@ export default {
     })
    },
    logout(){
-    axiosApi.delete('http://127.0.0.1:8000/api/social_affairs/logout').then((response)=>{
+     axiosApi.delete('http://127.0.0.1:8000/api/social_affairs/logout').then((response) => {
+       Swal.fire({
+         position: 'center',
+         icon: 'success',
+         title: 'Logout success!',
+         showConfirmButton: false,
+         timer: 1200
+       })
       this.user = null,
       localStorage.removeItem('token');
       localStorage.removeItem('userId');

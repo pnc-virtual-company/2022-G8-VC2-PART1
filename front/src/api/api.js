@@ -5,7 +5,7 @@ const axiosApi = axios.create({
   headers: {
     "Content-type": "application/json",
     'Authorization': 'Bearer ' +  localStorage.getItem('token')
-  }
+  },
 });
 
 axiosApi.interceptors.request.use(function (config) {
