@@ -1,8 +1,15 @@
 <template>
   <div class="form_add_student">
     <form @submit.prevent="addStudent">
-      <div class="form_header d-flex justify-content-center align-center">
+      <div class="form_header d-flex justify-content-between align-center">
+        <div></div>
         <span class="text-center">Add Student</span>
+        <div class="select_role">
+          <select name="" id="">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
       </div>
       <div class="form_body">
         <div class="side_left p-2">
@@ -50,7 +57,7 @@
               <label class="form-label required" for="student_class">Class</label>
               <select class="form-select  form-select-md  " aria-label=".form-select-lg example" v-model="student_class"
                 @change="is_class_valid=false">
-                <option value="SNA">SAN</option>
+                <option value="SNA">SNA</option>
                 <option value="WEB A">WEB A</option>
                 <option value="WEB B">WEB B</option>
                 <option value="A">A</option>
@@ -111,7 +118,7 @@
           </div>
           <div class="phonenumber mt-3">
             <label class="form-label required" for="phonenumber">Phone</label>
-            <input class="form-control w-100" type="text" name="" id="phonenumber" placeholder="phone number"
+            <input class="form-control w-100" type="number" name="" id="phonenumber" placeholder="phone number"
               v-model="phone" @change="is_phone_valid =false">
             <div class="error">
               <p v-if="is_phone_valid">Please enter student's phone number</p>

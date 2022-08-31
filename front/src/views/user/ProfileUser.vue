@@ -1,5 +1,4 @@
 <template>
-    <!-- <base_card> -->
     <div class="user_profile">
         <div class="profile">
             <div class="circle">
@@ -20,14 +19,11 @@
             </div>
         </div>
     </div>
-    <!-- </base_card> -->
 
 </template>
 <script>
-// import BaseCard from "@/components/UI/BaseCard.vue";
 export default {
     components: {
-        // 'base_card': BaseCard
     }
 }
 

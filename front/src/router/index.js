@@ -5,8 +5,9 @@ import Login from "@/authentication/FormLogin.vue";
 import CheckLeave from "@/views/admin/CheckleaveView.vue";
 import StudentList from "@/views/admin/StudentlistView.vue";
 import AddStudent from "@/components/studentlist/AddStudent.vue";
-import StudentDetail from "@/views/admin/StudentDetailView.vue";
+import StudentDetailView from "@/views/admin/StudentDetailView.vue";
 import Addstudent from "@/components/studentlist/AddStudent.vue";
+import ProfileAdmin from "@/views/admin/ProfileAdmin.vue";
 const routes = [
   {
     path: "/",
@@ -23,13 +24,22 @@ const routes = [
     component: Login,
   },
   {
-    path: "/profile",
-    name: "profile",
+    path: "/profile_student",
+    name: "profile_student",
     meta: {
       needLogin: true,
       needUser: true,
     },
     component: ProfileUser,
+  },
+  {
+    path: "/profile_admin",
+    name: "profile",
+    meta: {
+      needLogin: true,
+      needUser: true,
+    },
+    component: ProfileAdmin,
   },
   {
     path: "/checkleave",
@@ -61,7 +71,7 @@ const routes = [
   {
     path: "/student_details/:studentId",
     name: "student_details",
-    component: StudentDetail,
+    component: StudentDetailView,
     props: true,
     meta: {
       needLogin: true,

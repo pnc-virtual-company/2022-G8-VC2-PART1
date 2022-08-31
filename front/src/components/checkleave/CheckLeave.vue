@@ -21,27 +21,34 @@
         </select>
       </div>
     </div>
-  </div>
-  <div class="all_card" v-if="leaves.length != 0">
-    <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
-      <div class="leave_info">
-        <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
-        <p>Date Start: <strong>{{leave.start_date}}</strong></p>
-        <p>Date End: <strong>{{leave.end_date}}</strong></p>
-        <p>Duration: <strong>{{leave.duration}} days</strong></p>
-      </div>
-      <div class="btn">
-        <div class="btn_action" v-if="leave.status === null">
-          <button class="approve"
-            @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
-          <button class="reject"
-            @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+    <div>
+      <div class="all_card" v-if="leaves.length != 0">
+        <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
+          <div class="leave_info">
+            <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
+            <p>Date Start: <strong>{{leave.start_date}}</strong></p>
+            <p>Date End: <strong>{{leave.end_date}}</strong></p>
+            <p>Duration: <strong>{{leave.duration}} days</strong></p>
+          </div>
+          <div class="btn">
+            <div class="btn_action" v-if="leave.status === null">
+              <button class="approve"
+                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
+              <button class="reject"
+                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+            </div>
+            <div v-else class="leave_status">
+              <p  class="status">{{leave.status}}</p>
+            </div>
+          </div>
         </div>
-        <p v-else class="status">{{leave.status}}</p>
+      </div>
+      <div v-else class="no_leave d-flex justify-content-center align-items-center" style="margin-top:25%;">
+        <span  class="no_leave text-danger" style="font-size:4rem">No Leave found!!!</span>
       </div>
     </div>
   </div>
-  <span v-else class="no_leave">No Leave</span>
+ 
 </template>
 
 <script>

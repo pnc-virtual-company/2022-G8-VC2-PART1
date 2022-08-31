@@ -1,6 +1,6 @@
 <template>
+  <!--======== delete pop up =========-->
   <li>
-    <!--======== delete pop up =========-->
     <div class="pop_up  " v-if="showPopup">
       <div class="background">
         <div class="text text-center">
@@ -15,6 +15,8 @@
         </div>
       </div>
     </div>
+    <!-- ===== edit ===== -->
+   
     <!-- ===== student card ===== -->
     <div class="main_card">
       <table>
@@ -30,8 +32,7 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr v-for="(student,index) of filterData" :key="student" :index="index" :first_name="student.first_name"
-            :last_name="student.last_name">
+          <tr v-for="(student,index) of filterData" :key="student" :index="index">
             <th scope="row">{{student.studentID}}</th>
             <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
             <td style="width:190px">{{student.email}}</td>
@@ -41,13 +42,14 @@
               <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
                 DETAILS
               </router-link>
-              
+
             </td>
             <td class="btn_edit_delete">
-              <button class="btn btn_delete bg-danger text-center text-light"
+              <button class="btn btn_delete bg-danger text-center text-light "
                 @click="onDelete(index,student.id)">DELETE</button>
-              <router-link to="/new_request" class="btn btn_edit text-decoration-none  text-light m-1">EDIT
-              </router-link>
+              <button class="btn btn_edit text-decoration-none  text-light m-1 " @click="onEdit(student.id)">EDIT</button>
+              <!-- <router-link to="/new_request" class="btn btn_edit text-decoration-none  text-light m-1">EDIT
+              </router-link> -->
             </td>
           </tr>
         </tbody>
