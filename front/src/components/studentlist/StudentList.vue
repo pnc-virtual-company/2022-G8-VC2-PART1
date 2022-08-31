@@ -1,6 +1,6 @@
 <template>
-    <div class="student_list">
-        <div class="header d-flex justify-content-evenly align-items-center">
+    <div class="student_list" >
+        <div v-if="!isHideFilter" class="header d-flex justify-content-evenly align-items-center" >
             <div class="filter_by_name m-2">
                 <label class="form-label required  " for="filter_by_name"></label>
                 <input class="form-control  p-2 " type="text" id="filter_by_name" placeholder="Filter by name"
@@ -18,7 +18,7 @@
             </div>
         </div>
         <ul>
-            <student_item :students="students" :filterData="filterData">
+            <student_item @isHideFilter="isHideFilter = !isHideFilter" :students="students" :filterData="filterData">
             </student_item>
         </ul>
     </div>
@@ -32,9 +32,9 @@ export default {
     components: {
         'student_item': StudentItem,
     },
-    
     data() {
         return {
+            isHideFilter: false,
             filter_by_name: "",
             filter_by_batch: "",
         }

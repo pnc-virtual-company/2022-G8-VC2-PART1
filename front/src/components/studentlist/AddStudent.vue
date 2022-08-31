@@ -118,7 +118,7 @@
           </div>
           <div class="phonenumber mt-3">
             <label class="form-label required" for="phonenumber">Phone</label>
-            <input class="form-control w-100" type="number" name="" id="phonenumber" placeholder="phone number"
+            <input class="form-control w-100" type="phonenumber" name="" id="phonenumber" placeholder="phone number"
               v-model="phone" @change="is_phone_valid =false">
             <div class="error">
               <p v-if="is_phone_valid">Please enter student's phone number</p>
@@ -289,7 +289,7 @@ export default {
   width: 60%;
   margin-left: 20%;
   margin-top: 5%;
-  border-radius: 0 0 7px 7px;
+  border-radius: 7px;
   box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px, rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
 }
 
