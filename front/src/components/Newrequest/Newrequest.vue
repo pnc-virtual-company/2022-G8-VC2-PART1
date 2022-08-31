@@ -109,9 +109,10 @@
 
 <script>
 import moment from "moment";
-import axios from "../../axios-http.js"
+import axios from "../../api/api"
 import Swal from "sweetalert2";
 export default {
+  name:'new-request',
   data() {
     return {
       leave_type: "",

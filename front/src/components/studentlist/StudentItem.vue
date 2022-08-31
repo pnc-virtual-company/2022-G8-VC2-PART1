@@ -1,11 +1,14 @@
 <template>
+
   <li>
     <div class="pop_up" v-if="showPopup">
+
       <div class="background">
         <div class="text text-center">
           <p class="fs-2">Are you sure to delete?</p>
           <span class="question_mark material-symbols-outlined"> help </span>
         </div>
+
         <div
           class="
             btn btn_cancel_delete
@@ -23,6 +26,11 @@
           >
             Delete
           </button>
+        </div>
+        <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
+          <button class="btn btn-cancel btn-danger" @click="showPopup =false">Cancel</button>
+          <button class="btn btn-delete " @click="deleteStudent(index,students_id)">Delete</button>
+
         </div>
       </div>
     </div>
@@ -230,16 +238,15 @@
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
-          <tr
-            v-for="(student, index) of filterData"
-            :key="student"
-            :index="index"
-          >
-            <th scope="row">{{ student.studentID }}</th>
-            <td>{{ student.first_name }}{{ " " }}{{ student.last_name }}</td>
-            <td style="width: 190px">{{ student.email }}</td>
-            <td>{{ student.class }}</td>
-            <td>{{ student.batch.toUpperCase() }}</td>
+
+
+          <tr v-for="(student,index) of filterData" :key="student" :index="index" >
+            <th scope="row">{{student.studentID}}</th>
+            <td>{{student.first_name}}{{" "}}{{student.last_name}}</td>
+            <td style="width:190px">{{student.email}}</td>
+            <td>{{student.class}}</td>
+            <td>{{student.batch.toUpperCase()}}</td>
+
             <td>
               <router-link
                 :to="/student_details/ + student.id"
@@ -292,8 +299,8 @@ export default {
       students_id: null,
       index: null,
 
-      id:null,
-      first_name:"",
+      id: null,
+      first_name: "",
       last_name: "",
       gender: "",
       batch: "",
@@ -315,12 +322,12 @@ export default {
       is_class_valid: false,
       is_email_exists: false,
       is_student_id_valid: false,
-      isTrue:true
+      isTrue: true,
     };
   },
   methods: {
     getData() {
-      this.students
+      this.students;
     },
     deleteStudent(index, id) {
       console.log(index, id);
@@ -354,17 +361,15 @@ export default {
         this.email !== "" &&
         this.student_id !== ""
       ) {
-        
-        axios.put("social_affairs/students/" +id, object).then(() => {
-          console.log("Edit Successfully"+id);
-          
+        axios.put("social_affairs/students/" + id, object).then(() => {
+          console.log("Edit Successfully" + id);
         });
       }
-      console.log(this.first_name)
-      console.log(this.last_name)
-      console.log("the id : "+id)
+      console.log(this.first_name);
+      console.log(this.last_name);
+      console.log("the id : " + id);
       this.showEditPopup = false;
-      this.isTrue=false;
+      this.isTrue = false;
     },
     onDelete(index, id) {
       this.showPopup = true;
@@ -375,24 +380,24 @@ export default {
       this.showEditPopup = true;
       this.students_id = id;
       this.index = index;
-      axios.get("social_affairs/students/" +id).then((res) => {
+      axios.get("social_affairs/students/" + id).then((res) => {
         let datas = res.data;
-          console.log(datas);
-          this.first_name = datas.first_name;
-          this.last_name = datas.last_name;
-          this.email = datas.email;
-          this.gender = datas.gender;
-          this.batch = datas.batch;
-          this.student_class = datas.class;
-          this.student_id = datas.studentID;
-          this.phone = datas.phone;
-        });
+        console.log(datas);
+        this.first_name = datas.first_name;
+        this.last_name = datas.last_name;
+        this.email = datas.email;
+        this.gender = datas.gender;
+        this.batch = datas.batch;
+        this.student_class = datas.class;
+        this.student_id = datas.studentID;
+        this.phone = datas.phone;
+      });
     },
-    provide(){
+    provide() {
       return {
-        isTrue:this.isTrue
-      }
-    }
+        isTrue: this.isTrue,
+      };
+    },
   },
 };
 </script>

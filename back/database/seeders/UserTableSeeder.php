@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
             'first_name' => 'Sim',
             'last_name' => 'Hul',
             'gender' => 'male',
-            'email' => 'socialaffair@passerellesnumeriques.org',
+            'email' => 'socialaffairadmin@passerellesnumeriques.org',
             'password' => Hash::make('pnc2022'),
             'position' => 'Social Affair Team Leader',
             'image' => 'image'

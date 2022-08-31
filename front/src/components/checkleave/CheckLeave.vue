@@ -1,5 +1,6 @@
 <template>
-  <div class="filter_banner">
+  <div>
+    <div class="filter_banner">
     <div class="filter_status">
       <p>Filter By Status</p>
       <select name="status" v-model="filterStatus" @change="getLeaveFilter">
@@ -38,6 +39,8 @@
     </div>
   </div>
   <span v-else class="no_leave">No Leave</span>
+  </div>
+ 
 </template>
 
 <script>

@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import axios from "../../axios-http.js";
+import axios from "../../api/api";
 import Swal from "sweetalert2";
 
 export default {
