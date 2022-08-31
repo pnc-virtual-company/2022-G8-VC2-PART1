@@ -175,7 +175,7 @@ class StudentController extends Controller
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        $student->image = $request->image;
+        // $student->image = $request->image;
         $student->email=$request->email;
         $student->class=$request->class;
         $student->password=Hash::make($request->password);
@@ -194,7 +194,6 @@ class StudentController extends Controller
     */
     public function destroy($id)
     {
-        $student = Student::where('id',$id);
          $student = Student::where('id',$id);
         if(!empty($student)){
             $student->delete();
