@@ -50,7 +50,7 @@ export default {
             image: null,
             isFileUploaded: false,
             uploadedImage: null,
-            allowExtension: ['jpg', 'png', 'jpeg', 'gif', 'psd', 'webp'],
+            allowExtension: ['jpg', 'png', 'jpeg', 'gif', 'webp'],
         }
     },
     components: {
@@ -101,7 +101,7 @@ export default {
     },
 
     created() {
-        this.user_id = JSON.parse(localStorage.getItem('userId'));
+        this.user_id = JSON.parse(localStorage.getItem('studentID'));
         this.getData();
     }
 }

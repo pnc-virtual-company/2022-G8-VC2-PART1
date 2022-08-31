@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody v-if="filterData.length > 0">
-                    <tr v-for="list  in filterData" :key="list">
+                    <tr v-for="list  in filterData.slice().reverse()" :key="list">
                         <td scope="row">{{list.created_at}}</td>
                         <td scope="row"> {{list.start_date}}</td>
                         <td scope="row">{{list.end_date}}</td>

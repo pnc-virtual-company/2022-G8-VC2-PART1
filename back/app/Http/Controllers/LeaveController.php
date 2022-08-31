@@ -33,29 +33,28 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        // $leave = $request->validate([
-        //     'leave_type' => 'required|String',
-        //     'start_date' => 'required|Date',
-        //     'end_date' => 'required|Date',
-        //     'duration' => 'required|numeric',
-        //     'reason' => 'String',
-        //     'status' => 'String',
-        // ]);
-        // $leave = new Leave();
-        // $leave->student_id=$request->student_id;
-        // $leave->user_id=$request->user_id;
-        // $leave->start_date= $request->start_date;
-        // $leave->end_date= $request->end_date;
-        // $leave->duration= $request->duration;
-        // $leave->leave_type= $request->leave_type;
-        // $leave->reason= $request->reason;
-        // $leave->status= "Padding";
-        // $leave->save();
+        $leave = $request->validate([
+            'leave_type' => 'required|String',
+            'start_date' => 'required|Date',
+            'end_date' => 'required|Date',
+            'duration' => 'required|numeric',
+            'reason' => 'String',
+            'status' => 'String',
+        ]);
+        $leave = new Leave();
+        $leave->student_id=$request->student_id;
+        $leave->user_id=$request->user_id;
+        $leave->start_date= $request->start_date;
+        $leave->end_date= $request->end_date;
+        $leave->duration= $request->duration;
+        $leave->leave_type= $request->leave_type;
+        $leave->reason= $request->reason;
+        $leave->status= "Padding";
+        $leave->save();
         
         // Sending mail to admin
-        // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
-        //  return response()->json(['leave'=>"leave is added"]);
+        Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
+        return response()->json(['leave'=>"leave is added"]);
     }
 
     /**
