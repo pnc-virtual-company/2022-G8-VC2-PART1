@@ -26,27 +26,14 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="pop_up  " v-if="showEditPopup">
-      <div class="background">
-        <div class="text text-center">
-          <p class="fs-2">Are you sure to edit?</p>
-          
-        </div>
-        <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
-          <button class="btn btn-cancel btn-danger" @click="showEditPopup =false">Cancel</button>
-          <button class="btn btn-delete " @click="editStudent(index,student_id)">Edit</button>
-        </div>
-      </div>
-    </div> -->
     <div class="form_add_student" v-if="showEditPopup">
-      <form @submit.prevent="editStudent(index)">
+      <form @submit.prevent="editStudent(id); $emit('isHideFilter')">
         <div class="form_header d-flex justify-content-center align-center">
-          <span class="text-center" v-for="student in students" :key="student"
-            >Edit Student {{ student.first_name }}</span
+          <span class="text-center"
+            >Update Student Information</span
           >
         </div>
-        <div class="form_body">
+        <div class="form_body" >
           <div class="side_left p-2">
             <div class="username d-flex">
               <div class="first_name">
@@ -60,10 +47,8 @@
                   placeholder="firstname"
                   v-model="first_name"
                   @change="is_first_name_valid = false"
+                  required
                 />
-                <div class="error">
-                  <p v-if="is_first_name_valid">Please enter firstname</p>
-                </div>
               </div>
               <div class="last_name">
                 <label class="form-label required" for="last_name"
@@ -76,10 +61,8 @@
                   placeholder="lastname"
                   v-model="last_name"
                   @change="is_last_name_valid = false"
+                  required
                 />
-                <div class="error">
-                  <p v-if="is_last_name_valid">Please enter lastname</p>
-                </div>
               </div>
             </div>
             <div
@@ -97,13 +80,11 @@
                   aria-label=".form-select-lg example"
                   v-model="gender"
                   @change="is_gender_valid = false"
+                  required
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
-                <div class="error">
-                  <p v-if="is_gender_valid">Please select gender</p>
-                </div>
               </div>
               <div class="batch">
                 <label class="form-label required" for="batch">Batch</label>
@@ -114,10 +95,8 @@
                   placeholder="batch"
                   v-model="batch"
                   @change="is_batch_valid = false"
+                  required
                 />
-                <div class="error">
-                  <p v-if="is_batch_valid">Please enter student batch</p>
-                </div>
               </div>
             </div>
             <div class="student_class_id mb-3">
@@ -130,8 +109,9 @@
                   aria-label=".form-select-lg example"
                   v-model="student_class"
                   @change="is_class_valid = false"
+                  required
                 >
-                  <option value="SNA">SAN</option>
+                  <option value="SNA">SNA</option>
                   <option value="WEB A">WEB A</option>
                   <option value="WEB B">WEB B</option>
                   <option value="A">A</option>
@@ -139,9 +119,6 @@
                   <option value="C">C</option>
                   <option value="D">D</option>
                 </select>
-                <div class="error">
-                  <p v-if="is_class_valid">Please select class</p>
-                </div>
               </div>
               <div class="student_id">
                 <label class="form-label required" for="student_id"
@@ -155,10 +132,8 @@
                   placeholder="Student ID"
                   v-model="student_id"
                   @change="is_student_id_valid = false"
+                  required
                 />
-                <div class="error">
-                  <p v-if="is_student_id_valid">Please enter student ID</p>
-                </div>
               </div>
             </div>
           </div>
@@ -172,10 +147,8 @@
                 placeholder="email"
                 v-model="email"
                 @change="is_email_valid = false"
+                required
               />
-              <div class="error">
-                <p v-if="is_email_valid">Please enter student's email</p>
-              </div>
             </div>
             <div class="password">
               <label class="form-label required" for="password">Password</label>
@@ -188,6 +161,7 @@
                   placeholder="password"
                   v-model="password"
                   @change="is_password_valid = false"
+                  required
                 />
                 <input
                   v-else
@@ -209,9 +183,6 @@
                   </button>
                 </div>
               </div>
-              <div class="error">
-                <p v-if="is_password_valid">Please enter student's password</p>
-              </div>
             </div>
             <div class="phonenumber mt-3">
               <label class="form-label required" for="phonenumber">Phone</label>
@@ -223,10 +194,8 @@
                 placeholder="phone number"
                 v-model="phone"
                 @change="is_phone_valid = false"
+                required
               />
-              <div class="error">
-                <p v-if="is_phone_valid">Please enter student's phone number</p>
-              </div>
             </div>
           </div>
         </div>
@@ -235,7 +204,7 @@
         >
           <router-link
             to="studentlist"
-            @click="showEditPopup = false"
+            @click="showEditPopup = false; $emit('isHideFilter')"
             class="btn btn-danger btn-md m-1"
           >
             Cancel
@@ -288,7 +257,7 @@
               </button>
               <button
                 class="btn btn_edit text-decoration-none text-light m-1"
-                @click="onEdit(index, student.id)"
+                @click="onEdit(index, student.id); $emit('isHideFilter')"
               >
                 EDIT
               </button>
@@ -323,7 +292,8 @@ export default {
       students_id: null,
       index: null,
 
-      first_name:this.students.first_name,
+      id:null,
+      first_name:"",
       last_name: "",
       gender: "",
       batch: "",
@@ -345,6 +315,7 @@ export default {
       is_class_valid: false,
       is_email_exists: false,
       is_student_id_valid: false,
+      isTrue:true
     };
   },
   methods: {
@@ -359,22 +330,8 @@ export default {
       this.students.splice(index, 1);
       this.showPopup = false;
     },
-    // clearForm() {
-    //   this.first_name = "";
-    //   this.last_name = "";
-    //   this.gender = "";
-    //   this.phone = "";
-    //   this.student_class = "";
-    //   // this.password = "";
-    //   this.email = "";
-    //   this.batch = "";
-    //   this.image = "";
-    //   this.student_id = "";
-    // },
     editStudent(id) {
-      // this.validateForm();
-      // console.log(index);
-      
+      id = this.students_id;
       let object = {
         user_id: 1,
         first_name: this.first_name,
@@ -383,7 +340,6 @@ export default {
         batch: this.batch,
         password: this.password,
         phone: this.phone,
-        // image: this.image.name,
         email: this.email,
         studentID: this.student_id,
         class: this.student_class,
@@ -398,69 +354,18 @@ export default {
         this.email !== "" &&
         this.student_id !== ""
       ) {
-        axios.put("social_affairs/students/" +id, object).then((res) => {
-          // return this.$router.push({ object });
-          // object.first_name = this.first_name;
-          object = res.data
-          console.log("Hey you edit already ");
+        
+        axios.put("social_affairs/students/" +id, object).then(() => {
+          console.log("Edit Successfully"+id);
+          
         });
-        // this.clearForm();
       }
-      // console.log("Edit Successfully");
       console.log(this.first_name)
       console.log(this.last_name)
+      console.log("the id : "+id)
       this.showEditPopup = false;
+      this.isTrue=false;
     },
-    //   // validateForm() {
-    //   //   this.is_first_name_valid = false;
-    //   //   this.is_last_name_valid = false;
-    //   //   this.is_gender_valid = false;
-    //   //   this.is_batch_valid = false;
-    //   //   this.is_email_valid = false;
-    //   //   this.is_password_valid = false;
-    //   //   this.is_phone_valid = false;
-    //   //   this.is_student_id_valid = false;
-    //   //   this.is_class_valid = false;
-    //   //   if (this.first_name == "") {
-    //   //     this.is_first_name_valid = true;
-    //   //   }
-    //   //   if (this.last_name == "") {
-    //   //     this.is_last_name_valid = true;
-    //   //   }
-    //   //   if (this.gender == "") {
-    //   //     this.is_gender_valid = true;
-    //   //   }
-    //   //   if (this.batch == "") {
-    //   //     this.is_batch_valid = true;
-    //   //   }
-    //   //   if (this.email == "") {
-    //   //     this.is_email_valid = true;
-    //   //   }
-    //   //   if (this.password == "") {
-    //   //     this.is_password_valid = true;
-    //   //   }
-    //   //   if (this.phone == "") {
-    //   //     this.is_phone_valid = true;
-    //   //   }
-    //   //   if (this.student_class == "") {
-    //   //     this.is_class_valid = true;
-    //   //   }
-    //   //   if (this.student_id == "") {
-    //   //     this.is_student_id_valid = true;
-    //   //   }
-    //   // },
-    //   // toggleShow() {
-    //   //   this.showPassword = !this.showPassword;
-    //   // }
-    // },
-    // editStudent(index, id) {
-    //   console.log(index, id);
-    //   axios.post("social_affiars/students/" + id).then((res) => {
-    //     console.log(res);
-    //   });
-    //   // this.students.splice(index, 1)
-    //   this.showEditPopup = false;
-    // },
     onDelete(index, id) {
       this.showPopup = true;
       this.students_id = id;
@@ -470,17 +375,24 @@ export default {
       this.showEditPopup = true;
       this.students_id = id;
       this.index = index;
+      axios.get("social_affairs/students/" +id).then((res) => {
+        let datas = res.data;
+          console.log(datas);
+          this.first_name = datas.first_name;
+          this.last_name = datas.last_name;
+          this.email = datas.email;
+          this.gender = datas.gender;
+          this.batch = datas.batch;
+          this.student_class = datas.class;
+          this.student_id = datas.studentID;
+          this.phone = datas.phone;
+        });
     },
-    //   computed: {
-    //   disableButtonSubmit() {
-    //     let disableSubmit = true;
-    //     if (this.first_name || this.last_name || this.gender || this.batch || this.email || this.student_class || this.phone) {
-    //       disableSubmit = false;
-    //     }
-    //     return disableSubmit;
-    //   },
-
-    // }
+    provide(){
+      return {
+        isTrue:this.isTrue
+      }
+    }
   },
 };
 </script>

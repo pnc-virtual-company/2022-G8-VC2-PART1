@@ -46,7 +46,8 @@ const routes = [
     name: "addstudent",
     component: AddStudent,
   },
-
+ 
+    
   {
     path: "/new_request",
     name: "new_request",
