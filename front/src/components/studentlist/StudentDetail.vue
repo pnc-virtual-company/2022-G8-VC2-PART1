@@ -117,9 +117,9 @@ thead {
    padding: 5px;
  }
 .card_1 {
-  margin: auto;
   margin-top: 6%;
   width: 70%;
+  margin-left: 15%;
   border-radius: 8px;
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;

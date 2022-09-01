@@ -83,7 +83,6 @@ export default {
   top: center;
   right: 0;
   left: 0;
-  inset: 0;
   background: rgba(0, 0, 0, 0.3);
 }
 </style>
