@@ -73,6 +73,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::post('social_affairs', [UserController::class,"store"]);
     Route::put('social_affairs/{id}', [UserController::class,"update"]);
     Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
+    //....admin profile
     
  //logout
     Route::post('students/logout',[StudentController::class, "logout"]);

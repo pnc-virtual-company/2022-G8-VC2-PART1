@@ -22,6 +22,17 @@
         >
       </div>
       <div class="user_name">
+        <div class="circle">
+          <img
+            class="profile-img"
+            :src="
+              student.image != undefined
+                ? 'http://127.0.0.1:8000/api/students/image/' + student.image
+                : ''
+            "
+            style="width: 60px; height: 60px; border-radius: 50%"
+          />
+        </div>
         <div class="user_profile">
           <router-link to="/profile_student" v-if="userRole == 'student'"
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
@@ -45,6 +56,7 @@
 </template>
 
 <script>
+import axios from "../../api/api.js";
 export default {
   emits: ["request-logout"],
   props: ["userRole"],
@@ -52,7 +64,21 @@ export default {
     return {
       first_name: "",
       last_name: "",
+      student: {},
     };
+  },
+  methods: {
+    getData() {
+      axios
+        .get(
+          "social_affairs/students/" +
+            JSON.parse(localStorage.getItem("studentID"))
+        )
+        .then((res) => {
+          this.student = res.data;
+          console.log(this.student);
+        });
+    },
   },
   computed: {
     firstname() {
@@ -63,6 +89,9 @@ export default {
       // this.last_name =
       return localStorage.getItem("last_name");
     },
+  },
+  mounted() {
+    this.getData();
   },
 };
 </script>
@@ -95,7 +124,7 @@ nav a {
   margin: 10px;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 nav .router a.router-link-exact-active {
   color: #fff;
@@ -104,10 +133,10 @@ nav .router a.router-link-exact-active {
   padding: 12px;
 }
 nav .user_name a.router-link-exact-active {
-  color: #63bfe7;
-  padding: 12px;
-  background: #fff;
+  color: #fff;
+  background: orange;
   border-radius: 7px;
+  padding: 12px;
 }
 .logo_display {
   display: flex;
@@ -121,7 +150,7 @@ nav .user_name a.router-link-exact-active {
 .logo_display p {
   color: #ffff;
   margin-left: 10%;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 .router {
   display: flex;
@@ -129,7 +158,7 @@ nav .user_name a.router-link-exact-active {
   align-items: center;
 }
 .user_name {
-  width: 20%;
+  width: 23%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,7 +177,7 @@ nav .user_name a.router-link-exact-active {
   /* padding: 12px; */
   cursor: pointer;
   color: #ffff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 .btn_sign_out bottom img {
   display: flex;

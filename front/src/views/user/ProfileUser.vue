@@ -2,7 +2,7 @@
   <div class="container">
     <div class="user_profile">
       <div class="profile w-25">
-        <div class="">
+        <div >
           <div class="circle">
             <img
               class="profile-img"
@@ -14,8 +14,8 @@
             />
           </div>
           <div class="btn_change">
-            <label class="label-file-upload text-light" for="upload-profile"
-              >Change Profile</label
+            <label class="label-file-upload text-light text-center" for="upload-profile"
+             >Change Profile</label
             >
             <input
               id="upload-profile"
@@ -26,14 +26,13 @@
           </div>
         </div>
       </div>
-
       <div class="user_information w-75 mt-3">
         <div
           class="main_card d-flex justify-content-between align-items-center"
         >
           <div class="side_left w-50">
             <p>
-              First Name <span style="margin-left: 10px">:</span>
+              First Name <span style="margin-left: 20px">:</span>
               <span style="margin-left: 10px">{{ student.first_name }}</span>
             </p>
             <p>
@@ -157,7 +156,7 @@ export default {
   width: 90%;
   margin: auto;
   padding: 20px;
-  margin-top: 15%;
+  margin-top: 10%;
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
@@ -166,11 +165,12 @@ export default {
   align-items: center;
 }
 .circle {
-  margin-top: 12%;
+  margin-top:1%;
   width: 200px;
   height: 200px;
   position: absolute;
-  top: 53px;
+  /* top: 53px; */
+  border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
   overflow: hidden;
 }
@@ -213,7 +213,7 @@ export default {
   margin: auto;
 }
 .image-preview  button {
-  width: 100px;
+  width: 200px;
   background: #63bfe7;
   cursor: pointer;
   border: none;
@@ -232,8 +232,12 @@ export default {
   cursor: pointer;
 }
 .user_profile p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #000;
+}
+.btn_change label {
+  width: 150px;
+  margin-top: 220px;
 }
 .btn_reset {
   margin-top:3%;
