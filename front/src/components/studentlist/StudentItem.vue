@@ -83,25 +83,7 @@ $emit('isHideFilter');
               <input class="form-control w-100" type="email" id="email" placeholder="email" v-model="email"
                 @change="is_email_valid = false" required />
             </div>
-            <div class="password">
-              <label class="form-label required" for="password">Password</label>
-              <div class="psw d-flex">
-                <input v-if="showPassword" class="form-control w-100 psw" type="text" id="password"
-                  placeholder="password" v-model="password" @change="is_password_valid = false" required />
-                <input v-else class="form-control w-100 psw" type="password" id="password" placeholder="password"
-                  v-model="password" @change="is_password_valid = false" />
-                <div class="btn_show_psw">
-                  <button @click="toggleShow">
-                    <span class="material-symbols-outlined" v-if="showPassword">
-                      visibility
-                    </span>
-                    <span class="material-symbols-outlined" v-else>
-                      visibility_off
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
+            
             <div class="phonenumber mt-3">
               <label class="form-label required" for="phonenumber">Phone</label>
               <input class="form-control w-100" type="text" name="" id="phonenumber" placeholder="phone number"
@@ -292,6 +274,7 @@ export default {
 
 
 .form_add_student {
+  margin-top: -2.3%;
   position: absolute;
   top: center;
   right: 0;
@@ -328,6 +311,7 @@ export default {
 }
 
 .form_body {
+  padding: 3%;
   display: flex;
   justify-content: space-between;
   align-items: center;
