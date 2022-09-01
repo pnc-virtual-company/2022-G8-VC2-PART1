@@ -93,14 +93,5 @@ class LeaveController extends Controller
         return response()->Json(["message"=>"status is updated"]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return Leave::destroy($id);
-    }
+    
 }   

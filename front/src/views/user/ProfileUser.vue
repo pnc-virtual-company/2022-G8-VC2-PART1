@@ -41,7 +41,7 @@
 <script>
 import axios from "../../axios-http.js";
 
-// import BaseCard from "@/components/UI/BaseCard.vue";
+
 export default {
     data(){
         return {
@@ -52,9 +52,6 @@ export default {
             uploadedImage: null,
             allowExtension: ['jpg', 'png', 'jpeg', 'gif', 'webp'],
         }
-    },
-    components: {
-        // 'base_card': BaseCard
     },
 
     methods:{

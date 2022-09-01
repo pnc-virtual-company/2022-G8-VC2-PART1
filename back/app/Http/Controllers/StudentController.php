@@ -95,11 +95,15 @@ class StudentController extends Controller
         return $response;
     }
 
-    ///.....change Profile...//     
+    ///.....change Profile image...//     
     public function updateProfile(Request $request, $id)
     {
-        // return $request->image;
         $student= Student::findOrFail($id);
+        $path = public_path('images/' . $student->image);
+        if(File::exists($path)) {
+            File::delete($path);
+        }
+       
         $image = $request->image;
         $newImageName = date('j-F-Y-H-i-s-A') . $image->getClientOriginalName();
         $image->move(public_path('images'), $newImageName);

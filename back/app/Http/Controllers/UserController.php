@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -37,9 +39,47 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->password= Hash::make($request->password);
         $user->position=$request->position;
-        $user->image = $request ->image;
+        $user->image = 'boy.png';
+
         $user-> save();
         return response()->json(['message'=>"social affair is added"]);
+    }
+    //Get images
+    public function getProfileImage($imageName)
+    {
+        $path = public_path('images/' . $imageName);
+
+        if (File::exists($path)) {
+            $file = File::get($path);
+        } else {
+            abort(404);
+        }
+
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
+    // change profile image
+
+    public function changeProfile(Request $request, $id)
+    {
+        $user= User::findOrFail($id);
+        $path = public_path('images/' . $user->image);
+        if(File::exists($path)) {
+            File::delete($path);
+        }
+
+       
+        $image = $request->image;
+        $newImageName = date('j-F-Y-H-i-s-A') . $image->getClientOriginalName();
+        $image->move(public_path('images'), $newImageName);
+
+        $user->image = $newImageName;
+        $user->save();
+        return response()->Json(["message"=>"image is changed"]);
     }
 
     //.. LOG IN FOR ADMIN.............//
