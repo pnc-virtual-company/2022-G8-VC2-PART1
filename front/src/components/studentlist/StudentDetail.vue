@@ -10,10 +10,10 @@
       </div>
     </div>
     <div class="card-body d-flex justify-content-between  align-items-center">
-      <div class="side-left w-50  text-center">
+      <div class="side-left w-25 text-center">
         <img src="../../assets/boy.png" style="width:150px; height:150px" alt="">
       </div>
-      <div class="side-right w-50  fs-5 ">
+      <div class="side-right w-75  fs-5 ">
         <div class="firstname">
           Firstname <span style="margin-left:5px">:</span> <strong
             style="font-weight:bold">{{student.first_name}}</strong>
@@ -23,20 +23,20 @@
           </span>
         </div>
         <div class="lastname ">
-          Lastname <span style="margin-left:10px">:</span> <strong
+          Lastname <span style="margin-left:6px">:</span> <strong
             style="font-weight:bold;">{{student.last_name}}</strong>
         </div>
         <div class="gender ">
-          Gender <span style="margin-left:36px">:</span> <strong style="font-weight:bold;">{{student.gender}}</strong>
+          Gender <span style="margin-left:27px">:</span> <strong style="font-weight:bold;">{{student.gender}}</strong>
         </div>
         <div class="batch ">
-          Batch <span style="margin-left:50px">:</span> <strong style="font-weight:bold;">{{student.batch}}</strong>
+          Batch <span style="margin-left:42px">:</span> <strong style="font-weight:bold;">{{student.batch}}</strong>
         </div>
         <div class="email ">
-          Email <span style="margin-left:48px">:</span> <strong style="font-weight:bold;">{{student.email}}</strong>
+          Email <span style="margin-left:43px">:</span> <strong style="font-weight:bold;">{{student.email}}</strong>
         </div>
         <div class="phone">
-          Phone <span style="margin-left:44px">:</span> <strong style="font-weight:bold"> 0{{student.phone}}</strong>
+          Phone <span style="margin-left:35px">:</span> <strong style="font-weight:bold"> 0{{student.phone}}</strong>
         </div>
       </div>
     </div>

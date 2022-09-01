@@ -8,6 +8,7 @@ import AddStudent from "@/components/studentlist/AddStudent.vue";
 import StudentDetailView from "@/views/admin/StudentDetailView.vue";
 import Addstudent from "@/components/studentlist/AddStudent.vue";
 import ProfileAdmin from "@/views/admin/ProfileAdmin.vue";
+import NotFound from '@/views/NotFoundView.vue';
 const routes = [
   {
     path: "/",
@@ -87,10 +88,10 @@ const routes = [
       needUser:true,
     }
   },
-
- 
-    
-
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFound,
+  },
 
   {
     path: "/new_request",

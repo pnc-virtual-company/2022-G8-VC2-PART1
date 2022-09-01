@@ -45,9 +45,9 @@ export default {
       } else {
         Swal.fire({
           position: "center",
-          icon: "error",
-          title: "Login unsuccess!",
-          text: "Please login again!",
+          icon: 'error',
+          title: 'Login unsuccess!',
+          text: "Please login again! Ivalid Email or Password!",
           showConfirmButton: false,
           timer: 1200,
         });
@@ -132,7 +132,8 @@ export default {
 * {
   padding: 0;
   margin: 0;
-  font-family: "Roboto Slab", serif;
+  /* font-family: "Roboto Slab", serif; */
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 #app {
   /* background: #ccc; */

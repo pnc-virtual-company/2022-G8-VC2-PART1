@@ -16,7 +16,7 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        return Leave::all();
+        return Leave::with('student')->orderBy('leaves.id','desc')->get();
     }
 
     public function countAllLeaves()
@@ -53,8 +53,8 @@ class LeaveController extends Controller
         $leave->save();
         
         // Sending mail to admin
-        Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
-        return response()->json(['leave'=>"leave is added"]);
+        // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
+        // return response()->json(['leave'=>"leave is added"]);
     }
 
     /**
