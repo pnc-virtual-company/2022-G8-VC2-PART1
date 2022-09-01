@@ -362,6 +362,9 @@ export default {
   width: 100%;
 }
 
+.text-danger{
+  font-size: 2rem;
+}
 .gender {
   width: 57%;
   margin-top: 17px;

@@ -1,5 +1,6 @@
 <template>
   <div class="filter_banner">
+    <p class="wait" v-if="wait">Wait....</p>
     <div class="filter_bar">
       <div class="filter_status">
         <p>Filter By Status</p>
@@ -15,38 +16,45 @@
         <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
           <option value="Show all">Show all</option>
           <option value="Sick Leave">Sick leave</option>
-          <option value="WIDDING">Wedding</option>
+          <option value="Wedding">Wedding</option>
           <option value="Family's event">Family-event</option>
-          <option value="OTHER">Other</option>
+          <option value="Brother's and Sister's event">Brother's and Sister's event</option>
+          <option value="Other Event">Other</option>
         </select>
       </div>
     </div>
-    <div>
-      <div class="all_card" v-if="leaves.length != 0">
+    <div class="all_card" v-if="leaves.length != 0">
         <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
+          <div class="profile">
+            <img src="../../assets/pn-logo.png" alt="" >
+          </div>
           <div class="leave_info">
+            <h3>{{leave.student.last_name}} {{leave.student.first_name}}</h3>
             <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
             <p>Date Start: <strong>{{leave.start_date}}</strong></p>
             <p>Date End: <strong>{{leave.end_date}}</strong></p>
-            <p>Duration: <strong>{{leave.duration}} days</strong></p>
+            <p v-if="leave.duration <= 1">Duration: <strong>{{leave.duration}} Day</strong></p>
+            <p v-else>Duration: <strong>{{leave.duration}} Days</strong></p>
+            <p>Reason: {{leave.reason}}</p>
+            <p>Email: <strong>{{leave.student.email}}</strong></p>
           </div>
           <div class="btn">
-            <div class="btn_action" v-if="leave.status === null">
+            <div class="btn_action" v-if="leave.status === 'Padding'">
               <button class="approve"
-                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
+                @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
               <button class="reject"
-                @click="replyBack(leave.id,{leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
+                @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
             </div>
             <div v-else class="leave_status">
-              <p  class="status">{{leave.status}}</p>
+              <p  class="re_approve" v-if="leave.status == 'Approved'">{{leave.status}}</p>
+              <p  class="re_reject" v-if="leave.status == 'Rejected'">{{leave.status}}</p>
             </div>
           </div>
         </div>
       </div>
       <div v-else class="no_leave d-flex justify-content-center align-items-center" style="margin-top:25%;">
-        <span  class="no_leave text-danger" style="font-size:4rem">No Leave found!!!</span>
+        <span  class="no_leave text-danger" style="font-size:2rem">No Leave found!!</span>
       </div>
-    </div>
   </div>
  
 </template>
@@ -60,6 +68,7 @@ export default {
       leaves: [],
       filterStatus: 'Show all',
       filterLeaveType: 'Show all',
+      wait: false,
     }
   },
   mounted() {
@@ -67,10 +76,13 @@ export default {
   },
   methods: {
     replyBack(indexId,message) {
-      console.log(indexId,message);
-      axios.put('social_affairs/leaves/' + indexId,message).then(res => {
+      this.wait = true;
+      axios.put('social_affairs/update_leave_status/' + indexId,message).then(res => {
         console.log(res.data);
-        window.location.reload();
+        setTimeout(() => {
+          this.wait = false;
+        },500);
+        this.getAllLeave();
       });
     },
     getAllLeave() {
@@ -82,7 +94,6 @@ export default {
     getLeaveFilter() {
       if ((this.filterStatus != 'Show all') && (this.filterLeaveType != 'Show all')) {
         axios.get('social_affairs/leaves/').then(res =>{
-          
           this.leaves = res.data.filter(leave => (leave.status == this.filterStatus) && (leave.leave_type == this.filterLeaveType));
         });
       }
@@ -130,10 +141,45 @@ select{
   margin: auto;
   display: flex;
   position: fixed;
-  top: 12%;
+  top: 16%;
   right: 0;
   left: 0;
-  z-index: 9999;
+}
+.re_approve{
+  color: green;
+}
+.re_reject{
+  color: red;
+}
+.wait{
+    text-align: center;
+    background: #08a3e6;
+    padding: 20px;
+    position: absolute;
+    top: 45vh;
+    left: 35vw;
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    color: white;
+    font-size: 2rem;
+    border-radius: 10px;
+
+    animation-name: example;
+    animation-duration: 4s;
+}
+
+@keyframes example {
+  from {background-color: #028dc8}
+  to {background-color: #8bd5f5}
+}
+.profile{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile img {
+  width: 35%;
 }
 span{
   text-align: center;
@@ -170,9 +216,7 @@ button{
   background: rgb(222, 145, 2);
 }
 
-.detail{
-  background: green;
-}
+
 
 img{
   width: 10%;
@@ -191,15 +235,22 @@ img{
 .card_leave{
   padding: 10px;
   border-left: 5px solid #63bfe7;
-  margin: 10px;
+  margin: 5px;
   display: flex;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
-.all_card{
-  width: 90%;
-  margin: auto;
-  padding: 10px;
+.leave_info {
+  width: 40%;
 }
+.all_card{
+  width: 100%;
+  margin: auto;
+  margin-top: 15rem;
+  padding: 10px;
+  overflow: scroll;
+  height: 60vh;
+}
+
 
 </style>
