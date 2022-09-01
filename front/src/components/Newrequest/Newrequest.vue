@@ -137,7 +137,10 @@ export default {
 
     addRequest() {
       this.checkValidation();
-      let object = { leave_type: this.leave_type, start_date: this.start_date, end_date: this.end_date, reason: this.reason, duration: this.changeDuration, status: this.status, user_id: this.user_id, student_id: localStorage.getItem('studentID'), }
+      let object = { leave_type: this.leave_type, start_date: this.start_date, 
+        end_date: this.end_date, reason: this.reason, duration: this.changeDuration, 
+        status: this.status, user_id: this.user_id, student_id: localStorage.getItem('studentID'), }
+        
       if (this.start_date != "" &&
         this.end_date != "" &&
         this.express_time_start != "" &&
@@ -145,7 +148,8 @@ export default {
         this.leave_type != "" &&
         this.reason != "" &&
         this.status != "") {
-        axios.post("/students/leaves", object).then(() => {
+        axios.post("/students/leaves", object).then((res) => {
+          console.log(res);
           return this.$router.push({ name: "list_all_leave" });
         }
         )

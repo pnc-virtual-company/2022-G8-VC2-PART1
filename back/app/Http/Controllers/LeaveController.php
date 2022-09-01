@@ -53,8 +53,8 @@ class LeaveController extends Controller
         $leave->save();
         
         // Sending mail to admin
-        // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
-         return response()->json(['leave'=>"leave is added"]);
+        Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
+        return response()->json(['leave'=>"leave is added"]);
     }
 
     /**

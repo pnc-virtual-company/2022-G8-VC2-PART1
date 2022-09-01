@@ -3,7 +3,7 @@
     <div class="card-header d-flex justify-content-between align-center">
       <div></div>
       <h2 class="fs-4 text-center">
-        Student Leave Management System
+        Detail information of {{student.first_name}} {{student.last_name}}
       </h2>
       <div>
         <router-link to="/studentlist" class="btn btn-close fs-5 "></router-link>
@@ -55,7 +55,7 @@
             </tr>
           </thead>
           <tbody v-if="countLeaves>0">
-            <tr v-for="leave of student.leaves" :key="leave">
+            <tr v-for="leave of student.leaves.slice().reverse()" :key="leave">
               <td scope="row">{{leave.created_at}}</td>
               <td scope="row">{{leave.start_date}} </td>
               <td scope="row">{{leave.end_date}}</td>

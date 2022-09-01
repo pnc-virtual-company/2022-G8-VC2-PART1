@@ -21,7 +21,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Student::all();
+        return Student::orderBy('studentID', 'ASC')->get();
     }
 
     public function countAllStudents()
@@ -51,7 +51,11 @@ class StudentController extends Controller
         $student->first_name=$request->first_name;
         $student->last_name=$request->last_name;
         $student->gender=$request->gender;
-        // $student->image = $request->image;
+        if ($request->gender == "male") {
+            $student->image = 'boy.png';
+        } else {
+            $student->image = 'girl.png';
+        }
         $student->email=$request->email;
         $student->class=$request->class;
         $student->password=Hash::make(12345678);
@@ -74,15 +78,38 @@ class StudentController extends Controller
     }
     
 
+    public function getProfileImage($imageName)
+    {
+        $path = public_path('images/' . $imageName);
+
+        if (File::exists($path)) {
+            $file = File::get($path);
+        } else {
+            abort(404);
+        }
+
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
     ///.....change Profile...//     
     public function updateProfile(Request $request, $id)
     {
+        // return $request->image;
         $student= Student::findOrFail($id);
-        $student->image = $request->image;
+        $image = $request->image;
+        $newImageName = date('j-F-Y-H-i-s-A') . $image->getClientOriginalName();
+        $image->move(public_path('images'), $newImageName);
+
+        $student->image = $newImageName;
         $student->save();
         return response()->Json(["message"=>"image is changed"]);
     }
-    ///....change password...//
+
+    ///....change password...///
     public function resetPassword(Request $request, $id)
     {
         $student = Student::findOrFail($id);
