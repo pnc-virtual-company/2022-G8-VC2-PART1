@@ -39,7 +39,7 @@ export default {
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Roboto Slab', serif;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 nav {
     background: #63BFE7;

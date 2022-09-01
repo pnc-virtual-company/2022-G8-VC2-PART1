@@ -12,7 +12,9 @@
                     <div class="input">
                         <!-- <input type="text" placeholder="username" v-model="username"> -->
                         <input type="email" placeholder="email" v-model="email">
+                        <span v-if="forgotEmail">Please put your email!</span>
                         <input type="password" placeholder="password" v-model="password">
+                        <span v-if="forgotPassword">Please put your password!</span>
                     </div>
                 </div>
             </div>
@@ -34,16 +36,32 @@ export default {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+
+            forgotEmail: false,
+            forgotPassword: false,
         }
     },
     methods: {
         login() {
-            let userInfo = {
-                email:this.email,
-                password:this.password,
+           this.validation(); 
+        },
+        validation() {
+            if (this.email == null) {
+                this.forgotEmail = true;
             }
-            this.$emit('request-login',userInfo)
+            else if (this.password == null) {
+                this.forgotEmail = false;
+                this.forgotPassword = true;
+            }
+            else{
+                this.forgotPassword = false;
+                let userInfo = {
+                    email:this.email,
+                    password:this.password,
+                }
+                this.$emit('request-login',userInfo);
+            }
         }
 
     }
@@ -91,6 +109,19 @@ box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 5px 0px, rgba(0, 0, 0, 0.4) 0px 0px 1px 0
 .input input {
     box-sizing: border-box;
     width: 100%;
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+input:focus {
+    outline: none;
+    border-bottom: 1px solid #63BFE7;
+}
+
+.input span{
+    color: red;
+    font-size: 13px;
 }
 .btn_login{ 
     display: flex;
@@ -111,6 +142,9 @@ box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 5px 0px, rgba(0, 0, 0, 0.4) 0px 0px 1px 0
     justify-content: center;
     align-items: center;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.btn_login button:hover {
+    background: rgb(251, 185, 62);
 }
 .btn_login button img{
     width: 25px;
