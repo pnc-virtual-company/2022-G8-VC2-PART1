@@ -131,9 +131,11 @@ export default {
     },
 
     getData() {
-      axios.get("social_affairs" + this.user_id).then((res) => {
-        this.student = res.data;
-      });
+      axios
+        .get("social_affairs/image/{imageName}" + this.user_id)
+        .then((res) => {
+          this.student = res.data;
+        });
     },
   },
 
@@ -155,7 +157,7 @@ export default {
   width: 90%;
   margin: auto;
   padding: 20px;
-  margin-top: 15%;
+  margin-top: 10%;
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
@@ -164,14 +166,14 @@ export default {
   align-items: center;
 }
 .circle {
-  margin-top: 12%;
+  margin-top: 1%;
   width: 200px;
   height: 200px;
   position: absolute;
-  top: 53px;
+  /* top: 53px; */
+  border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
   overflow: hidden;
-  /* border-radius: 50%; */
 }
 .profile-img {
   display: flex;
@@ -201,6 +203,7 @@ export default {
 .image-preview {
   width: 400px;
   height: 400px;
+  margin-top: 10%;
   background: #ccc;
   display: flex;
   flex-direction: column;
@@ -211,11 +214,13 @@ export default {
   margin: auto;
 }
 .image-preview button {
+  width: 200px;
   background: #63bfe7;
   cursor: pointer;
   border: none;
   margin: 5px;
   color: #ffff;
+  border-radius: 7px;
   padding: 5px;
 }
 .label-file-upload {
@@ -228,8 +233,12 @@ export default {
   cursor: pointer;
 }
 .user_profile p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #000;
+}
+.btn_change label {
+  width: 150px;
+  margin-top: 220px;
 }
 .btn_reset {
   margin-top: 3%;

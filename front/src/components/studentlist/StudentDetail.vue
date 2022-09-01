@@ -24,31 +24,45 @@
       <div class="side-right w-75 fs-5">
         <div class="firstname">
           Firstname <span style="margin-left: 5px">:</span>
-          <strong style="font-weight: normal">{{ student.first_name }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{
+            student.first_name
+          }}</strong>
           <span style="font-weight: normal; margin-left: 40px">
             Student ID <span style="margin-left: 7px">:</span>
-            <strong style="font-weight: normal">{{ student.studentID }}</strong>
+            <strong style="font-weight: normal; margin-left: 10px">{{
+              student.studentID
+            }}</strong>
           </span>
         </div>
         <div class="lastname">
           Lastname <span style="margin-left: 6px">:</span>
-          <strong style="font-weight: normal">{{ student.last_name }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{
+            student.last_name
+          }}</strong>
         </div>
         <div class="gender">
           Gender <span style="margin-left: 27px">:</span>
-          <strong style="font-weight: normal">{{ student.gender }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{
+            student.gender
+          }}</strong>
         </div>
         <div class="batch">
           Batch <span style="margin-left: 42px">:</span>
-          <strong style="font-weight: normal">{{ student.batch }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{
+            student.batch
+          }}</strong>
         </div>
         <div class="email">
           Email <span style="margin-left: 43px">:</span>
-          <strong style="font-weight: normal">{{ student.email }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{
+            student.email
+          }}</strong>
         </div>
         <div class="phone">
           Phone <span style="margin-left: 35px">:</span>
-          <strong style="font-weight: normal"> 0{{ student.phone }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">
+            {{ student.phone }}</strong
+          >
         </div>
       </div>
     </div>

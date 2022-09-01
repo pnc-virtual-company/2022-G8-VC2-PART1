@@ -435,7 +435,8 @@ li {
 }
 
 table {
-  width: 1300px;
+  /* width: 1300px; */
+  width: 100%;
   box-sizing: border-box;
 }
 

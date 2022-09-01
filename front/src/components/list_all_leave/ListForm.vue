@@ -6,9 +6,9 @@
         <select name="cars" id="cars" v-model="status">
           <option value="Show all" selected>Show all</option>
           <option value="Padding">Padding</option>
-          <option value="Approve">Approve</option>
+          <option value="Approved">Approved</option>
           <option value="Cancelled">Cancelled</option>
-          <option value="Reject">Reject</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
       <div class="filter_by_leave_types">

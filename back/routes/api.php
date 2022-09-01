@@ -26,9 +26,9 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::get('social_affairs/leaves', [LeaveController::class,"index"]);
     Route::get('social_affairs/leaves/{id}', [LeaveController::class,"show"]);
     Route::put('social_affairs/update_leave_status/{id}', [LeaveController::class, "update"]);
-        //count all student leaves
+        //count all students' leaves
     Route::get('social_affairs/count_all_students_leaves', [LeaveController::class, "countAllLeaves"]);
-    ///Route::delete('social_affairs/leaves/{id}', [LeaveController::class, "destroy"]);
+    
 
 
 //leave route manage by students
@@ -52,7 +52,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::put('social_affairs/students/{id}', [StudentController::class, "update"]);
     Route::delete('social_affiars/students/{id}', [StudentController::class, "destroy"]);
 
-    // student with his/her leaves
+    // get student with his/her leaves
     Route::get('social_affairs/one_student_leaves/{id}', [StudentController::class, "getOneStudentAndLeaves"]);
     
     //count all students
@@ -74,14 +74,21 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::put('social_affairs/{id}', [UserController::class,"update"]);
     Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
     //....admin profile
+    Route::put('social_affairs/profile/{id}', [UserController::class, "changeProfile"]);
+
     
  //logout
     Route::post('students/logout',[StudentController::class, "logout"]);
     Route::post('social_affairs/logout', [UserController::class,"logout"]);
 
 //get Image
-
+    //....student profile
     Route::get('students/image/{imageName}', [StudentController::class, "getProfileImage"]);
+
+    //....admin profile
+     Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
+
+
     
     
 

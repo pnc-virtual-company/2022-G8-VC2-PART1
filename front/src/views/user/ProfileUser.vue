@@ -82,7 +82,6 @@
 </template>
 <script>
 import axios from "../../axios-http.js";
-
 export default {
   data() {
     return {

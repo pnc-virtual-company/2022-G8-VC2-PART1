@@ -64,7 +64,8 @@ export default {
   margin-left: 2.5%;
 }
 table {
-  width: 1000px;
+  /* width: 1000px; */
+  width: 100%;
   box-sizing: border-box;
 }
 

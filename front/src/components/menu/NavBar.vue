@@ -150,7 +150,7 @@ nav .user_name a.router-link-exact-active {
 .logo_display p {
   color: #ffff;
   margin-left: 10%;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 .router {
   display: flex;
