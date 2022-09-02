@@ -12,7 +12,7 @@
           <button class="btn btn-cancel btn-danger" @click="showPopup = false">
             Cancel
           </button>
-          <button class="btn btn-delete" @click="deleteStudent(index, students_id)">
+          <button class="btn btn-delete text-center" @click="deleteStudent(index, students_id)">
             Delete
           </button>
         </div>
@@ -126,7 +126,7 @@ $emit('isHideFilter');
             <td>{{ student.batch.toUpperCase() }}</td>
 
             <td>
-              <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light">
+              <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light ">
                 DETAILS
               </router-link>
             </td>
@@ -428,14 +428,15 @@ li {
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
     rgba(6, 24, 44, 0) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0) 0px 1px 0px inset;
-  font-size: 1.1rem;
+  font-size: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 table {
-  width: 1300px;
+  /* width: 1300px; */
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -444,21 +445,21 @@ tr,
 th {
   border: 1px solid black;
   border-collapse: collapse;
+  font-weight: normal;
   padding: 10px;
   text-align: center;
 }
 
 .btn_detail {
-  width: 70%;
-  font-size: 0.9rem;
+  width: 75%;
+  font-size: 0.8rem;
   background: orange;
   margin: auto;
 }
-
 .btn_edit_delete .btn_delete,
 .btn_edit {
   width: 40%;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .btn_edit {
@@ -502,32 +503,6 @@ th {
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* .pop_up_detail {
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: center;
-  right: 0;
-  left: 0;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.pop_up_detail .background {
-  width: 80%;
-  margin: auto;
-  padding: 20px;
-  background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.pop_up_detail .header {
-  background: blue;
-  color: #fff;
-} */
 
 .question_mark {
   font-size: 7rem;

@@ -273,7 +273,7 @@ export default {
 }
 
 .header span {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
@@ -283,7 +283,7 @@ export default {
 }
 
 .body span {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .body .leave_type,
@@ -299,12 +299,12 @@ export default {
 .body .leave_type select {
   width: 100%;
   padding: 5px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
 }
 
 .body .leave_type select option {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .main_container {
@@ -315,7 +315,7 @@ export default {
 
 .main_container .side_left,
 .side_right {
-  width: 49.5%;
+  width: 49%;
   margin: auto;
 }
 
@@ -336,7 +336,7 @@ export default {
 .select_start_date input {
   width: 90%;
   padding: 7px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .select_start_time {
@@ -346,7 +346,7 @@ export default {
 .select_start_time select {
   width: 90%;
   padding: 9px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
 }
 
@@ -363,7 +363,7 @@ export default {
 .select_end_date input {
   width: 90%;
   padding: 7px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .select_end_time {
@@ -373,7 +373,7 @@ export default {
 .select_end_time select {
   width: 90%;
   padding: 9px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
 }
 
@@ -381,7 +381,7 @@ export default {
   width: 96%;
   padding: 5px;
   resize: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background-color: #fff;
 }
 
@@ -401,7 +401,7 @@ export default {
   width: 120px;
   padding: 5px;
   margin: 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -425,7 +425,7 @@ export default {
   width: 120px;
   padding: 5px;
   margin: 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -446,7 +446,7 @@ export default {
 }
 
 .btn_close a {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   text-decoration: none;
 }
 

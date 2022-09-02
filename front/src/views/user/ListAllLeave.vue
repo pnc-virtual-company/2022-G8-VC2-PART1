@@ -26,7 +26,6 @@ export default {
           if (localStorage.getItem("studentID") == response.data[k].student_id) {
             this.list_all_leaves.push(response.data[k])
           }
-          console.log(response.data[k]);
         }
       }
       )

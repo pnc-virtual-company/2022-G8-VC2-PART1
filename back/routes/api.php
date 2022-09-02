@@ -73,6 +73,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::post('social_affairs', [UserController::class,"store"]);
     Route::put('social_affairs/{id}', [UserController::class,"update"]);
     Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
+    //....admin profile
     Route::put('social_affairs/profile/{id}', [UserController::class, "changeProfile"]);
 
     
@@ -82,7 +83,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
 
 //get Image
     //....student profile
-    Route::get('students/image/{imageName}', [StudentController::class, "getProfileImage"]);
+    Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
 
     //....admin profile
      Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);

@@ -19,7 +19,6 @@ export default {
         studentList() {
             axios.get("/social_affairs/students").then((response) => {
                 for (let k = 0; k < response.data.length; k++) {
-                    console.log(response.data);
                     this.students.push(response.data[k]);
                 }
             })
