@@ -297,7 +297,7 @@ export default {
 }
 
 .body .leave_type select {
-  width: 100%;
+  width: 95.5%;
   padding: 5px;
   font-size: 1rem;
   outline: none;

@@ -30,7 +30,7 @@
                 ? 'http://127.0.0.1:8000/api/students/image/' + student.image
                 : ''
             "
-            style="width: 60px; height: 60px; border-radius: 50%"
+            style="width: 55px; height: 55px; border-radius: 50%"
           />
         </div>
         <div class="user_profile">
@@ -43,11 +43,12 @@
         </div>
         <div class="btn_sign_out">
           <button @click="$emit('request-logout')">
-            <img
+            <!-- <img
               src="../../assets/logout.png"
               alt=""
               style="width: 30px; height: 30px; color: #fff"
-            />
+            /> -->
+            Log out
           </button>
         </div>
       </div>
@@ -130,21 +131,21 @@ nav .router a.router-link-exact-active {
   color: #fff;
   background: orange;
   border-radius: 7px;
-  padding: 12px;
+  padding: 7px;
 }
 nav .user_name a.router-link-exact-active {
   color: #fff;
   background: orange;
   border-radius: 7px;
-  padding: 12px;
+  padding: 7px;
 }
 .logo_display {
   display: flex;
   align-items: center;
 }
 .logo_display img {
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   margin-left: 10%;
 }
 .logo_display p {

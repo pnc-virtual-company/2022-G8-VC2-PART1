@@ -6,11 +6,11 @@
         Detail information of {{ student.first_name }} {{ student.last_name }}
       </h2>
       <div>
-        <router-link to="/studentlist" class="btn btn-close fs-5"></router-link>
+        <router-link to="/studentlist" class="btn btn-close btn-close-danger"></router-link>
       </div>
     </div>
     <div class="card-body d-flex justify-content-between align-items-center">
-      <div class="side-left w-25 text-center">
+      <div class="side-lefttext-center">
         <img
           class="profile-img"
           :src="
@@ -18,10 +18,10 @@
               ? 'http://127.0.0.1:8000/api/students/image/' + student.image
               : ''
           "
-          style="width: 200px; height: 200px; border: 2px solid #ccc"
+          style="width: 165px; height: 165px; border: 2px solid #ccc"
         />
       </div>
-      <div class="side-right w-75 fs-5">
+      <div class="side-right">
         <div class="firstname">
           Firstname <span style="margin-left: 5px">:</span>
           <strong style="font-weight: normal; margin-left: 10px">{{
@@ -145,7 +145,7 @@ table {
 table,
 tr,
 th {
-  border: 2px solid black;
+  border: 1px solid #ccc;
   border-collapse: collapse;
   padding: 5px;
   text-align: center;
@@ -158,11 +158,19 @@ td {
   padding: 5px;
   font-size: 0.9rem;
 }
+.side-left{
+  width: 25%;
+  font-size: 1.1rem;
+}
+.side-right{
+  width: 75%;
+  font-size: 1.1rem;
+}
 .card_1 {
   margin-top: 6%;
   width: 70%;
   margin-left: 15%;
-  border-radius: 8px;
+  border-radius: 7px;
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
@@ -185,24 +193,20 @@ td {
 .padding,
 .pending {
   color: orange;
-  font-weight: bold;
   font-size: 1rem;
 }
 
-.approve {
+.approved {
   color: rgb(0, 255, 0);
-  font-weight: bold;
   font-size: 1rem;
 }
 
 .cancelled {
   color: #000;
   font-size: 1rem;
-  font-weight: bold;
 }
 
-.reject {
-  font-weight: bold;
+.rejected {
   color: red;
   font-size: 1rem;
 }

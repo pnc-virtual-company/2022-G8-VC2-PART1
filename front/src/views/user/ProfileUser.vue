@@ -1,74 +1,83 @@
 <template>
   <div class="container">
     <div class="user_profile">
-      <div class="profile w-25">
-        <div >
-          <div class="circle">
-            <img
-              class="profile-img"
-              :src="
-                student.image != undefined
-                  ? 'http://127.0.0.1:8000/api/students/image/' + student.image
-                  : ''
-              "
-            />
-          </div>
-          <div class="btn_change">
-            <label class="label-file-upload text-light text-center" for="upload-profile"
-             >Change Profile</label
-            >
-            <input
-              id="upload-profile"
-              class="file-upload"
-              type="file"
-              @change="onChangeProfile"
-            />
-          </div>
+      <div class="card-header d-flex justify-content-end align-items-center">
+        <div>
+          <router-link to="/studentlist" class="btn btn-close"></router-link>
         </div>
       </div>
-      <div class="user_information w-75 mt-3">
-        <div
-          class="main_card d-flex justify-content-between align-items-center"
-        >
-          <div class="side_left w-50">
-            <p>
-              First Name <span style="margin-left: 20px">:</span>
-              <span style="margin-left: 10px">{{ student.first_name }}</span>
-            </p>
-            <p>
-              Batch <span style="margin-left: 61px">:</span>
-              <span style="margin-left: 10px">{{ student.batch }}</span>
-            </p>
-            <p>
-              Gender <span style="margin-left: 45px">:</span>
-              <span style="margin-left: 10px">{{ student.gender }}</span>
-            </p>
-          </div>
-          <div class="side_right w-50">
-            <p>
-              Last Name <span style="margin-left: 10px">:</span>
-              <span style="margin-left: 15px">{{ student.last_name }}</span>
-            </p>
-            <p>
-              Class <span style="margin-left: 61px">:</span>
-              <span style="margin-left: 15px">{{ student.class }}</span>
-            </p>
-            <p>
-              Phone <span style="margin-left: 49px">:</span>
-              <span style="margin-left: 15px">{{ student.phone }}</span>
-            </p>
+      <div class="card-body">
+        <div class="profile w-25">
+          <div>
+            <div class="circle">
+              <img
+                class="profile-img"
+                :src="
+                  student.image != undefined
+                    ? 'http://127.0.0.1:8000/api/students/image/' +
+                      student.image
+                    : ''
+                "
+              />
+            </div>
+            <div class="btn_change">
+              <label
+                class="label-file-upload text-light text-center"
+                for="upload-profile"
+                >Change Profile</label
+              >
+              <input
+                id="upload-profile"
+                class="file-upload"
+                type="file"
+                @change="onChangeProfile"
+              />
+            </div>
           </div>
         </div>
-        <p>
-          Email <span style="margin-left: 58px">:</span>
-          <span style="margin-left: 13px">{{ student.email }}</span>
-        </p>
-        <div class="btn_reset">
-          <button>Reset password</button>
+        <div class="user_information w-75 mt-3">
+          <div
+            class="main_card d-flex justify-content-between align-items-center"
+          >
+            <div class="side_left w-50">
+              <p>
+                First Name <span style="margin-left: 20px">:</span>
+                <span style="margin-left: 10px">{{ student.first_name }}</span>
+              </p>
+              <p>
+                Batch <span style="margin-left: 61px">:</span>
+                <span style="margin-left: 10px">{{ student.batch }}</span>
+              </p>
+              <p>
+                Gender <span style="margin-left: 45px">:</span>
+                <span style="margin-left: 10px">{{ student.gender }}</span>
+              </p>
+            </div>
+            <div class="side_right w-50">
+              <p>
+                Last Name <span style="margin-left: 10px">:</span>
+                <span style="margin-left: 15px">{{ student.last_name }}</span>
+              </p>
+              <p>
+                Class <span style="margin-left: 61px">:</span>
+                <span style="margin-left: 15px">{{ student.class }}</span>
+              </p>
+              <p>
+                Phone <span style="margin-left: 49px">:</span>
+                <span style="margin-left: 15px">{{ student.phone }}</span>
+              </p>
+            </div>
+          </div>
+          <p>
+            Email <span style="margin-left: 58px">:</span>
+            <span style="margin-left: 13px">{{ student.email }}</span>
+          </p>
+          <div class="btn_reset">
+            <button>Reset password</button>
+          </div>
         </div>
       </div>
     </div>
-
     <div v-if="isFileUploaded" class="image-preview-container">
       <div class="image-preview">
         <img :src="uploadedImage" style="width: 300px; height: 300px" alt="" />
@@ -129,7 +138,6 @@ export default {
       this.image = null;
       this.uploadedImage = null;
     },
-
     getData() {
       axios.get("social_affairs/students/" + this.user_id).then((res) => {
         this.student = res.data;
@@ -146,25 +154,18 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  margin-top: 7%;
 }
 .user_profile {
   width: 90%;
   margin: auto;
   padding: 20px;
-  margin-top: 10%;
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .circle {
-  margin-top:1%;
+  margin-top: 1%;
   width: 200px;
   height: 200px;
   position: absolute;
@@ -182,7 +183,11 @@ export default {
   height: 200px;
   width: auto;
 }
-
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .user_information {
   width: 60%;
 }
@@ -211,7 +216,7 @@ export default {
 .image-preview img {
   margin: auto;
 }
-.image-preview  button {
+.image-preview button {
   width: 200px;
   background: #63bfe7;
   cursor: pointer;
@@ -239,10 +244,10 @@ export default {
   margin-top: 220px;
 }
 .btn_reset {
-  margin-top:3%;
+  margin-top: 3%;
   margin-left: 40%;
 }
-.btn_reset button{
+.btn_reset button {
   margin-left: 70%;
   background: #63bfe7;
   cursor: pointer;

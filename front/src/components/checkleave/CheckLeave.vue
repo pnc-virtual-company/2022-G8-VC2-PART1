@@ -39,13 +39,13 @@
             <p>Email: <strong>{{leave.student.email}}</strong></p>
           </div>
           <div class="btn">
-            <div class="btn_action" v-if="leave.status === 'Padding'">
+            <div class="btn_action " v-if="leave.status === 'Padding'">
               <button class="approve"
                 @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
               <button class="reject"
                 @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
             </div>
-            <div v-else class="leave_status">
+            <div v-else class="leave_status ">
               <p  class="re_approve" v-if="leave.status == 'Approved'">{{leave.status}}</p>
               <p  class="re_reject" v-if="leave.status == 'Rejected'">{{leave.status}}</p>
             </div>
@@ -105,7 +105,6 @@ export default {
       }
       else if ((this.filterLeaveType == 'Show all') && ((this.filterStatus != 'Show all'))) {
         axios.get('social_affairs/leaves/').then(res =>{
-  
           this.leaves = res.data.filter(leave => leave.status == this.filterStatus);
         });
       }
@@ -132,7 +131,7 @@ select{
   margin-top: 15%;
 }
 .filter_bar {
-  border-radius: 10px;
+  border-radius: 7px;
   padding: 15px;
   margin-top:90px ;
   background: #fff;
@@ -162,8 +161,7 @@ select{
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
     color: white;
     font-size: 2rem;
-    border-radius: 10px;
-
+    border-radius: 7px;
     animation-name: example;
     animation-duration: 4s;
 }
@@ -206,14 +204,14 @@ button{
   font-size: 15px;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .approve{
   background: rgb(1, 146, 203);
 }
 .reject{
-  background: rgb(222, 145, 2);
+  background:red;
 }
 
 
@@ -234,7 +232,8 @@ img{
 
 .card_leave{
   padding: 10px;
-  border-left: 5px solid #63bfe7;
+  border-left: 7px solid #63bfe7;
+  border-right: 7px solid #63bfe7;
   margin: 5px;
   display: flex;
   border-radius: 10px;

@@ -24,10 +24,7 @@
         </select>
       </div>
     </div>
-
-    <ul>
       <list_card :filterData="filterData"></list_card>
-    </ul>
   </div>
 </template>
 
@@ -49,9 +46,9 @@ export default {
   computed: {
     filterData() {
       let all_data = this.list_all_leaves;
-      if (this.status !== "Show all" && this.leave_type !== "Show all") {
+      if (this.status !== "Show all" || this.leave_type !== "Show all") {
         all_data = this.list_all_leaves.filter((students) => {
-          students.status.toLowerCase() == this.status.toLowerCase() &&
+          students.status.toLowerCase() == this.status.toLowerCase() ||
             students.leave_type.toLowerCase() == this.leave_type.toLowerCase;
         });
       }
@@ -128,7 +125,5 @@ export default {
   font-size: 1rem;
   border-radius: 7px;
 }
-ul {
-  margin-top: 2%;
-}
+
 </style>

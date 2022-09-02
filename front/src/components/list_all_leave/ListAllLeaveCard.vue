@@ -1,6 +1,5 @@
 <template>
   <div class="list_card">
-    <li>
       <table>
         <thead>
           <tr>
@@ -47,7 +46,6 @@
           </tr>
         </tbody>
       </table>
-    </li>
   </div>
 </template>
 <script>
@@ -60,11 +58,11 @@ export default {
 <style scoped>
 .list_card {
   background: #ffff;
-  width: 90%;
-  margin-left: 2.5%;
+  width: 100%;
+  margin-top: 2%;
+  /* margin-left: 2.5%; */
 }
 table {
-  /* width: 1000px; */
   width: 100%;
   box-sizing: border-box;
 }
@@ -74,22 +72,17 @@ tr,
 th {
   border: 2px solid black;
   border-collapse: collapse;
-  padding: 15px;
+  padding: 10px;
   text-align: center;
-  padding: 5px;
 }
 td {
   padding: 5px;
-}
-li {
-  list-style: none;
 }
 .padding,
 .pending {
   color: orange;
   font-weight: bold;
   border-radius: 14px;
-  /* background: orange; */
   font-size: 0.9rem;
 }
 
@@ -97,21 +90,18 @@ li {
   color: rgb(0, 255, 0, 0.5);
   border-radius: 14px;
   font-weight: bold;
-  /* background: rgb(0, 255, 0, 0.5); */
   font-size: 0.9rem;
 }
 .cancelled {
   color: #0000;
   font-weight: bold;
   border-radius: 14px;
-  /* background: #0000; */
   font-size: 0.9rem;
 }
 .reject {
   font-weight: bold;
   border-radius: 14px;
   color: red;
-  /* background: red; */
   font-size: 0.9rem;
 }
 </style>
