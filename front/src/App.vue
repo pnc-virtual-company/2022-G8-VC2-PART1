@@ -3,8 +3,9 @@
     v-if="isLogin"
     @request-logout="logout"
     :userRole="userRole"
+    ref="navigation"
   ></nav-bar>
-  <router-view @request-login="login" />
+  <router-view @request-login="login" @update-nav="$refs.navigation.getData()" />
 </template>
 <script>
 import Swal from "sweetalert2";

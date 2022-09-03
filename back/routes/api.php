@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
 
-//Route::group(['middleware'=>['auth:sanctum']], function(){
+Route::group(['middleware'=>['auth:sanctum']], function(){
 
 // leave route manage by social affair
     Route::get('social_affairs/leaves', [LeaveController::class,"index"]);
@@ -81,15 +81,15 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::post('students/logout',[StudentController::class, "logout"]);
     Route::post('social_affairs/logout', [UserController::class,"logout"]);
 
+    
+    
+    
+    
+    
+});
 //get Image
     //....student profile
-    Route::get('students/image/{imageName}', [StudentController::class, "getProfileImage"]);
+    Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
 
     //....admin profile
      Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
-
-
-    
-    
-
-//});

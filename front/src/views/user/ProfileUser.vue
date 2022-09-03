@@ -1,89 +1,82 @@
 <template>
   <div class="container">
     <div class="user_profile">
-      <div class="card-header d-flex justify-content-end align-items-center">
+      <div class="profile w-25">
         <div>
-          <router-link to="/studentlist" class="btn btn-close"></router-link>
+          <div class="circle">
+            <img
+              class="profile-img"
+              :src="
+                student.image != undefined
+                  ? 'http://127.0.0.1:8000/api/image/' + student.image
+                  : ''
+              "
+            />
+          </div>
+          <div class="btn_change">
+            <label
+              class="label-file-upload text-light text-center"
+              for="upload-profile"
+              >Change Profile</label
+            >
+            <input
+              id="upload-profile"
+              class="file-upload"
+              type="file"
+              @change="onChangeProfile"
+            />
+          </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="profile w-25">
-          <div>
-            <div class="circle">
-              <img
-                class="profile-img"
-                :src="
-                  student.image != undefined
-                    ? 'http://127.0.0.1:8000/api/students/image/' +
-                      student.image
-                    : ''
-                "
-              />
-            </div>
-            <div class="btn_change">
-              <label
-                class="label-file-upload text-light text-center"
-                for="upload-profile"
-                >Change Profile</label
-              >
-              <input
-                id="upload-profile"
-                class="file-upload"
-                type="file"
-                @change="onChangeProfile"
-              />
-            </div>
+      <div class="user_information w-75 mt-3">
+        <div
+          class="main_card d-flex justify-content-between align-items-center"
+        >
+          <div class="side_left w-50">
+            <p>
+              First Name <span style="margin-left: 20px">:</span>
+              <span style="margin-left: 10px">{{ student.first_name }}</span>
+            </p>
+            <p>
+              Batch <span style="margin-left: 61px">:</span>
+              <span style="margin-left: 10px">{{ student.batch }}</span>
+            </p>
+            <p>
+              Gender <span style="margin-left: 45px">:</span>
+              <span style="margin-left: 10px">{{ student.gender }}</span>
+            </p>
+          </div>
+          <div class="side_right w-50">
+            <p>
+              Last Name <span style="margin-left: 10px">:</span>
+              <span style="margin-left: 15px">{{ student.last_name }}</span>
+            </p>
+            <p>
+              Class <span style="margin-left: 61px">:</span>
+              <span style="margin-left: 15px">{{ student.class }}</span>
+            </p>
+            <p>
+              Phone <span style="margin-left: 49px">:</span>
+              <span style="margin-left: 15px">{{ student.phone }}</span>
+            </p>
           </div>
         </div>
-        <div class="user_information w-75 mt-3">
-          <div
-            class="main_card d-flex justify-content-between align-items-center"
-          >
-            <div class="side_left w-50">
-              <p>
-                First Name <span style="margin-left: 20px">:</span>
-                <span style="margin-left: 10px">{{ student.first_name }}</span>
-              </p>
-              <p>
-                Batch <span style="margin-left: 61px">:</span>
-                <span style="margin-left: 10px">{{ student.batch }}</span>
-              </p>
-              <p>
-                Gender <span style="margin-left: 45px">:</span>
-                <span style="margin-left: 10px">{{ student.gender }}</span>
-              </p>
-            </div>
-            <div class="side_right w-50">
-              <p>
-                Last Name <span style="margin-left: 10px">:</span>
-                <span style="margin-left: 15px">{{ student.last_name }}</span>
-              </p>
-              <p>
-                Class <span style="margin-left: 61px">:</span>
-                <span style="margin-left: 15px">{{ student.class }}</span>
-              </p>
-              <p>
-                Phone <span style="margin-left: 49px">:</span>
-                <span style="margin-left: 15px">{{ student.phone }}</span>
-              </p>
-            </div>
-          </div>
-          <p>
-            Email <span style="margin-left: 58px">:</span>
-            <span style="margin-left: 13px">{{ student.email }}</span>
-          </p>
-          <div class="btn_reset">
-            <button>Reset password</button>
-          </div>
+        <p>
+          Email <span style="margin-left: 58px">:</span>
+          <span style="margin-left: 13px">{{ student.email }}</span>
+        </p>
+        <div class="btn_reset">
+          <button>Reset password</button>
         </div>
       </div>
     </div>
+
     <div v-if="isFileUploaded" class="image-preview-container">
       <div class="image-preview">
         <img :src="uploadedImage" style="width: 300px; height: 300px" alt="" />
         <div class="btn">
           <button @click="closePreview">Cancle</button>
-          <button @click="saveChange">Change</button>
+          <button @click="saveChange">Save Change</button>
         </div>
       </div>
     </div>
@@ -129,6 +122,7 @@ export default {
       axios.post("/students/profile/" + this.user_id, formData).then((res) => {
         if (res) {
           this.getData();
+          this.$emit("update-nav");
         }
       });
     },
@@ -169,7 +163,6 @@ export default {
   width: 200px;
   height: 200px;
   position: absolute;
-  /* top: 53px; */
   border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
   overflow: hidden;
@@ -183,6 +176,7 @@ export default {
   height: 200px;
   width: auto;
 }
+
 .card-body {
   display: flex;
   justify-content: center;
@@ -234,6 +228,11 @@ export default {
   padding: 10px;
   border-radius: 7px;
   cursor: pointer;
+}
+.user_profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .user_profile p {
   font-size: 1.1rem;

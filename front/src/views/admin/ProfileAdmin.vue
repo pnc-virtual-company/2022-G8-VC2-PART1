@@ -7,9 +7,8 @@
             <img
               class="profile-img"
               :src="
-                student.image != undefined
-                  ? 'http://127.0.0.1:8000/api/students/image/' + student.image
-                  : ''
+                user.image != undefined
+                  ? 'http://127.0.0.1:8000/api/image/' + user.image : ''
               "
             />
           </div>
@@ -34,35 +33,29 @@
           <div class="side_left w-50">
             <p>
               First Name <span style="margin-left: 10px">:</span>
-              <span style="margin-left: 10px">{{ student.first_name }}</span>
+              <span style="margin-left: 10px">{{ user.first_name }}</span>
             </p>
-            <p>
-              Batch <span style="margin-left: 61px">:</span>
-              <span style="margin-left: 10px">{{ student.batch }}</span>
-            </p>
+            
             <p>
               Gender <span style="margin-left: 45px">:</span>
-              <span style="margin-left: 10px">{{ student.gender }}</span>
+              <span style="margin-left: 10px">{{ user.gender }}</span>
             </p>
           </div>
           <div class="side_right w-50">
             <p>
               Last Name <span style="margin-left: 10px">:</span>
-              <span style="margin-left: 15px">{{ student.last_name }}</span>
+              <span style="margin-left: 15px">{{ user.last_name }}</span>
             </p>
+            
             <p>
-              Class <span style="margin-left: 61px">:</span>
-              <span style="margin-left: 15px">{{ student.class }}</span>
-            </p>
-            <p>
-              Phone <span style="margin-left: 49px">:</span>
-              <span style="margin-left: 15px">{{ student.phone }}</span>
+              Position <span style="margin-left: 49px">:</span>
+              <span style="margin-left: 15px">{{ user.position }}</span>
             </p>
           </div>
         </div>
         <p>
           Email <span style="margin-left: 58px">:</span>
-          <span style="margin-left: 13px">{{ student.email }}</span>
+          <span style="margin-left: 13px">{{ user.email }}</span>
         </p>
         <div class="btn_reset">
           <button>Reset password</button>
@@ -88,7 +81,7 @@ export default {
   data() {
     return {
       user_id: null,
-      student: {},
+      user: {},
       image: null,
       isFileUploaded: false,
       uploadedImage: null,
@@ -117,9 +110,10 @@ export default {
       formData.append("_method", "PUT");
       formData.append("image", this.image);
       this.closePreview();
-      axios.post("/students/profile/" + this.user_id, formData).then((res) => {
+      axios.post("/social_affairs/profile/" + this.user_id, formData).then((res) => {
         if (res) {
           this.getData();
+          this.$emit('update-nav');
         }
       });
     },
@@ -132,15 +126,15 @@ export default {
 
     getData() {
       axios
-        .get("social_affairs/image/{imageName}" + this.user_id)
+        .get("social_affairs/" + this.user_id)
         .then((res) => {
-          this.student = res.data;
+          this.user = res.data;
         });
     },
   },
 
   created() {
-    this.user_id = JSON.parse(localStorage.getItem("studentID"));
+    this.user_id = JSON.parse(localStorage.getItem("userId"));
     this.getData();
   },
 };

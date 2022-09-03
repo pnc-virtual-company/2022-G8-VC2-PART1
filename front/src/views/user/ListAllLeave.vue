@@ -45,7 +45,7 @@ export default {
 <style scoped>
 .home {
   width: 100%;
-  margin-top:6%;
+  margin-top:3%;
   border-radius: 7px;
   padding: 30px;
   box-sizing: border-box;

@@ -30,14 +30,12 @@
         </router-link>
       </div>
     </div>
-    <ul>
       <student_item
         @isHideFilter="isHideFilter = !isHideFilter"
         :students="students"
         :filterData="filterData"
       >
       </student_item>
-    </ul>
   </div>
 </template>
 

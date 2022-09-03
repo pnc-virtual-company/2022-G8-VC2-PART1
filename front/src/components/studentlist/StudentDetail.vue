@@ -15,7 +15,7 @@
           class="profile-img"
           :src="
             student.image != undefined
-              ? 'http://127.0.0.1:8000/api/students/image/' + student.image
+              ? 'http://127.0.0.1:8000/api/image/' + student.image
               : ''
           "
           style="width: 165px; height: 165px; border: 2px solid #ccc"
@@ -24,45 +24,31 @@
       <div class="side-right">
         <div class="firstname">
           Firstname <span style="margin-left: 5px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{
-            student.first_name
-          }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{student.first_name}}</strong>
           <span style="font-weight: normal; margin-left: 40px">
             Student ID <span style="margin-left: 7px">:</span>
-            <strong style="font-weight: normal; margin-left: 10px">{{
-              student.studentID
-            }}</strong>
+            <strong style="font-weight: normal; margin-left: 10px">{{student.studentID}}</strong>
           </span>
         </div>
         <div class="lastname">
           Lastname <span style="margin-left: 6px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{
-            student.last_name
-          }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{student.last_name}}</strong>
         </div>
         <div class="gender">
           Gender <span style="margin-left: 27px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{
-            student.gender
-          }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{student.gender }}</strong>
         </div>
         <div class="batch">
           Batch <span style="margin-left: 42px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{
-            student.batch
-          }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{ student.batch}}</strong>
         </div>
         <div class="email">
           Email <span style="margin-left: 43px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{
-            student.email
-          }}</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{student.email}}</strong>
         </div>
         <div class="phone">
           Phone <span style="margin-left: 35px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">
-            {{ student.phone }}</strong
-          >
+          <strong style="font-weight: normal; margin-left: 10px">{{ student.phone }}</strong>
         </div>
       </div>
     </div>

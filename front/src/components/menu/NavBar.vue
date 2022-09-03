@@ -27,10 +27,9 @@
             class="profile-img"
             :src="
               student.image != undefined
-                ? 'http://127.0.0.1:8000/api/students/image/' + student.image
+                ? 'http://127.0.0.1:8000/api/image/' + student.image
                 : ''
             "
-            style="width: 55px; height: 55px; border-radius: 50%"
           />
         </div>
         <div class="user_profile">
@@ -41,21 +40,15 @@
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
           >
         </div>
-        <div class="btn_sign_out">
-          <button @click="$emit('request-logout')">
-            <!-- <img
-              src="../../assets/logout.png"
-              alt=""
-              style="width: 30px; height: 30px; color: #fff"
-            /> -->
-            Log out
+        <div class="btn_sign_out ">
+          <button @click="$emit('request-logout')" >
+            <img src="../../assets/logout.png" style="width:25px;height:25px;">
           </button>
         </div>
       </div>
     </nav>
   </div>
 </template>
-
 <script>
 import axios from "../../api/api.js";
 export default {
@@ -66,19 +59,27 @@ export default {
       first_name: "",
       last_name: "",
       student: {},
+      role: "",
     };
   },
   methods: {
     getData() {
-      axios
-        .get(
-          "social_affairs/students/" +
-            JSON.parse(localStorage.getItem("studentID"))
-        )
-        .then((res) => {
-          this.student = res.data;
-          console.log(this.student);
-        });
+      if (localStorage.getItem("userRole") == "student") {
+        axios
+          .get(
+            "social_affairs/students/" +
+              JSON.parse(localStorage.getItem("studentID"))
+          )
+          .then((res) => {
+            this.student = res.data;
+          });
+      } else if (localStorage.getItem("userRole") == "admin") {
+        axios
+          .get("social_affairs/" + JSON.parse(localStorage.getItem("userId")))
+          .then((res) => {
+            this.student = res.data;
+          });
+      }
     },
   },
   computed: {
@@ -161,11 +162,14 @@ nav .user_name a.router-link-exact-active {
 .user_name {
   width: 23%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .user_name .btn_sign_out {
   margin: 10px;
+}
+.user_profile {
+  margin-left: 30%;
 }
 .user_profile button {
   background: none;
@@ -175,15 +179,31 @@ nav .user_name a.router-link-exact-active {
 .btn_sign_out button {
   background: none;
   border: none;
-  /* padding: 12px; */
   cursor: pointer;
   color: #ffff;
   font-size: 1.1rem;
 }
-.btn_sign_out bottom img {
+.btn_sign_out botton img {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: none;
+}
+.profile-img {
+  display: flex;
+  margin: auto;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  width: auto;
+}
+.circle {
+  width: 55px;
+  height: 55px;
+  margin-left: 2%;
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(183, 183, 183, 0.7);
+  overflow: hidden;
 }
 </style>

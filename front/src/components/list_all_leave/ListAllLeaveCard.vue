@@ -48,6 +48,8 @@
       </table>
   </div>
 </template>
+
+
 <script>
 export default {
   inject: ["list_all_leaves"],
@@ -59,8 +61,7 @@ export default {
 .list_card {
   background: #ffff;
   width: 100%;
-  margin-top: 2%;
-  /* margin-left: 2.5%; */
+  margin-top: 3%;
 }
 table {
   width: 100%;
@@ -98,7 +99,7 @@ td {
   border-radius: 14px;
   font-size: 0.9rem;
 }
-.reject {
+.rejected {
   font-weight: bold;
   border-radius: 14px;
   color: red;
