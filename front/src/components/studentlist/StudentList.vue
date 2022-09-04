@@ -98,9 +98,9 @@ export default {
 }
 
 .header {
-  width: 87.8%;
+  width: 90%;
   border-radius: 7px;
-  margin-left: 7%;
+  margin-left: 4.5%;
   display: flex;
   position: fixed;
   right: 0;

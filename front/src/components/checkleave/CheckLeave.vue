@@ -33,23 +33,25 @@
       <table>
         <thead>
           <tr>
-            <th scope="col">Request Date</th>
+            <th scope="col">Student name</th>
+            <th scope="col">Class</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
-            <th scope="col">Duration</th>
             <th scope="col">Leave type</th>
-            <th scope="col" style="width: 250px">Email</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Duration</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody v-if="leaves.length != 0">
           <tr v-for="(leave, index) in leaves" :key="index">
-            <td>{{ leave.created_at }}</td>
+            <td style="font-weight: bold">{{ leave.student.first_name }} {{" "}}{{leave.student.last_name}}</td>
+            <td>{{ leave.student.batch }}{{"-"}}{{leave.student.class}}</td>
             <td>{{ leave.start_date }}</td>
             <td>{{ leave.end_date }}</td>
-            <td>{{ leave.duration }}</td>
             <td>{{ leave.leave_type }}</td>
-            <td>{{ leave.student.email }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.duration }}</td>
             <td>
               <div class="btn_action" v-if="leave.status === 'Pending'">
                 <button

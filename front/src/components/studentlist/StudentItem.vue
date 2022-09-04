@@ -189,8 +189,8 @@
             <th scope="col">ID</th>
             <th scope="col">STUDENT</th>
             <th scope="col" style="width: 250px">EMAIL</th>
-            <th scope="col">CLASS</th>
             <th scope="col">BATCH</th>
+            <th scope="col">CLASS</th>
             <th scope="col">INFO</th>
             <th scope="col">ACTIVE</th>
           </tr>
@@ -204,9 +204,8 @@
             <th scope="row">{{ student.studentID }}</th>
             <td>{{ student.first_name }}{{ " " }}{{ student.last_name }}</td>
             <td style="width: 190px">{{ student.email }}</td>
-            <td>{{ student.class }}</td>
             <td>{{ student.batch.toUpperCase() }}</td>
-
+            <td>{{ student.class }}</td>
             <td>
               <router-link
                 :to="/student_details/ + student.id"
@@ -529,7 +528,7 @@ table {
 table,
 tr,
 th {
-  border: 2px solid black;
+  border: 0.5px solid black;
   border-collapse: collapse;
   font-weight: normal;
   padding: 7px;

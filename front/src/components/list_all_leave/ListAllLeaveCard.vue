@@ -6,10 +6,10 @@
             <th scope="col">Request Date</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
+            <th scope="col">Leave Type</th>
             <th scope="col">Reason</th>
             <th scope="col">Duration</th>
             <th scope="col">Status</th>
-            <th scope="col">Leave Type</th>
           </tr>
         </thead>
         <tbody v-if="filterData.length > 0">
@@ -17,12 +17,12 @@
             <td scope="row">{{ list.created_at }}</td>
             <td scope="row">{{ list.start_date }}</td>
             <td scope="row">{{ list.end_date }}</td>
+            <td scope="row">{{ list.leave_type }}</td>
             <td scope="row" style="max-width: 200px">{{ list.reason }}</td>
             <td scope="row">{{ list.duration }}</td>
             <td scope="row" :class="list.status.toLowerCase()">
               {{ list.status }}
             </td>
-            <td scope="row">{{ list.leave_type }}</td>
           </tr>
         </tbody>
         <tbody v-else>
@@ -71,7 +71,7 @@ table {
 table,
 tr,
 th {
-  border: 2px solid black;
+  border: 0.5px solid #ccc;
   border-collapse: collapse;
   padding: 10px;
   text-align: center;

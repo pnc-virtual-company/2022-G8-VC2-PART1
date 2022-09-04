@@ -4,8 +4,14 @@
     @request-logout="logout"
     :userRole="userRole"
     :user="user"
-  ></nav-bar>
-  <router-view @request-login="login" :message="messageError" />
+    ref="navigation"
+    ></nav-bar>
+  <router-view
+    @request-login="login"
+    :message="messageError"
+    @update-nav="$refs.navigation.getData()"
+    @update-profile="$refs.navigation.isLoadingProfile = true"
+  />
 </template>
 <script>
 import Swal from "sweetalert2";
