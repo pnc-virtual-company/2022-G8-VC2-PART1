@@ -17,7 +17,6 @@ class Leave extends Model
         'reason',
         'status'
     ];
-    // protected $dates = ['start_date', 'end_date', 'request_date'];
 
     protected $casts = [
     'start_date'     => 'date:d-M-Y',

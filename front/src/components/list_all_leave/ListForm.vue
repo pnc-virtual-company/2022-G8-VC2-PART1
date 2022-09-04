@@ -5,7 +5,7 @@
         <span>Filter By Status</span>
         <select name="cars" id="cars" v-model="filter_status">
           <option value="Show all" selected>Show all</option>
-          <option value="Padding">Padding</option>
+          <option value="Pending">Pending</option>
           <option value="Approved">Approved</option>
           <option value="Rejected">Rejected</option>
         </select>
@@ -19,6 +19,9 @@
           <option value="Family's event">Family's event</option>
           <option value="Brother's and Sister's event">
             Brother's and Sister's event
+          </option>
+          <option value="Other Event">
+            Other Event
           </option>
         </select>
       </div>

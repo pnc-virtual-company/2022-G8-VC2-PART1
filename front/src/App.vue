@@ -5,7 +5,7 @@
     :userRole="userRole"
     :user="user"
     ref="navigation"
-    ></nav-bar>
+  ></nav-bar>
   <router-view
     @request-login="login"
     :message="messageError"
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     login(userInfo) {
-      if (userInfo.email.search("admin") != -1) {
+      if (userInfo.email.search("socialaffair") != -1) {
         this.adminLogin(userInfo);
       } else if (userInfo.email.search("student") != -1) {
         this.studentLogin(userInfo);

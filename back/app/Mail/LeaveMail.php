@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 class LeaveMail extends Mailable
 {
+    public $leave;
     use Queueable, SerializesModels;
 
     /**
@@ -16,9 +17,9 @@ class LeaveMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($leave)
     {
-        //
+        return $this->leave = $leave;
     }
 
     /**
@@ -28,6 +29,6 @@ class LeaveMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mailer.mailer');
+        return $this->from('soklimhin@gmail.com','Request Leave')->view('mailer.mailer')->subject('New Request');
     }
 }

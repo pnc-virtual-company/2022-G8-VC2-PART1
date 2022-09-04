@@ -1,7 +1,6 @@
 <template>
   <div class="student_list">
     <div
-      v-if="!isHideFilter"
       class="header d-flex justify-content-between align-items-center"
     >
       <div class="filter_by_name m-2">
@@ -40,55 +39,55 @@
 </template>
 
 <script>
-import StudentItem from "@/components/studentlist/StudentItem.vue";
-export default {
-  props: { students: Object },
-  inject: ["students"],
-  components: {
-    student_item: StudentItem,
-  },
-  data() {
-    return {
-      isHideFilter: false,
-      filter_by_name: "",
-      filter_by_batch: "",
-    };
-  },
-  computed: {
-    filterData() {
-      let data_filter = this.students;
-      if (this.filter_by_name != "" && this.filter_by_batch != "") {
-        data_filter = this.students.filter(
-          (student) =>
-            (student.first_name.toLowerCase() ===
-              this.filter_by_name.toLowerCase() ||
-              student.last_name.toLowerCase() ===
-                this.filter_by_name.toLowerCase()) &&
-            student.batch.toLowerCase() == this.filter_by_batch.toLowerCase()
-        );
-      }
-      if (this.filter_by_name != "") {
-        data_filter = this.students.filter(
-          (student) =>
-            student.first_name.toLowerCase() ===
-              this.filter_by_name.toLowerCase() ||
-            student.last_name.toLowerCase() ===
-              this.filter_by_name.toLowerCase() ||
-            student.first_name.toLowerCase() +
-              " " +
-              student.last_name.toLowerCase() ===
-              this.filter_by_name.toLowerCase()
-        );
-      }
-      if (this.filter_by_batch != "") {
-        data_filter = this.students.filter(
-          (student) => student.batch === this.filter_by_batch
-        );
-      }
-      return data_filter;
+  import StudentItem from "@/components/studentlist/StudentItem.vue";
+  export default {
+    props: { students: Object },
+    inject: ["students"],
+    components: {
+      student_item: StudentItem,
     },
-  },
-};
+    data() {
+      return {
+        // isHideFilter: false,
+        filter_by_name: "",
+        filter_by_batch: "",
+      };
+    },
+    computed: {
+      filterData() {
+        let data_filter = this.students;
+        if (this.filter_by_name != "" && this.filter_by_batch != "") {
+          data_filter = this.students.filter(
+            (student) =>
+              (student.first_name.toLowerCase() ===
+                this.filter_by_name.toLowerCase() ||
+                student.last_name.toLowerCase() ===
+                  this.filter_by_name.toLowerCase()) &&
+              student.batch.toLowerCase() == this.filter_by_batch.toLowerCase()
+          );
+        }
+        else if (this.filter_by_name != "") {
+          data_filter = this.students.filter(
+            (student) =>
+              student.first_name.toLowerCase() ===
+                this.filter_by_name.toLowerCase() ||
+              student.last_name.toLowerCase() ===
+                this.filter_by_name.toLowerCase() ||
+              student.first_name.toLowerCase() +
+                " " +
+                student.last_name.toLowerCase() ===
+                this.filter_by_name.toLowerCase()
+          );
+        }
+        else if (this.filter_by_batch != "") {
+          data_filter = this.students.filter(
+            (student) => student.batch === this.filter_by_batch
+          );
+        }
+        return data_filter;
+      },
+    },
+  };
 </script>
 
 <style scoped>

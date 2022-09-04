@@ -182,7 +182,7 @@
         </div>
       </form>
     </div>
-    <div class="main_card" v-else>
+    <div class="main_card" >
       <table>
         <thead>
           <tr>
@@ -327,9 +327,6 @@ export default {
           console.log("Edit Successfully" + id);
         });
       }
-      console.log(this.first_name);
-      console.log(this.last_name);
-      console.log("the id : " + id);
       this.showEditPopup = false;
       this.isTrue = false;
     },
@@ -361,13 +358,13 @@ export default {
 
 <style scoped>
 .form_add_student {
-  margin-top: -2.3%;
+  margin-top: -2.8%;
   position: absolute;
   top: center;
   right: 0;
   left: 0;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .form_header {

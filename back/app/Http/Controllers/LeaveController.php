@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Leave;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\LeaveMail;
 use App\Models\Student;
@@ -54,10 +55,10 @@ class LeaveController extends Controller
         $leave->save();
         
         // Send mail to Admin
-        // $users = User::get('email');
-        // foreach($users as $user) {
-        //     Mail::to($user->email)->send(new LeaveMail($leave));
-        // }
+        $users = User::get('email');
+        foreach($users as $user) {
+            Mail::to($user->email)->send(new LeaveMail($leave));
+        }
     }
 
     /**
