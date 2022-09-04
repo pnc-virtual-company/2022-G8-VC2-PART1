@@ -30,5 +30,6 @@ class ReplyBackMail extends Mailable
     public function build()
     {
         return $this->from('soklimhin@gmail.com','Reply')->view('mailer.replyback')->subject('Reply Request');
+        
     }
 }
