@@ -4,6 +4,7 @@
             <div class="header">
                 <header>Student Leave Management System</header>
             </div>
+            <p v-if="message === 'Fail'" class="error">Invalid Email or Password!</p>
             <div class="form_body">
                 <div class="logo">
                     <img src="../assets/pn-logo.png" alt="" style="width: 150px; height: 150px">
@@ -33,6 +34,7 @@
 // import axios from "../../axios-http.js"
 export default {
     emits:['request-login'],
+    props:['message'],
     data() {
         return {
             email: null,
@@ -82,6 +84,11 @@ box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 5px 0px, rgba(0, 0, 0, 0.4) 0px 0px 1px 0
     background: #63BFE7;
     border-radius: 7px 7px 0 0;
 
+}
+.error {
+    color: red;
+    background: rgb(252, 193, 193);
+    text-align: center;
 }
 .header header {
     text-align: center;
