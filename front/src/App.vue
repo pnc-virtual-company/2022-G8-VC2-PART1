@@ -117,12 +117,18 @@ export default {
     checklogin() {
       return localStorage.getItem("token");
     },
+    
   },
   mounted() {
     if (localStorage.getItem("token") != null) {
       this.isLogin = true;
     } else {
       this.isLogin = false;
+    }
+    if (localStorage.getItem("userRole")=="admin"){
+      this.$router.push("/studentlist")
+    }else {
+      this.$router.push("/")
     }
     this.getUserRole();
   },

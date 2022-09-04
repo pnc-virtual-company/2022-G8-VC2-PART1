@@ -11,18 +11,8 @@ const axiosApi = axios.create({
 axiosApi.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
   config.headers.Authorization = token ? `Bearer ${token}` : "";
-  console.log(localStorage.getItem('token')+"token reply-------------------------------")
   return config;
 });
 
 export default axiosApi;
 
-// import axios from "@/axios-http";
-
-// axios.interceptors.request.use(function (config) {
-//   const token = localStorage.getItem("token");
-//   config.headers.Authorization = token ? 'Bearer ${token}' : "";
-//   return config;
-// });
-
-// export default axios;

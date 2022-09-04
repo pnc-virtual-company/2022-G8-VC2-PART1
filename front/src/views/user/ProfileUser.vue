@@ -4,14 +4,14 @@
       <div class="profile w-25">
         <div >
           <div class="circle">
-            <img
+            <!-- <img
               class="profile-img"
               :src="
                 student.image != undefined
                   ? 'http://127.0.0.1:8000/api/image/' + student.image
                   : ''
               "
-            />
+            /> -->
           </div>
           <div class="btn_change">
             <label class="label-file-upload text-light text-center" for="upload-profile"
@@ -64,7 +64,7 @@
           <span style="margin-left: 13px">{{ student.email }}</span>
         </p>
         <div class="btn_reset">
-          <button>Reset password</button>
+          <button @click="openResetPs">Reset password </button>
         </div>
       </div>
     </div>
@@ -78,23 +78,94 @@
         </div>
       </div>
     </div>
+
+    <div class="modal-mask" v-if="showResetPs">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="reset_info" >
+            <div class="group_item">
+              <h1>Reset Password</h1>
+            </div>
+            <div class="group_item">
+              <div class="item">
+                  <input type="password" placeholder="Your old password" v-model="old_password">
+              </div>
+              <div class="item">
+                  <input type="password" placeholder="new password" v-model="new_password">
+              </div>
+              <div class="item">
+                  <input type="password" placeholder="New password confirm" v-model="newconfirm_password">
+              </div>
+            </div>
+            <div class="group_item footer">
+              <button @click="resetPassword">Reset</button>
+              <button id="cancle_btn" @click="cancleReset">Cancle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 <script>
 import axios from "../../axios-http.js";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
       user_id: null,
+      showResetPs:false,
       student: {},
       image: null,
       isFileUploaded: false,
       uploadedImage: null,
+      old_password:null,
+      new_password:null,
+      newconfirm_password:null,
       allowExtension: ["jpg", "png", "jpeg", "gif", "webp"],
     };
   },
 
   methods: {
+    resetPassword(){
+      let body = {confirm_current_password:this.old_password,new_password:this.new_password,newpassword_confirm:this.newconfirm_password}
+      axios.put('http://127.0.0.1:8000/api/students/reset_password/'+this.user_id,body).then((response)=>{
+         if (response.data.sms=="studen password have been change!"){
+          Swal.fire({
+            position:'center',
+            icon:"success",
+            title:"Password is updated",
+            showConfirmButton:false,
+            timer:950,
+          });
+         }else if (response.data.sms=="current password is not correct!"){
+          Swal.fire({
+            position:'center',
+            icon:"error",
+            title:"Your current password is not correct!",
+            showConfirmButton:false,
+            timer:1500,
+          });
+         }else if (response.data.sms=="new password and new password is not equal"){
+          Swal.fire({
+            position:'center',
+            icon:"error",
+            title:"New password and Confirm new password is not equal",
+            showConfirmButton:false,
+            timer:1500,
+          });
+         }
+      })
+      this.old_password = null;
+      this.new_password = null;
+      this.newconfirm_password = null;
+      this.showResetPs = !this.showResetPs;
+    },
+    openResetPs(){
+      this.showResetPs = !this.showResetPs;
+    },
     onChangeProfile(event) {
       let fileExtension = event.target.files[0].name.split(".").pop();
       if (this.allowExtension.includes(fileExtension.toLowerCase())) {
@@ -124,7 +195,9 @@ export default {
         }
       });
     },
-
+    cancleReset(){
+      this.showResetPs = !this.showResetPs;
+    },
     closePreview() {
       this.isFileUploaded = false;
       this.image = null;
@@ -260,5 +333,80 @@ p {
   border: 2px solid #ccc;
   padding: 5px;
   margin: 2px;
+}
+.modal-mask {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-container {
+    width: 35%;
+    height: auto;
+    margin: 0px auto;
+    padding: 15px 28px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.modal-default-button {
+    float: right;
+}
+.modal-enter-from, .modal-leave-to {
+    opacity: 0;
+}
+
+.modal-enter-active .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+};
+.reset_info {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 100px auto;
+    background-color: #ccc;
+    border-radius: 20px;
+}
+.reset_info .group_item {
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
+}
+.reset_info .group_item input {
+    width: 95%;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    outline:1px solid #63BFE7;
+}
+button {
+    padding: 10px;
+    border: none;
+    background-color: orange;
+    cursor: pointer;
+    border-radius:10px ;
+    margin-left: 20px;
+}
+#cancle_btn {
+    background-color: rgb(55, 189, 241);
 }
 </style>

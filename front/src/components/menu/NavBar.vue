@@ -23,11 +23,11 @@
       </div>
       <div class="user_name">
         <div class="circle">
-          <img
+          <!-- <img
             class="profile-img"
             :src="student.image != undefined ? 'http://127.0.0.1:8000/api/image/' + student.image : ''"
             style="width: 60px; height: 60px; border-radius: 50%"
-          />
+          /> -->
         </div>
         <div class="user_profile">
           <router-link to="/profile_student" v-if="userRole == 'student'"

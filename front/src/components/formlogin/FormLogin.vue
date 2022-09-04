@@ -45,37 +45,14 @@ export default {
     },
     methods: {
         login() {
-            // let user_data = {
-            //     role:this.select_role,
-            //     email: this.email,
-            //     password: this.password,
-            // }
             console.log(this.select_role)
             console.log(this.email)
             console.log(this.password)
-            // if (this.email !== null && this.password.length !== null) { 
-            //     if (this.select_role == "admin") {
-            //         axios.post("social_affairs/login", user_data).then((response) => {
-            //             this.$emit("log-in", true);
-            //             localStorage.setItem('user', JSON.stringify(response.data.user));
-            //             // let roles = JSON.parse(localStorage.getItem('user'));
-            //             console.log(JSON.parse(localStorage.getItem('user')))
-            //         })
-            //     }
-            // }
         }
-
     }
 }
 </script>
-
 <style scoped>
-
-
-
-
-
- 
 .form_login{
     width: 40%;
     margin-top: 10%;
