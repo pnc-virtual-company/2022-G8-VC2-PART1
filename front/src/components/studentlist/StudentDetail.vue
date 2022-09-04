@@ -53,22 +53,22 @@
         <div class="leave-control" style="width: 85%;">
           <div class="leave">
             Total leaves <span style="margin-left: 10px">:</span>
-            <strong style="font-weight: normal; margin-left: 10px">{{countLeaves }},</strong>
+            <strong style="font-weight: normal; margin-left: 10px">{{countLeaves }}</strong>
           </div>
 
           <div class="approved">
           Approved<span style="margin-left: 10px">:</span>
-          <strong style="font-weight: normal; margin-left: 10px">{{countApproved }},</strong>
+          <strong style="font-weight: normal; margin-left: 10px">{{countApproved }}</strong>
           </div>
 
           <div class="rejected">
              Rejected <span style="margin-left: 10px">:</span>
-            <strong style="font-weight: normal; margin-left: 10px">{{countRejected }},</strong>
+            <strong style="font-weight: normal; margin-left: 10px">{{countRejected }}</strong>
           </div>
 
           <div class="pending">
             Pending <span style="margin-left: 10px">:</span>
-            <strong style="font-weight: normal; margin-left: 10px">{{countPending}},</strong>
+            <strong style="font-weight: normal; margin-left: 10px">{{countPending}}</strong>
           </div>
          
           

@@ -92,10 +92,7 @@ $emit('isHideFilter');
           </div>
         </div>
         <div class="form_footer btn d-flex justify-content-end align-items-center">
-          <router-link to="studentlist" @click="
-  showEditPopup = false;
-$emit('isHideFilter');
-          " class="btn btn-danger btn-md m-1">
+          <router-link to="studentlist" @click="showEditPopup = false; $emit('isHideFilter');" class="btn btn-danger btn-md m-1">
             Cancel
           </router-link>
           <button type="submit" class="btn btn_register btn-md m-1">
@@ -135,9 +132,9 @@ $emit('isHideFilter');
                 DELETE
               </button>
               <button class="btn btn_edit text-decoration-none text-light m-1" @click="
-  onEdit(index, student.id);
-$emit('isHideFilter');
-              ">
+                  onEdit(index, student.id);
+                  $emit('isHideFilter');
+                  ">
                 EDIT
               </button>
             </td>
