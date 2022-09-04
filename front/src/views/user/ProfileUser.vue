@@ -16,6 +16,14 @@
             class="profile-img"
             :src="student.image != undefined ? 'http://127.0.0.1:8000/api/image/' + student.image : ''"
           />
+          <input
+              id="upload-profile"
+              class="file-upload"
+              type="file"
+              @change="onChangeProfile"
+          />
+          
+
         </div>
         <h2 style="margin-left: 15px; text-transform: capitalize;">{{student.first_name}} {{student.last_name}}</h2>
       </div>
@@ -112,7 +120,7 @@ export default {
       axios.post("/students/profile/" + this.user_id, formData).then((res) => {
         if (res) {
           this.getData();
-          this.$emit('update-nav');
+          this.$emit("update-nav");
         }
       });
     },
@@ -122,7 +130,6 @@ export default {
       this.image = null;
       this.uploadedImage = null;
     },
-
     getData() {
       axios.get("social_affairs/students/" + this.user_id).then((res) => {
         this.student = res.data;
@@ -139,22 +146,19 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  margin-top: 7%;
 }
 .user_profile {
   width: 90%;
   margin: auto;
   padding: 20px;
-  margin-top: 10%;
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
-  display: flex;
+
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
  
 }
 .circle {
@@ -165,13 +169,20 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+
 }
+
 .profile-img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .user_information {
   width: 60%;
   
@@ -201,7 +212,7 @@ export default {
 .image-preview img {
   margin: auto;
 }
-.image-preview  button {
+.image-preview button {
   width: 200px;
   background: #63bfe7;
   cursor: pointer;
@@ -231,6 +242,11 @@ export default {
   margin-bottom: 5px; 
   margin-right: 20px;
 }
+.user_profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .user_profile p {
   font-size: 1.1rem;
   color: #000;
@@ -240,10 +256,10 @@ export default {
   margin-top: 220px;
 }
 .btn_reset {
-  margin-top:3%;
+  margin-top: 3%;
   margin-left: 40%;
 }
-.btn_reset button{
+.btn_reset button {
   margin-left: 70%;
   background: #63bfe7;
   cursor: pointer;

@@ -32,17 +32,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->first_name=$request->first_name;
-        $user->last_name=$request->last_name;
-        $user->gender=$request->gender;
-        $user->email=$request->email;
-        $user->password= Hash::make($request->password);
-        $user->position=$request->position;
-        $user->image = 'boy.png';
+        // $user = new User();
+        // $user->first_name=$request->first_name;
+        // $user->last_name=$request->last_name;
+        // $user->gender=$request->gender;
+        // $user->email=$request->email;
+        // $user->password= Hash::make($request->password);
+        // $user->position=$request->position;
+        // $user->image = 'boy.png';
 
-        $user-> save();
-        return response()->json(['message'=>"social affair is added"]);
+        // $user-> save();
+        // return response()->json(['message'=>"social affair is added"]);
     }
     
     // change profile image

@@ -8,7 +8,6 @@ use App\Mail\LeaveMail;
 use App\Models\Student;
 use App\Mail\ReplyBackMail;
 
-
 class LeaveController extends Controller
 {
     /**
@@ -51,7 +50,7 @@ class LeaveController extends Controller
         $leave->duration= $request->duration;
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
-        $leave->status= "Padding";
+        $leave->status= "Pending";
         $leave->save();
         
         // Send mail to Admin

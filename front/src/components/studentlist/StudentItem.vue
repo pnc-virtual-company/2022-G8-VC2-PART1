@@ -8,22 +8,30 @@
           <span class="question_mark material-symbols-outlined"> help </span>
         </div>
 
-        <div class="btn btn_cancel_delete d-flex justify-content-between align-items-center">
+        <div
+          class="btn btn_cancel_delete d-flex justify-content-between align-items-center"
+        >
           <button class="btn btn-cancel btn-danger" @click="showPopup = false">
             Cancel
           </button>
-          <button class="btn btn-delete text-center" @click="deleteStudent(index, students_id)">
+          <button
+            class="btn btn-delete text-center"
+            @click="deleteStudent(index, students_id)"
+          >
             Delete
           </button>
         </div>
       </div>
     </div>
-    <!-- ===== student card ===== -->
+    <!-- ===== edit stuednt  ===== -->
     <div class="form_add_student" v-if="showEditPopup">
-      <form class="edit_student" @submit.prevent="
-  editStudent(id);
-$emit('isHideFilter');
-      ">
+      <form
+        class="edit_student"
+        @submit.prevent="
+          editStudent(id);
+          $emit('isHideFilter');
+        "
+      >
         <div class="form_header d-flex justify-content-center align-center">
           <span class="text-center">Update Student Information</span>
         </div>
@@ -31,36 +39,75 @@ $emit('isHideFilter');
           <div class="side_left p-2">
             <div class="username d-flex">
               <div class="first_name">
-                <label class="form-label required" for="first_name">First Name</label>
-                <input class="form-control" type="text" id="first_name" placeholder="firstname" v-model="first_name"
-                  @change="is_first_name_valid = false" required />
+                <label class="form-label required" for="first_name"
+                  >First Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="first_name"
+                  placeholder="firstname"
+                  v-model="first_name"
+                  @change="is_first_name_valid = false"
+                  required
+                />
               </div>
               <div class="last_name">
-                <label class="form-label required" for="last_name">Last Name</label>
-                <input class="form-control" type="text" id="last_name" placeholder="lastname" v-model="last_name"
-                  @change="is_last_name_valid = false" required />
+                <label class="form-label required" for="last_name"
+                  >Last Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="last_name"
+                  placeholder="lastname"
+                  v-model="last_name"
+                  @change="is_last_name_valid = false"
+                  required
+                />
               </div>
             </div>
-            <div class="gender_batch d-flex justify-content-between align-items-center">
+            <div
+              class="gender_batch d-flex justify-content-between align-items-center"
+            >
               <div class="gender mb-3">
                 <label class="form-label required" for="gender">Gender</label>
-                <select class="form-select form-select-md" aria-label=".form-select-lg example" v-model="gender"
-                  @change="is_gender_valid = false" required>
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="gender"
+                  @change="is_gender_valid = false"
+                  required
+                >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
               </div>
               <div class="batch">
                 <label class="form-label required" for="batch">Batch</label>
-                <input class="form-control" type="text" id="batch" placeholder="batch" v-model="batch"
-                  @change="is_batch_valid = false" required />
+                <input
+                  class="form-control"
+                  type="text"
+                  id="batch"
+                  placeholder="batch"
+                  v-model="batch"
+                  @change="is_batch_valid = false"
+                  required
+                />
               </div>
             </div>
             <div class="student_class_id mb-3">
               <div class="student_class">
-                <label class="form-label required" for="student_class">Class</label>
-                <select class="form-select form-select-md" aria-label=".form-select-lg example" v-model="student_class"
-                  @change="is_class_valid = false" required>
+                <label class="form-label required" for="student_class"
+                  >Class</label
+                >
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="student_class"
+                  @change="is_class_valid = false"
+                  required
+                >
                   <option value="SNA">SNA</option>
                   <option value="WEB A">WEB A</option>
                   <option value="WEB B">WEB B</option>
@@ -71,28 +118,62 @@ $emit('isHideFilter');
                 </select>
               </div>
               <div class="student_id">
-                <label class="form-label required" for="student_id">Student ID</label>
-                <input class="form-control" type="number" min="0" id="student_id" placeholder="Student ID"
-                  v-model="student_id" @change="is_student_id_valid = false" required />
+                <label class="form-label required" for="student_id"
+                  >Student ID</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  id="student_id"
+                  placeholder="Student ID"
+                  v-model="student_id"
+                  @change="is_student_id_valid = false"
+                  required
+                />
               </div>
             </div>
           </div>
           <div class="side_right p-2 mb-3">
             <div class="email mb-3">
               <label class="form-label required" for="email">Email</label>
-              <input class="form-control w-100" type="email" id="email" placeholder="email" v-model="email"
-                @change="is_email_valid = false" required />
+              <input
+                class="form-control w-100"
+                type="email"
+                id="email"
+                placeholder="email"
+                v-model="email"
+                @change="is_email_valid = false"
+                required
+              />
             </div>
-            
+
             <div class="phonenumber mt-3">
               <label class="form-label required" for="phonenumber">Phone</label>
-              <input class="form-control w-100" type="text" name="" id="phonenumber" placeholder="phone number"
-                v-model="phone" @change="is_phone_valid = false" required />
+              <input
+                class="form-control w-100"
+                type="text"
+                name=""
+                id="phonenumber"
+                placeholder="phone number"
+                v-model="phone"
+                @change="is_phone_valid = false"
+                required
+              />
             </div>
           </div>
         </div>
-        <div class="form_footer btn d-flex justify-content-end align-items-center">
-          <router-link to="studentlist" @click="showEditPopup = false; $emit('isHideFilter');" class="btn btn-danger btn-md m-1">
+        <div
+          class="form_footer btn d-flex justify-content-end align-items-center"
+        >
+          <router-link
+            to="studentlist"
+            @click="
+              showEditPopup = false;
+              $emit('isHideFilter');
+            "
+            class="btn btn-danger btn-md m-1"
+          >
             Cancel
           </router-link>
           <button type="submit" class="btn btn_register btn-md m-1">
@@ -108,33 +189,45 @@ $emit('isHideFilter');
             <th scope="col">ID</th>
             <th scope="col">STUDENT</th>
             <th scope="col" style="width: 250px">EMAIL</th>
-            <th scope="col">CLASS</th>
             <th scope="col">BATCH</th>
+            <th scope="col">CLASS</th>
             <th scope="col">INFO</th>
             <th scope="col">ACTIVE</th>
           </tr>
         </thead>
-        <tbody v-if="!isGettingData && filterData.length > 0">
-          <tr v-for="(student, index) of filterData" :key="student" :index="index">
+        <tbody v-if="filterData.length > 0">
+          <tr
+            v-for="(student, index) of filterData"
+            :key="student"
+            :index="index"
+          >
             <th scope="row">{{ student.studentID }}</th>
             <td>{{ student.first_name }}{{ " " }}{{ student.last_name }}</td>
             <td style="width: 190px">{{ student.email }}</td>
-            <td>{{ student.class }}</td>
             <td>{{ student.batch.toUpperCase() }}</td>
-
+            <td>{{ student.class }}</td>
             <td>
-              <router-link :to="/student_details/ + student.id" class="btn btn_detail text-decoration-none text-light ">
+              <router-link
+                :to="/student_details/ + student.id"
+                class="btn btn_detail text-decoration-none text-light"
+              >
                 DETAILS
               </router-link>
             </td>
             <td class="btn_edit_delete">
-              <button class="btn btn_delete bg-danger text-center text-light" @click="onDelete(index, student.id)">
+              <button
+                class="btn btn_delete bg-danger text-center text-light"
+                @click="onDelete(index, student.id)"
+              >
                 DELETE
               </button>
-              <button class="btn btn_edit text-decoration-none text-light m-1" @click="
+              <button
+                class="btn btn_edit text-decoration-none text-light m-1"
+                @click="
                   onEdit(index, student.id);
                   $emit('isHideFilter');
-                  ">
+                "
+              >
                 EDIT
               </button>
             </td>
@@ -271,7 +364,6 @@ export default {
         this.student_class = datas.class;
         this.student_id = datas.studentID;
         this.phone = datas.phone;
-
       });
     },
   },
@@ -279,8 +371,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .form_add_student {
   margin-top: -2.3%;
   position: absolute;
@@ -289,8 +379,6 @@ export default {
   left: 0;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
-
-
 }
 
 .form_header {
@@ -308,7 +396,7 @@ export default {
   background: #fff;
   width: 60%;
   margin-left: 20%;
-  border-radius:7px;
+  border-radius: 7px;
   box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
@@ -354,7 +442,7 @@ export default {
   width: 100%;
 }
 
-.text-danger{
+.text-danger {
   font-size: 2rem;
 }
 .gender {
@@ -431,6 +519,7 @@ li {
 
 .main_card {
   width: 90%;
+  margin-top: 6%;
   margin-left: 5%;
   margin-bottom: 1%;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
@@ -443,7 +532,6 @@ li {
 }
 
 table {
-  /* width: 1300px; */
   width: 100%;
   box-sizing: border-box;
 }
@@ -451,10 +539,10 @@ table {
 table,
 tr,
 th {
-  border: 1px solid black;
+  border: 0.5px solid black;
   border-collapse: collapse;
   font-weight: normal;
-  padding: 10px;
+  padding: 7px;
   text-align: center;
 }
 
@@ -510,7 +598,6 @@ th {
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
 }
-
 
 .question_mark {
   font-size: 7rem;

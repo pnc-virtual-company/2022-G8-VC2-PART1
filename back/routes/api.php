@@ -83,5 +83,11 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::post('students/logout',[StudentController::class, "logout"]);
     Route::post('social_affairs/logout', [UserController::class,"logout"]);
 
+    
+    
+    
+    
+    
 });
 
+    
