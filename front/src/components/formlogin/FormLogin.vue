@@ -36,6 +36,7 @@
 <script>
 // import axios from "../../axios-http.js"
 export default {
+    props:['message'],
     data() {
         return {
             select_role: null,
@@ -45,9 +46,30 @@ export default {
     },
     methods: {
         login() {
+
             console.log(this.select_role)
             console.log(this.email)
             console.log(this.password)
+
+           this.validation(); 
+        },
+        validation() {
+            if (this.email == null) {
+                this.forgotEmail = true;
+            }
+            else if (this.password == null) {
+                this.forgotEmail = false;
+                this.forgotPassword = true;
+            }
+            else{
+                this.forgotPassword = false;
+                let userInfo = {
+                    email:this.email,
+                    password:this.password,
+                }
+                this.$emit('request-login',userInfo);
+            }
+
         }
     }
 }

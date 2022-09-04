@@ -1,6 +1,6 @@
 <template>
    <student_list 
-   :students="students" ></student_list>
+   :students="students" :isGettingData="isGettingData" ></student_list>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             students: [],
+            isGettingData: true,
         }
     },
     methods: {
@@ -21,6 +22,7 @@ export default {
                 for (let k = 0; k < response.data.length; k++) {
                     this.students.push(response.data[k]);
                 }
+                this.isGettingData = false;
             })
         },
     },

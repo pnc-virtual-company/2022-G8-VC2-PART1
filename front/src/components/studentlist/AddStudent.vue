@@ -1,251 +1,236 @@
 <template>
-  <!-- form add student -->
-  <div class="form_add_student">
-    <form @submit.prevent="addStudent">
-      <div class="form_header d-flex justify-content-center align-center">
-        <!-- <div></div> -->
-        <span >Add Student</span>
-      </div>
-      <div class="form_body">
-        <div class="side_left p-2">
-          <div class="username d-flex">
-            <div class="first_name">
-              <label class="form-label required" for="first_name"
-                >First Name</label
-              >
-              <input
-                class="form-control"
-                type="text"
-                id="first_name"
-                placeholder="firstname"
-                v-model="first_name"
-                @change="is_first_name_valid = false"
-              />
-              <div class="error">
-                <p v-if="is_first_name_valid">Please enter firstname</p>
+  <div>
+    <div
+      class="form_add_student"
+    >
+      <!-- form add student -->
+      <form @submit.prevent="addStudent">
+        <div class="form_header d-flex justify-content-center align-center">
+          <span>Add Student</span>
+        </div>
+        <div class="form_body">
+          <div class="side_left p-2">
+            <div class="username d-flex">
+              <!-- add first name -->
+              <div class="first_name">
+                <label class="form-label required" for="first_name"
+                  >First Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="first_name"
+                  placeholder="firstname"
+                  v-model="first_name"
+                  @change="is_first_name_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_first_name_valid">Please enter firstname</p>
+                </div>
+              </div>
+              <!-- add last name -->
+              <div class="last_name">
+                <label class="form-label required" for="last_name"
+                  >Last Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="last_name"
+                  placeholder="lastname"
+                  v-model="last_name"
+                  @change="is_last_name_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_last_name_valid">Please enter lastname</p>
+                </div>
               </div>
             </div>
-            <div class="last_name">
-              <label class="form-label required" for="last_name"
-                >Last Name</label
-              >
-              <input
-                class="form-control"
-                type="text"
-                id="last_name"
-                placeholder="lastname"
-                v-model="last_name"
-                @change="is_last_name_valid = false"
-              />
-              <div class="error">
-                <p v-if="is_last_name_valid">Please enter lastname</p>
+            <!-- gender and batch for student -->
+            <div
+              class="gender_batch d-flex justify-content-between align-items-center"
+            >
+              <div class="gender mb-3">
+                <label class="form-label required" for="gender">Gender</label>
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="gender"
+                  @change="is_gender_valid = false"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                <div class="error">
+                  <p v-if="is_gender_valid">Please select gender</p>
+                </div>
+              </div>
+              <div class="batch">
+                <label class="form-label required" for="batch">Batch</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="batch"
+                  placeholder="batch"
+                  v-model="batch"
+                  @change="is_batch_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_batch_valid">Please enter batch</p>
+                </div>
+              </div>
+            </div>
+            <!-- add class  and student id -->
+            <div class="student_class_id mb-3">
+              <div class="student_class">
+                <label class="form-label required" for="student_class"
+                  >Class</label
+                >
+                <select
+                  class="form-select form-select-md"
+                  aria-label=".form-select-lg example"
+                  v-model="student_class"
+                  @change="is_class_valid = false"
+                >
+                  <option value="SNA">SNA</option>
+                  <option value="WEB A">WEB A</option>
+                  <option value="WEB B">WEB B</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+                <div class="error">
+                  <p v-if="is_class_valid">Please select class</p>
+                </div>
+              </div>
+              <div class="student_id">
+                <label class="form-label required" for="student_id"
+                  >Student ID</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  id="student_id"
+                  placeholder="Student ID"
+                  v-model="student_id"
+                  @change="is_student_id_valid = false"
+                />
+                <div class="error">
+                  <p v-if="is_student_id_valid">Please enter student ID</p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="gender_batch d-flex justify-content-between align-items-center"
-            v-if="select_role == 'student'"
-          >
-            <div class="gender mb-3">
-              <label class="form-label required" for="gender">Gender</label>
-              <select
-                class="form-select form-select-md"
-                aria-label=".form-select-lg example"
-                v-model="gender"
-                @change="is_gender_valid = false"
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+          <!-- add email for student -->
+          <div class="side_right p-2 mb-3">
+            <div class="email mb-3">
+              <label class="form-label required" for="email">Email</label>
+              <div class="student_email d-flex">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="email"
+                  placeholder="e.g: sok.nhok"
+                  v-model="name"
+                  @change="is_email_valid = false"
+                />
+                <select name="" class="form-select" id="" v-model="email">
+                  <option value="@student.passerellesnumeriques.org">
+                    @student.passerellesnumeriques.org
+                  </option>
+                </select>
+              </div>
               <div class="error">
-                <p v-if="is_gender_valid">Please select gender</p>
+                <p v-if="is_email_valid">Please enter student's email</p>
               </div>
             </div>
-            <div class="batch">
-              <label class="form-label required" for="batch">Batch</label>
+            <!-- add password for student -->
+            <div class="password">
+              <label class="form-label required" for="password">Password</label>
+              <div class="psw d-flex">
+                <input
+                  v-if="showPassword"
+                  class="form-control w-100 psw"
+                  type="text"
+                  id="password"
+                  placeholder="password"
+                  v-model="password"
+                  @change="is_password_valid = false"
+                />
+                <input
+                  v-else
+                  class="form-control w-100 psw"
+                  type="password"
+                  id="password"
+                  placeholder="password"
+                  v-model="password"
+                  @change="is_password_valid = false"
+                />
+                <div class="btn_show_psw">
+                  <button @click="toggleShow">
+                    <span class="material-symbols-outlined" v-if="showPassword">
+                      visibility
+                    </span>
+                    <span class="material-symbols-outlined" v-else>
+                      visibility_off
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div class="error">
+                <p v-if="is_password_valid">Please enter student's password</p>
+              </div>
+            </div>
+            <!-- add phone number for student-->
+            <div class="phonenumber mt-3" >
+              <label class="form-label required" for="phonenumber">Phone</label>
               <input
-                class="form-control"
-                type="text"
-                id="batch"
-                placeholder="batch"
-                v-model="batch"
-                @change="is_batch_valid = false"
+                class="form-control w-100"
+                type="phonenumber"
+                name=""
+                id="phonenumber"
+                placeholder="phone number"
+                v-model="phone"
+                @change="is_phone_valid = false"
               />
               <div class="error">
-                <p v-if="is_batch_valid">Please enter student batch</p>
-              </div>
-            </div>
-          </div>
-          <div v-if="select_role == 'admin'">
-            <label class="form-label required" for="position">Position</label>
-            <input
-              class="form-control"
-              type="text"
-              id="position"
-              placeholder="position"
-              v-model="position"
-              @change="is_batch_valid = false"
-            />
-            <!-- <div class="error">
-              <p v-if="is_batch_valid">Please enter student batch</p>
-            </div> -->
-          </div>
-          <div class="student_class_id mb-3" v-if="select_role == 'student'">
-            <div class="student_class">
-              <label class="form-label required" for="student_class"
-                >Class</label
-              >
-              <select
-                class="form-select form-select-md"
-                aria-label=".form-select-lg example"
-                v-model="student_class"
-                @change="is_class_valid = false"
-              >
-                <option value="SNA">SNA</option>
-                <option value="WEB A">WEB A</option>
-                <option value="WEB B">WEB B</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-              </select>
-              <div class="error">
-                <p v-if="is_class_valid">Please select class</p>
-              </div>
-            </div>
-            <div class="student_id">
-              <label class="form-label required" for="student_id"
-                >Student ID</label
-              >
-              <input
-                class="form-control"
-                type="number"
-                min="0"
-                id="student_id"
-                placeholder="Student ID"
-                v-model="student_id"
-                @change="is_student_id_valid = false"
-              />
-              <div class="error">
-                <p v-if="is_student_id_valid">Please enter student ID</p>
+                <p v-if="is_phone_valid">Please enter student's phone number</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="side_right p-2 mb-3">
-          <div class="email mb-3">
-            <label class="form-label required" for="email">Email</label>
-            <div class="student_email d-flex">
-              <input
-                class="form-control"
-                type="text"
-                id="email"
-                placeholder="e.g: sok.nhok"
-                v-model="name"
-                @change="is_email_valid = false"
-              />
-              <select name="" class="form-select" id="" v-model="email">
-                <option value="@student.passerellesnumeriques.org">
-                  @student.passerellesnumeriques.org
-                </option>
-              </select>
-            </div>
-
-            <div class="error">
-              <p v-if="is_email_valid">Please enter student's email</p>
-            </div>
-          </div>
-          <div class="password">
-            <label class="form-label required" for="password">Password</label>
-            <div class="psw d-flex">
-              <input
-                v-if="showPassword"
-                class="form-control w-100 psw"
-                type="text"
-                id="password"
-                placeholder="password"
-                v-model="password"
-                @change="is_password_valid = false"
-              />
-              <input
-                v-else
-                class="form-control w-100 psw"
-                type="password"
-                id="password"
-                placeholder="password"
-                v-model="password"
-                @change="is_password_valid = false"
-              />
-              <div class="btn_show_psw">
-                <button @click="toggleShow">
-                  <span class="material-symbols-outlined" v-if="showPassword">
-                    visibility
-                  </span>
-                  <span class="material-symbols-outlined" v-else>
-                    visibility_off
-                  </span>
-                </button>
-              </div>
-            </div>
-            <div class="error">
-              <p v-if="is_password_valid">Please enter student's password</p>
-            </div>
-          </div>
-          <div class="phonenumber mt-3" v-if="select_role == 'student'">
-            <label class="form-label required" for="phonenumber">Phone</label>
-            <input
-              class="form-control w-100"
-              type="phonenumber"
-              name=""
-              id="phonenumber"
-              placeholder="phone number"
-              v-model="phone"
-              @change="is_phone_valid = false"
-            />
-            <div class="error">
-              <p v-if="is_phone_valid">Please enter student's phone number</p>
-            </div>
-          </div>
-          <!-- <div class="profile mt-3">
-            <label class="form-label required" for="profile">Profile</label>
-            <input class="form-control w-100" type="file" name="profile" id="profile" placeholder="profile file"
-              @change="previewFiles" />
+        <div
+          class="form_footer btn d-flex justify-content-end align-items-center"
+        >
+          <!-- <div class="select_role w-50">
+            <select
+              class="form-select w-100"
+              aria-label=".form-select-lg example"
+              v-model="select_role"
+              @change="is_class_valid = false"
+            >
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+            </select>
           </div> -->
+          <!-- register for student -->
+          <div >
+            <router-link to="studentlist" class="btn btn-danger btn-md m-1">
+              Cancel
+            </router-link>
+            <button
+              type="submit"
+              class="btn btn_register btn-md m-1"
+              :disabled="disableButtonSubmit"
+            >
+              Register
+            </button>
+          </div>
         </div>
-      </div>
-      <div
-        class="form_footer btn d-flex justify-content-between align-items-center"
-      >
-        <div class="select_role w-50">
-          <!-- <label class="form-label required" for="position">Role</label> -->
-          <select
-            class="form-select w-100"
-            aria-label=".form-select-lg example"
-            v-model="select_role"
-            @change="is_class_valid = false"
-          >
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-           
-          </select>
-          <!-- <div class="error">
-            <p v-if="is_class_valid">Please select class</p>
-          </div> -->
-        </div>
-        <div>
-          <router-link to="studentlist" class="btn btn-danger btn-md m-1">
-            Cancel
-          </router-link>
-          <button
-            type="submit"
-            class="btn btn_register btn-md m-1"
-            :disabled="disableButtonSubmit"
-          >
-            Register
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -259,15 +244,17 @@ export default {
       first_name: "",
       last_name: "",
       gender: "",
-      select_role: "student",
+      // select_role: "student",
       batch: "",
-      email: "",
+      email: "@student.passerellesnumeriques.org",
+      // email_admin: "@admin.passerellesnumeriques.org",
       name: "",
       password: "12345678",
       phone: "",
       images: "",
       student_class: "",
       student_id: "",
+      position: "",
       is_first_name_valid: false,
       is_last_name_valid: false,
       is_email_valid: false,
@@ -280,6 +267,9 @@ export default {
       is_class_valid: false,
       is_email_exists: false,
       is_student_id_valid: false,
+      // is_admin_position: false,
+      // is_admin: false,
+      is_student: false,
     };
   },
   methods: {
@@ -289,7 +279,7 @@ export default {
       this.gender = "";
       this.phone = "";
       this.student_class = "";
-      // this.password = "";
+      // this.position = "";
       this.email = "";
       this.name = "";
       this.batch = "";
@@ -333,6 +323,43 @@ export default {
         this.clearForm();
       }
     },
+    // addAdmin() {
+    //   this.validateForm();
+    //   let object = {
+    //     user_id: 1,
+    //     first_name: this.first_name,
+    //     last_name: this.last_name,
+    //     gender: this.gender,
+    //     batch: this.batch,
+    //     password: this.password,
+    //     phone: this.phone,
+    //     // image: this.image.name,
+    //     email: this.name + this.email,
+    //     studentID: this.student_id,
+    //     class: this.student_class,
+    //   };
+    //   if (
+    //     (this.first_name &&
+    //       this.last_name &&
+    //       this.gender &&
+    //       this.batch &&
+    //       this.password &&
+    //       this.phone) ||
+    //     (this.image && this.email && this.student_id)
+    //   ) {
+    //     axios.post("/social_affairs/students", object).then(() => {
+    //       Swal.fire({
+    //         position: "center",
+    //         icon: "success",
+    //         title: "Your work has been saved",
+    //         showConfirmButton: false,
+    //         timer: 1000,
+    //       });
+    //       return this.$router.push({ name: "studentlist" });
+    //     });
+    //     this.clearForm();
+    //   }
+    // },
     previewFiles(event) {
       this.image = event.target.files[0];
     },
@@ -346,6 +373,7 @@ export default {
       this.is_phone_valid = false;
       this.is_student_id_valid = false;
       this.is_class_valid = false;
+      // this.is_admin_position = false;
       if (this.first_name == "") {
         this.is_first_name_valid = true;
       }
@@ -373,6 +401,9 @@ export default {
       if (this.student_id == "") {
         this.is_student_id_valid = true;
       }
+      // if (this.position == "") {
+      //   this.is_admin_position = true;
+      // }
     },
     toggleShow() {
       this.showPassword = !this.showPassword;
@@ -386,7 +417,6 @@ export default {
         this.last_name ||
         this.gender ||
         this.batch ||
-        this.email ||
         this.student_class ||
         this.phone
       ) {
@@ -413,7 +443,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+  box-shadow: rgba(50, 50, 93, 0.1) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
   border-radius: 7px 7px 0 0;
   color: #63bfe7;

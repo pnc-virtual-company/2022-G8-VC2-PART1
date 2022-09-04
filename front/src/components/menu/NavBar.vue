@@ -23,13 +23,18 @@
       </div>
       <div class="user_name">
         <div class="circle">
-          <!-- <img
+
+          <img v-if="isLoadingProfile" style="position: absolute; width: 30px;" src="./../../assets/loading_circle.gif">
+          <img
             class="profile-img"
-            :src="student.image != undefined ? 'http://127.0.0.1:8000/api/image/' + student.image : ''"
-            style="width: 60px; height: 60px; border-radius: 50%"
-          /> -->
+            :src="
+              student.image != undefined
+                ? 'http://127.0.0.1:8000/api/image/' + student.image
+                : ''
+            "
+          />
         </div>
-        <div class="user_profile">
+        <div class="user_profile" style="text-transform: capitalize;">
           <router-link to="/profile_student" v-if="userRole == 'student'"
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
           >
@@ -37,20 +42,15 @@
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
           >
         </div>
-        <div class="btn_sign_out">
-          <button @click="$emit('request-logout')">
-            <img
-              src="../../assets/logout.png"
-              alt=""
-              style="width: 30px; height: 30px; color: #fff"
-            />
+        <div class="btn_sign_out ">
+          <button @click="$emit('request-logout')" >
+            <img src="../../assets/logout.png" style="width:25px;height:25px;">
           </button>
         </div>
       </div>
     </nav>
   </div>
 </template>
-
 <script>
 import axios from "../../api/api.js";
 export default {
@@ -61,7 +61,8 @@ export default {
       first_name: "",
       last_name: "",
       student: {},
-      role: ""
+      role: "",
+      isLoadingProfile: false,
     };
   },
   methods: {
@@ -70,27 +71,28 @@ export default {
         axios.get("social_affairs/students/" + JSON.parse(localStorage.getItem("studentID")))
         .then((res) => {
           this.student = res.data;
+          this.isLoadingProfile = false;
         });
       } else if (localStorage.getItem("userRole") == 'admin') {
         axios.get("social_affairs/" + JSON.parse(localStorage.getItem("userId")))
         .then((res) => {
           this.student = res.data;
+          this.isLoadingProfile = false;
         });
       }
-    }
+    },
   },
   computed: {
     firstname() {
-      // this.first_name
       return localStorage.getItem("first_name");
     },
     lastname() {
-      // this.last_name =
       return localStorage.getItem("last_name");
     },
   },
   mounted() {
     this.getData();
+    console.log();
   },
 };
 </script>
@@ -101,6 +103,11 @@ export default {
   padding: 0;
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 nav {
   background: #63bfe7;
@@ -129,21 +136,21 @@ nav .router a.router-link-exact-active {
   color: #fff;
   background: orange;
   border-radius: 7px;
-  padding: 12px;
+  padding: 7px;
 }
 nav .user_name a.router-link-exact-active {
   color: #fff;
   background: orange;
   border-radius: 7px;
-  padding: 12px;
+  padding: 7px;
 }
 .logo_display {
   display: flex;
   align-items: center;
 }
 .logo_display img {
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   margin-left: 10%;
 }
 .logo_display p {
@@ -159,11 +166,14 @@ nav .user_name a.router-link-exact-active {
 .user_name {
   width: 23%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .user_name .btn_sign_out {
   margin: 10px;
+}
+.user_profile {
+  margin-left: 30%;
 }
 .user_profile button {
   background: none;
@@ -173,15 +183,31 @@ nav .user_name a.router-link-exact-active {
 .btn_sign_out button {
   background: none;
   border: none;
-  /* padding: 12px; */
   cursor: pointer;
   color: #ffff;
   font-size: 1.1rem;
 }
-.btn_sign_out bottom img {
+.btn_sign_out botton img {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: none;
+}
+.profile-img {
+  display: flex;
+  margin: auto;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  width: auto;
+}
+.circle {
+  width: 55px;
+  height: 55px;
+  margin-left: 2%;
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(183, 183, 183, 0.7);
+  overflow: hidden;
 }
 </style>

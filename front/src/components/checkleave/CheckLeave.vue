@@ -6,57 +6,123 @@
         <p>Filter By Status</p>
         <select name="status" v-model="filterStatus" @change="getLeaveFilter">
           <option value="Show all">Show all</option>
-          <option value="Padding">Padding</option>
-          <option value="Approved">Approve</option>
-          <option value="Rejected">Reject</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
       <div class="filter_type">
         <p>Filter By Leave Types</p>
-        <select name="leave_type" v-model="filterLeaveType" @change="getLeaveFilter">
+        <select
+          name="leave_type"
+          v-model="filterLeaveType"
+          @change="getLeaveFilter"
+        >
           <option value="Show all">Show all</option>
           <option value="Sick Leave">Sick leave</option>
           <option value="Wedding">Wedding</option>
           <option value="Family's event">Family-event</option>
-          <option value="Brother's and Sister's event">Brother's and Sister's event</option>
+          <option value="Brother's and Sister's event">
+            Brother's and Sister's event
+          </option>
           <option value="Other Event">Other</option>
         </select>
       </div>
     </div>
     <div class="all_card" v-if="leaves.length != 0">
-        <div class="card_leave" v-for="(leave,index) in leaves" :key="index">
-          <div class="profile">
-            <img src="../../assets/pn-logo.png" alt="" >
-          </div>
-          <div class="leave_info">
-            <h3>{{leave.student.last_name}} {{leave.student.first_name}}</h3>
-            <p>Leave Type: <strong>{{leave.leave_type}}</strong></p>
-            <p>Date Start: <strong>{{leave.start_date}}</strong></p>
-            <p>Date End: <strong>{{leave.end_date}}</strong></p>
-            <p v-if="leave.duration <= 1">Duration: <strong>{{leave.duration}} Day</strong></p>
-            <p v-else>Duration: <strong>{{leave.duration}} Days</strong></p>
-            <p>Reason: {{leave.reason}}</p>
-            <p>Email: <strong>{{leave.student.email}}</strong></p>
-          </div>
-          <div class="btn">
-            <div class="btn_action" v-if="leave.status === 'Padding'">
-              <button class="approve"
-                @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Approved'})">Approve</button>
-              <button class="reject"
-                @click="replyBack(leave.id,{user_id: leave.user_id,leave_type: leave.leave_type,start_date: leave.start_date,end_date: leave.end_date,duration: leave.duration,student_id: leave.student_id,reason: leave.reason,status: 'Rejected'})">Reject</button>
-            </div>
-            <div v-else class="leave_status">
-              <p  class="re_approve" v-if="leave.status == 'Approved'">{{leave.status}}</p>
-              <p  class="re_reject" v-if="leave.status == 'Rejected'">{{leave.status}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-else class="no_leave d-flex justify-content-center align-items-center" style="margin-top:25%;">
-        <span  class="no_leave text-danger" style="font-size:2rem">No Leave found!!</span>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Student name</th>
+            <th scope="col">Class</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Leave type</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody v-if="leaves.length != 0">
+          <tr v-for="(leave, index) in leaves" :key="index">
+            <td style="font-weight: bold">{{ leave.student.first_name }} {{" "}}{{leave.student.last_name}}</td>
+            <td>{{ leave.student.batch }}{{"-"}}{{leave.student.class}}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td>{{ leave.leave_type }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.duration }}</td>
+            <td>
+              <div class="btn_action" v-if="leave.status === 'Pending'">
+                <button
+                  class="approve"
+                  @click="
+                    replyBack(leave.id, {
+                      user_id: leave.user_id,
+                      leave_type: leave.leave_type,
+                      start_date: leave.start_date,
+                      end_date: leave.end_date,
+                      duration: leave.duration,
+                      student_id: leave.student_id,
+                      reason: leave.reason,
+                      status: 'Approved',
+                    })
+                  "
+                >
+                  Approve
+                </button>
+                <button
+                  class="reject"
+                  @click="
+                    replyBack(leave.id, {
+                      user_id: leave.user_id,
+                      leave_type: leave.leave_type,
+                      start_date: leave.start_date,
+                      end_date: leave.end_date,
+                      duration: leave.duration,
+                      student_id: leave.student_id,
+                      reason: leave.reason,
+                      status: 'Rejected',
+                    })
+                  "
+                >
+                  Reject
+                </button>
+              </div>
+              <div v-else class="leave_status">
+                <p class="re_approve" v-if="leave.status == 'Approved'">
+                  {{ leave.status }}
+                </p>
+                <p class="re_reject" v-if="leave.status == 'Rejected'">
+                  {{ leave.status }}
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-danger fs-1">Don't have student</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      v-else
+      class="no_leave d-flex justify-content-center align-items-center"
+      style="margin-top: 25%"
+    >
+      <span class="no_leave text-danger" style="font-size: 2rem"
+        >No Leave found!!</span
+      >
+    </div>
   </div>
- 
 </template>
 
 <script>
@@ -66,50 +132,64 @@ export default {
   data() {
     return {
       leaves: [],
-      filterStatus: 'Show all',
-      filterLeaveType: 'Show all',
+      filterStatus: "Show all",
+      filterLeaveType: "Show all",
       wait: false,
-    }
+    };
   },
   mounted() {
     this.getAllLeave();
   },
   methods: {
-    replyBack(indexId,message) {
+    replyBack(indexId, message) {
       this.wait = true;
-      axios.put('social_affairs/update_leave_status/' + indexId,message).then(res => {
-        console.log(res.data);
-        setTimeout(() => {
-          this.wait = false;
-        },500);
-        this.getAllLeave();
-      });
+      axios
+        .put("social_affairs/update_leave_status/" + indexId, message)
+        .then((res) => {
+          console.log(res.data);
+          setTimeout(() => {
+            this.wait = false;
+          }, 500);
+          this.getAllLeave();
+        });
     },
     getAllLeave() {
-      axios.get('social_affairs/leaves/').then(res =>{
+      axios.get("social_affairs/leaves/").then((res) => {
         this.leaves = res.data;
         console.log(this.leaves);
       });
     },
     getLeaveFilter() {
-      if ((this.filterStatus != 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axios.get('social_affairs/leaves/').then(res =>{
-          this.leaves = res.data.filter(leave => (leave.status == this.filterStatus) && (leave.leave_type == this.filterLeaveType));
+      if (
+        this.filterStatus != "Show all" &&
+        this.filterLeaveType != "Show all"
+      ) {
+        axios.get("social_affairs/leaves/").then((res) => {
+          this.leaves = res.data.filter(
+            (leave) =>
+              leave.status == this.filterStatus &&  
+              leave.leave_type == this.filterLeaveType
+          );
         });
-      }
-      else if ((this.filterStatus == 'Show all') && (this.filterLeaveType != 'Show all')) {
-        axios.get('social_affairs/leaves/').then(res =>{
-          
-          this.leaves = res.data.filter(leave => leave.leave_type == this.filterLeaveType);
+      } else if (
+        this.filterStatus == "Show all" &&
+        this.filterLeaveType != "Show all"
+      ) {
+        axios.get("social_affairs/leaves/").then((res) => {
+          this.leaves = res.data.filter(
+            (leave) => leave.leave_type == this.filterLeaveType
+          );
         });
-      }
-      else if ((this.filterLeaveType == 'Show all') && ((this.filterStatus != 'Show all'))) {
-        axios.get('social_affairs/leaves/').then(res =>{
-  
-          this.leaves = res.data.filter(leave => leave.status == this.filterStatus);
+      } else if (
+        this.filterLeaveType == "Show all" &&
+        this.filterStatus != "Show all"
+      ) {
+        axios.get("social_affairs/leaves/").then((res) => {
+          this.leaves = res.data.filter(
+            (leave) => leave.status == this.filterStatus
+          );
         });
-      }
-      else{
+      } else {
         this.getAllLeave();
       }
     },
@@ -122,57 +202,80 @@ h4 {
   text-align: end;
   margin-right: 5px;
 }
+table {
+  width: 100%;
+  box-sizing: border-box;
+}
 
-select{
+table,
+tr,
+th {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+}
+thead {
+  background: #63bfe7;
+  color: #fff;
+}
+td {
+  padding: 5px;
+  font-size: 0.9rem;
+}
+select {
   width: 100%;
   margin: 5px 0px;
   padding: 8px;
 }
-.filter_banner{
+.filter_banner {
   margin-top: 15%;
 }
 .filter_bar {
-  border-radius: 10px;
+  border-radius: 7px;
   padding: 15px;
-  margin-top:90px ;
   background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   width: 60%;
   margin: auto;
   display: flex;
   position: fixed;
-  top: 16%;
+  top: 10%;
   right: 0;
   left: 0;
 }
-.re_approve{
+.re_approve {
   color: green;
 }
-.re_reject{
+.re_reject {
   color: red;
 }
-.wait{
-    text-align: center;
-    background: #08a3e6;
-    padding: 20px;
-    position: absolute;
-    top: 45vh;
-    left: 35vw;
-    width: 30%;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-    color: white;
-    font-size: 2rem;
-    border-radius: 10px;
-
-    animation-name: example;
-    animation-duration: 4s;
+.wait {
+  text-align: center;
+  background: #08a3e6;
+  padding: 15px;
+  position: absolute;
+  top: 45vh;
+  left: 35vw;
+  width: 30%;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 7px;
+  animation-name: example;
+  animation-duration: 4s;
 }
 
 @keyframes example {
-  from {background-color: #028dc8}
-  to {background-color: #8bd5f5}
+  from {
+    background-color: #028dc8;
+  }
+  to {
+    background-color: #8bd5f5;
+  }
 }
-.profile{
+.profile {
   width: 30%;
   display: flex;
   justify-content: center;
@@ -181,7 +284,7 @@ select{
 .profile img {
   width: 35%;
 }
-span{
+span {
   text-align: center;
   font-size: 2rem;
   color: gray;
@@ -189,68 +292,64 @@ span{
 .no_leave {
   text-align: center;
 }
-select:focus{
+select:focus {
   outline: none;
 }
 
-.filter_status,.filter_type{
+.filter_status,
+.filter_type {
   width: 48%;
   margin: 5px;
 }
 
-button{
-  padding: 10px;
-  margin: 10px;
+button {
+  width: 80px;
+  padding: 5px;
   cursor: pointer;
+  margin:3px;
   border: none;
   font-size: 15px;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
-.approve{
+.approve {
   background: rgb(1, 146, 203);
 }
-.reject{
-  background: rgb(222, 145, 2);
+.reject {
+  background: red;
 }
-
-
-
-img{
+img {
   width: 10%;
 }
-
-.status{
+.status {
   text-align: end;
 }
-
-.card_leave{
+.card_leave {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-
-.card_leave{
+.card_leave {
   padding: 10px;
-  border-left: 5px solid #63bfe7;
+  border-left: 7px solid #63bfe7;
+  border-right: 7px solid #63bfe7;
   margin: 5px;
   display: flex;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 .leave_info {
   width: 40%;
 }
-.all_card{
+.all_card {
   width: 100%;
   margin: auto;
-  margin-top: 15rem;
+  margin-top: 10rem;
   padding: 10px;
   overflow: scroll;
-  height: 60vh;
+  height: 67vh;
 }
-
-
 </style>

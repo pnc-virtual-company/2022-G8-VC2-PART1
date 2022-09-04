@@ -33,7 +33,7 @@ export default {
     countApproved() {
       let counter = 0;
       this.leaves.forEach((eachLeave) => {
-        if (eachLeave.status == "approved") {
+        if (eachLeave.status == "Approved") {
           counter++;
         }
       });
@@ -43,7 +43,7 @@ export default {
     countRejected() {
       let counter = 0;
       this.leaves.forEach((eachLeave) => {
-        if (eachLeave.status == "rejected") {
+        if (eachLeave.status == "Rejected") {
           counter++;
         }
       });
@@ -53,7 +53,7 @@ export default {
     countPending() {
       let counter = 0;
       this.leaves.forEach((eachLeave) => {
-        if (eachLeave.status == "pending") {
+        if (eachLeave.status == "Pending") {
           counter++;
         }
       });
@@ -84,6 +84,6 @@ export default {
   inset:0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.3);
+  /* background: rgba(0, 0, 0, 0.3); */
 }
 </style>

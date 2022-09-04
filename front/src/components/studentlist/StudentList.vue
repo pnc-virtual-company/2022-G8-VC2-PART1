@@ -18,16 +18,16 @@
             </div>
         </div>
         <ul>
-            <student_item @isHideFilter="isHideFilter = !isHideFilter" :students="students" :filterData="filterData">
+            <student_item :isGettingData="isGettingData" @isHideFilter="isHideFilter = !isHideFilter" :students="students" :filterData="filterData">
             </student_item>
         </ul>
     </div>
 </template>
 
 <script>
-import StudentItem from "@/components/studentlist/StudentItem.vue"
+import StudentItem from "@/components/studentlist/StudentItem.vue";
 export default {
-    props: { students: Object  },
+    props: { students: Object, isGettingData: Boolean },
     inject: ['students'],
     components: {
         'student_item': StudentItem,
@@ -37,23 +37,27 @@ export default {
             isHideFilter: false,
             filter_by_name: "",
             filter_by_batch: "",
+
         }
     },
     computed: {
-        filterData() {
-            let data_filter = this.students;
-            if (this.filter_by_name != "" && this.filter_by_batch != "") {
-                data_filter = this.students.filter(student => ((student.first_name.toLowerCase() === this.filter_by_name.toLowerCase()) || (student.last_name.toLowerCase() === this.filter_by_name.toLowerCase())) && (student.batch.toLowerCase() == this.filter_by_batch.toLowerCase()))
-            }
-            if (this.filter_by_name != "") {
-                data_filter = this.students.filter(student => ((student.first_name.toLowerCase() === this.filter_by_name.toLowerCase()) || (student.last_name.toLowerCase() === this.filter_by_name.toLowerCase()) || ((student.first_name.toLowerCase() + " " + student.last_name.toLowerCase())=== this.filter_by_name.toLowerCase())))
-            }
-            if (this.filter_by_batch != "") {
-                data_filter = this.students.filter(student => student.batch === this.filter_by_batch)
-            }
-            return data_filter
+      filterData() {
+        console.log(this.filter_by_name.toLowerCase());
+        let data_filter = this.students;
+        if (this.filter_by_name != "" && this.filter_by_batch != "") {
+          data_filter = this.students.filter((student) => 
+          ((student.first_name + " " + student.last_name).toLowerCase().includes(this.filter_by_name.toLowerCase())) &&
+          student.batch.toLowerCase().includes(this.filter_by_batch.toLowerCase()));
         }
-
+        else if (this.filter_by_name != "") {
+          
+          data_filter = this.students.filter((student) => (student.first_name + " " + student.last_name).toLowerCase().includes(this.filter_by_name.toLowerCase()))
+        }
+        else if (this.filter_by_batch != "") {
+          data_filter = this.students.filter((student) => student.batch.includes(this.filter_by_batch));
+        }
+        return data_filter;
+      },
     }
 
 }
@@ -61,38 +65,43 @@ export default {
 
 <style scoped>
 .student_list {
-    margin-top: 6%;
+  margin-top: 3%;
+  box-sizing: border-box;
 }
 
 .header {
-    width: 75%;
-    margin: auto;
+  width: 90%;
+  border-radius: 7px;
+  margin-left: 4.5%;
+  display: flex;
+  position: fixed;
+  right: 0;
+  left: 0;
 }
 
 .filter_by_name {
-    width: 40%;
+  width: 40%;
 }
 
 .filter_by_batch {
-    width: 40%;
-    background: lighgreen;
+  width: 40%;
 }
 
 .header button {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 }
 
 .btn {
-    box-sizing: border-box;
-    background: #63BFE7;
-    margin-top: 2.2%;
+  box-sizing: border-box;
+  background: #63bfe7;
+  margin-top: 2.2%;
 }
 
 .btn a {
-    box-sizing: border-box;
-    text-decoration: none;
-    padding: 2.2px;
-    color: #fff;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 2.2px;
+  color: #fff;
 }
 </style>

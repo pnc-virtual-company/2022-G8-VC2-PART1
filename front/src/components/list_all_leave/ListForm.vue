@@ -3,17 +3,16 @@
     <div class="search_bar">
       <div class="filter_by_status">
         <span>Filter By Status</span>
-        <select name="cars" id="cars" v-model="status">
+        <select name="cars" id="cars" v-model="filter_status">
           <option value="Show all" selected>Show all</option>
           <option value="Padding">Padding</option>
           <option value="Approved">Approved</option>
-          <option value="Cancelled">Cancelled</option>
           <option value="Rejected">Rejected</option>
         </select>
       </div>
       <div class="filter_by_leave_types">
         <span>Filter By Leave Types</span>
-        <select name="cars" id="cars" v-model="leave_type">
+        <select name="cars" id="cars" v-model="filter_leave_type">
           <option value="Show all" selected>Show all</option>
           <option value="Sick Leave">Sick Leave</option>
           <option value="Wedding">Wedding</option>
@@ -24,10 +23,7 @@
         </select>
       </div>
     </div>
-
-    <ul>
-      <list_card :filterData="filterData"></list_card>
-    </ul>
+    <list_card :filterData="filterData"></list_card>
   </div>
 </template>
 
@@ -38,8 +34,8 @@ export default {
   inject: ["list_all_leaves"],
   data() {
     return {
-      status: "Show all",
-      leave_type: "Show all",
+      filter_status: "Show all",
+      filter_leave_type: "Show all",
       list_all_leave: [],
     };
   },
@@ -48,33 +44,21 @@ export default {
   },
   computed: {
     filterData() {
-      let all_data = this.list_all_leaves;
-      if (this.status !== "Show all" && this.leave_type !== "Show all") {
-        all_data = this.list_all_leaves.filter((students) => {
-          students.status.toLowerCase() == this.status.toLowerCase() &&
-            students.leave_type.toLowerCase() == this.leave_type.toLowerCase;
-        });
-      }
-      if (this.status.toLowerCase() !== "Show all") {
-        all_data = this.list_all_leaves.filter(
-          (students) =>
-            students.status.toLowerCase() == this.status.toLowerCase()
+      // let all_data = this.list_all_leaves;
+      if (this.filter_status != "Show all" && this.filter_leave_type == "Show all") {
+        return  this.list_all_leaves.filter(students => 
+          students.status.toLowerCase() == this.filter_status.toLowerCase() 
+        );
+      }else if (this.filter_status == "Show all" && this.filter_leave_type != "Show all") {
+        return  this.list_all_leaves.filter(students => 
+          students.leave_type.toLowerCase() == this.filter_leave_type.toLowerCase() 
         );
       }
-      if (this.leave_type.toLowerCase() !== "Show all") {
-        all_data = this.list_all_leaves.filter(
-          (students) =>
-            students.leave_type.toLowerCase() == this.leave_type.toLowerCase()
+      else if (this.filter_status != "Show all" && this.filter_leave_type != "Show all") {
+        return  this.list_all_leaves.filter(students => 
+          students.status.toLowerCase() == this.filter_status.toLowerCase() &&
+          students.leave_type.toLowerCase() == this.filter_leave_type.toLowerCase()
         );
-      }
-      if (all_data.length > 0 && this.status === "Show all") {
-        all_data = this.list_all_leaves.filter(
-          (students) =>
-            students.status.toLowerCase() == this.status.toLowerCase()
-        );
-      }
-      if (all_data.length > 0) {
-        return all_data;
       } else {
         return this.list_all_leaves;
       }
@@ -127,8 +111,5 @@ export default {
   padding: 10px;
   font-size: 1rem;
   border-radius: 7px;
-}
-ul {
-  margin-top: 2%;
 }
 </style>
