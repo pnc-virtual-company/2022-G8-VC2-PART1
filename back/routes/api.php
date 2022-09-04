@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
 
-//Route::group(['middleware'=>['auth:sanctum']], function(){
+Route::group(['middleware'=>['auth:sanctum']], function(){
 
 // leave route manage by social affair
     Route::get('social_affairs/leaves', [LeaveController::class,"index"]);
@@ -75,6 +75,8 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
     //....admin profile
     Route::put('social_affairs/profile/{id}', [UserController::class, "changeProfile"]);
+    Route::put('social_affairs/resetPassword/{id}',[UserController::class,"resetPasswordAdmin"]);
+
 
     
  //logout
@@ -83,7 +85,7 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
 
 //get Image
     //....student profile
-    Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
+    // Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
 
     //....admin profile
      Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
@@ -92,4 +94,4 @@ Route::post('social_affairs/login', [UserController::class,"login"]);
     
     
 
-//});
+});
