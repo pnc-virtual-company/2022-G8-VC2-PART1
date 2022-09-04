@@ -95,6 +95,7 @@ export default {
   },
   mounted() {
     this.getData();
+    console.log();
   },
 };
 </script>

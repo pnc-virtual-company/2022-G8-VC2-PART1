@@ -6,6 +6,8 @@ use App\Models\Leave;
 use Illuminate\Http\Request;
 use App\Mail\LeaveMail;
 use App\Models\Student;
+use App\Mail\ReplyBackMail;
+
 
 class LeaveController extends Controller
 {
@@ -52,9 +54,11 @@ class LeaveController extends Controller
         $leave->status= "Padding";
         $leave->save();
         
-        // Sending mail to admin
-        // Mail::to('sokgithub@gmail.com')->send(new LeaveMail());
-        // return response()->json(['leave'=>"leave is added"]);
+        // Send mail to Admin
+        // $users = User::get('email');
+        // foreach($users as $user) {
+        //     Mail::to($user->email)->send(new LeaveMail($leave));
+        // }
     }
 
     /**
@@ -88,6 +92,9 @@ class LeaveController extends Controller
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
         $leave->status= $request->status;
+
+        $student = Student::where('students.id', '=' ,$request->student_id)->get('email');
+        Mail::to($student[0]->email)->send(new ReplyBackMail($leave));
 
         $leave->save();
         return response()->Json(["message"=>"status is updated"]);
