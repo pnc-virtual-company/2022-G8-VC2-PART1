@@ -1,35 +1,27 @@
 <template>
   <div class="container">
     <div class="user_profile">
-      <div class="profile w-25">
-        <div >
-          <div class="circle">
-            <img
-              class="profile-img"
-              :src="
-                student.image != undefined
-                  ? 'http://127.0.0.1:8000/api/image/' + student.image
-                  : ''
-              "
-            />
-          </div>
-          <div class="btn_change">
-            <label class="label-file-upload text-light text-center" for="upload-profile"
-             >Change Profile</label
-            >
-            <input
-              id="upload-profile"
-              class="file-upload"
-              type="file"
-              @change="onChangeProfile"
-            />
-          </div>
+      <div class="profile">
+        <div class="circle">
+          <input
+            id="upload-profile"
+            class="file-upload"
+            type="file"
+            @change="onChangeProfile"
+          />
+          <label class="label-file-upload" for="upload-profile">
+                <img src="./../../assets/white_camera.png" style="width: 100%; " alt="">
+          </label>
+          <img
+            class="profile-img"
+            :src="student.image != undefined ? 'http://127.0.0.1:8000/api/image/' + student.image : ''"
+          />
         </div>
+        <h2 style="margin-left: 15px; text-transform: capitalize;">{{student.first_name}} {{student.last_name}}</h2>
       </div>
       <div class="user_information w-75 mt-3">
         <div
-          class="main_card d-flex justify-content-between align-items-center"
-        >
+          class="main_card d-flex justify-content-between align-items-center">
           <div class="side_left w-50">
             <p>
               First Name <span style="margin-left: 20px">:</span>
@@ -163,29 +155,26 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+ 
 }
 .circle {
-  margin-top:1%;
   width: 200px;
   height: 200px;
-  position: absolute;
-  /* top: 53px; */
   border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
-  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 .profile-img {
-  display: flex;
-  margin: auto;
-  display: inline;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  width: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .user_information {
   width: 60%;
+  
 }
 .image-preview-container {
   width: 100%;
@@ -222,14 +211,25 @@ export default {
   border-radius: 7px;
   padding: 5px;
 }
+
+
 .label-file-upload {
-  width: 50%;
-  margin-left: 10%;
-  margin-top: 80%;
-  background: #63bfe7;
+  margin: auto;
   padding: 10px;
   border-radius: 7px;
   cursor: pointer;
+  margin: auto; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  position: absolute; 
+  color: white; 
+  background: #63bfe7; 
+  margin-bottom: 5px; 
+  margin-right: 20px;
 }
 .user_profile p {
   font-size: 1.1rem;
@@ -257,7 +257,7 @@ export default {
   display: none;
 }
 p {
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   padding: 5px;
   margin: 2px;
 }

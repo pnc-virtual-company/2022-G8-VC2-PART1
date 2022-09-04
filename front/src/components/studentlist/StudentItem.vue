@@ -117,7 +117,7 @@ $emit('isHideFilter');
             <th scope="col">ACTIVE</th>
           </tr>
         </thead>
-        <tbody v-if="filterData.length > 0">
+        <tbody v-if="!isGettingData && filterData.length > 0">
           <tr v-for="(student, index) of filterData" :key="student" :index="index">
             <th scope="row">{{ student.studentID }}</th>
             <td>{{ student.first_name }}{{ " " }}{{ student.last_name }}</td>
@@ -143,12 +143,23 @@ $emit('isHideFilter');
             </td>
           </tr>
         </tbody>
-        <tbody v-else>
+        <tbody v-if="!isGettingData && filterData.length <= 0">
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="text-danger fs-1">Don't have student</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tbody v-if="isGettingData">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><img src="./../../assets/loading_dotted.gif" style="width: 50px; margin-right: 10px;">Loading students...</td>
             <td></td>
             <td></td>
             <td></td>
@@ -162,7 +173,7 @@ $emit('isHideFilter');
 <script>
 import axios from "../../api/api.js";
 export default {
-  props: ["filterData"],
+  props: ["filterData", "isGettingData"],
   inject: ["students"],
   data() {
     return {

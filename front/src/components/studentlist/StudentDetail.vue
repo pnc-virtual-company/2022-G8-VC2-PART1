@@ -50,6 +50,29 @@
           Phone <span style="margin-left: 35px">:</span>
           <strong style="font-weight: normal; margin-left: 10px">{{ student.phone }}</strong>
         </div>
+        <div class="leave-control" style="width: 85%;">
+          <div class="leave">
+            Total leaves <span style="margin-left: 10px">:</span>
+            <strong style="font-weight: normal; margin-left: 10px">{{countLeaves }},</strong>
+          </div>
+
+          <div class="approved">
+          Approved<span style="margin-left: 10px">:</span>
+          <strong style="font-weight: normal; margin-left: 10px">{{countApproved }},</strong>
+          </div>
+
+          <div class="rejected">
+             Rejected <span style="margin-left: 10px">:</span>
+            <strong style="font-weight: normal; margin-left: 10px">{{countRejected }},</strong>
+          </div>
+
+          <div class="pending">
+            Pending <span style="margin-left: 10px">:</span>
+            <strong style="font-weight: normal; margin-left: 10px">{{countPending}},</strong>
+          </div>
+         
+          
+        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -175,7 +198,7 @@ td {
   font-size: 1rem;
 }
 
-.approve {
+.approved {
   color: rgb(0, 255, 0);
   font-weight: bold;
   font-size: 1rem;
@@ -187,9 +210,13 @@ td {
   font-weight: bold;
 }
 
-.reject {
+.rejected {
   font-weight: bold;
   color: red;
   font-size: 1rem;
+}
+.leave-control{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

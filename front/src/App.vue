@@ -5,7 +5,7 @@
     :userRole="userRole"
     ref="navigation"
   ></nav-bar>
-  <router-view @request-login="login" @update-nav="$refs.navigation.getData()" />
+  <router-view @request-login="login" @update-nav="$refs.navigation.getData()" @update-profile="$refs.navigation.isLoadingProfile = true" />
 </template>
 <script>
 import Swal from "sweetalert2";

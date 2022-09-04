@@ -18,7 +18,7 @@
             </div>
         </div>
         <ul>
-            <student_item @isHideFilter="isHideFilter = !isHideFilter" :students="students" :filterData="filterData">
+            <student_item :isGettingData="isGettingData" @isHideFilter="isHideFilter = !isHideFilter" :students="students" :filterData="filterData">
             </student_item>
         </ul>
     </div>
@@ -27,7 +27,7 @@
 <script>
 import StudentItem from "@/components/studentlist/StudentItem.vue"
 export default {
-    props: { students: Object  },
+    props: { students: Object, isGettingData: Boolean },
     inject: ['students'],
     components: {
         'student_item': StudentItem,
@@ -37,6 +37,7 @@ export default {
             isHideFilter: false,
             filter_by_name: "",
             filter_by_batch: "",
+
         }
     },
     computed: {

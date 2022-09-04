@@ -44,24 +44,7 @@ class UserController extends Controller
         $user-> save();
         return response()->json(['message'=>"social affair is added"]);
     }
-    //Get images
-    public function getProfileImage($imageName)
-    {
-        $path = public_path('images/' . $imageName);
-
-        if (File::exists($path)) {
-            $file = File::get($path);
-        } else {
-            abort(404);
-        }
-
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
-    }
-
+    
     // change profile image
 
     public function changeProfile(Request $request, $id)

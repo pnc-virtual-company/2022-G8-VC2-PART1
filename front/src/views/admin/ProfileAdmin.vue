@@ -1,62 +1,65 @@
 <template>
   <div class="container">
     <div class="user_profile">
-      <div class="profile w-25">
-        <div class="">
-          <div class="circle">
-            <img
-              class="profile-img"
-              :src="
-                user.image != undefined
-                  ? 'http://127.0.0.1:8000/api/image/' + user.image : ''
-              "
-            />
-          </div>
-          <div class="btn_change">
-            <label class="label-file-upload text-light" for="upload-profile"
-              >Change Profile</label
-            >
-            <input
-              id="upload-profile"
-              class="file-upload"
-              type="file"
-              @change="onChangeProfile"
-            />
-          </div>
+      <div class="profile">
+        <input hidden
+          id="upload-profile"
+          class="file-upload"
+          type="file"
+          @change="onChangeProfile"
+        />
+        
+        <label 
+          class="label-file-upload" for="upload-profile">
+            <img src="./../../assets/white_camera.png" style="width: 100%; " alt="">
+        </label>
+        <div class="circle">
+          <img v-if="isLoadingProfile" style="position: absolute; width: 40px;" src="./../../assets/loading_circle.gif">
+          <img
+            class="profile-img" :src="user.image != undefined
+                ? 'http://127.0.0.1:8000/api/image/' + user.image : ''
+            "
+          />
         </div>
       </div>
 
-      <div class="user_information w-75 mt-3">
-        <div
-          class="main_card d-flex justify-content-between align-items-center"
-        >
-          <div class="side_left w-50">
-            <p>
-              First Name <span style="margin-left: 10px">:</span>
-              <span style="margin-left: 10px">{{ user.first_name }}</span>
-            </p>
-            
-            <p>
-              Gender <span style="margin-left: 45px">:</span>
-              <span style="margin-left: 10px">{{ user.gender }}</span>
-            </p>
+      <div style="display: flex; font-weight: bold;">
+        <p style="font-size: x-large;">{{ user.first_name }}</p>
+        <p style="font-size: x-large;">{{ user.last_name }}</p>
+      </div>
+
+      <div class="user_information mt-3">
+        <div class="info-container">
+          <div
+            class="main_card d-flex justify-content-between align-items-center">
+            <div class="side_left w-50">
+              <div class="d-flex w-100">
+                <p class="title">First Name</p>
+                <p class="content">{{ user.first_name }}</p>
+              </div>
+              
+              <div class="d-flex w-100">
+                <p class="title">Gender</p>
+                <p class="content">{{ user.gender }}</p>
+              </div>
+            </div>
+            <div class="side_right w-50">
+              <div class="d-flex w-100">
+                <p class="title">Last Name</p>
+                <p class="content">{{ user.last_name }}</p>
+              </div>
+              
+              <div class="d-flex w-100">
+                <p class="title item">Position</p>
+                <p class="content">{{ user.position }}</p>
+              </div>
+            </div>
           </div>
-          <div class="side_right w-50">
-            <p>
-              Last Name <span style="margin-left: 10px">:</span>
-              <span style="margin-left: 15px">{{ user.last_name }}</span>
-            </p>
-            
-            <p>
-              Position <span style="margin-left: 49px">:</span>
-              <span style="margin-left: 15px">{{ user.position }}</span>
-            </p>
+          <div class="d-flex w-100">
+            <p style="width: 17.5%; margin: 0; font-weight: 550;">Email</p>
+            <p style="width: 80%; margin: 0;">{{ user.email }}</p>
           </div>
         </div>
-        <p>
-          Email <span style="margin-left: 58px">:</span>
-          <span style="margin-left: 13px">{{ user.email }}</span>
-        </p>
         <div class="btn_reset">
           <button>Reset password</button>
         </div>
@@ -86,6 +89,7 @@ export default {
       isFileUploaded: false,
       uploadedImage: null,
       allowExtension: ["jpg", "png", "jpeg", "gif", "webp"],
+      isLoadingProfile: false,
     };
   },
 
@@ -110,9 +114,11 @@ export default {
       formData.append("_method", "PUT");
       formData.append("image", this.image);
       this.closePreview();
+      this.isLoadingProfile = true;
       axios.post("/social_affairs/profile/" + this.user_id, formData).then((res) => {
         if (res) {
           this.getData();
+          this.$emit('update-profile');
           this.$emit('update-nav');
         }
       });
@@ -129,6 +135,7 @@ export default {
         .get("social_affairs/" + this.user_id)
         .then((res) => {
           this.user = res.data;
+          this.isLoadingProfile = false;
         });
     },
   },
@@ -141,46 +148,63 @@ export default {
 </script>
 
 <style scoped>
+.info-container {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 15px;
+  border-radius: 10px;
+}
+.title {
+  width: 35%;
+  margin: 0;
+  font-weight: 550;
+}
+.content {
+  width: 65%;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.profile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
 .container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
 }
 .user_profile {
   width: 90%;
   margin: auto;
   padding: 20px;
-  margin-top: 10%;
+  margin-top: 100px;
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
+
 .circle {
-  margin-top: 1%;
   width: 200px;
   height: 200px;
-  position: absolute;
-  /* top: 53px; */
   border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
-  overflow: hidden;
-}
-.profile-img {
   display: flex;
-  margin: auto;
-  display: inline;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  width: auto;
+}
+.profile-img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
 .user_information {
-  width: 60%;
+  width: 85%;
 }
 .image-preview-container {
   width: 100%;
@@ -218,32 +242,39 @@ export default {
   padding: 5px;
 }
 .label-file-upload {
-  width: 50%;
-  margin-left: 10%;
-  margin-top: 80%;
-  background: #63bfe7;
+  margin: auto;
   padding: 10px;
   border-radius: 7px;
   cursor: pointer;
+  margin: auto; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  position: absolute; 
+  color: white; 
+  background: #63bfe7; 
+  margin-bottom: 5px; 
+  margin-right: 20px;
 }
 .user_profile p {
   font-size: 1.1rem;
   color: #000;
 }
-.btn_change label {
-  width: 150px;
-  margin-top: 220px;
-}
 .btn_reset {
-  margin-top: 3%;
-  margin-left: 40%;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .btn_reset button {
-  margin-left: 70%;
+  margin-top: 10px;
   background: #63bfe7;
   cursor: pointer;
   border: none;
-  margin: 5px;
   color: #ffff;
   padding: 10px;
   border-radius: 7px;
@@ -252,8 +283,9 @@ export default {
   display: none;
 }
 p {
-  border: 2px solid #ccc;
+  /* border: 2px solid #ccc; */
   padding: 5px;
   margin: 2px;
 }
+
 </style>

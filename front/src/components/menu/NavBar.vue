@@ -23,13 +23,14 @@
       </div>
       <div class="user_name">
         <div class="circle">
+          <img v-if="isLoadingProfile" style="position: absolute; width: 30px;" src="./../../assets/loading_circle.gif">
           <img
             class="profile-img"
             :src="student.image != undefined ? 'http://127.0.0.1:8000/api/image/' + student.image : ''"
             style="width: 60px; height: 60px; border-radius: 50%"
           />
         </div>
-        <div class="user_profile">
+        <div class="user_profile" style="text-transform: capitalize;">
           <router-link to="/profile_student" v-if="userRole == 'student'"
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
           >
@@ -61,7 +62,8 @@ export default {
       first_name: "",
       last_name: "",
       student: {},
-      role: ""
+      role: "",
+      isLoadingProfile: false,
     };
   },
   methods: {
@@ -70,11 +72,13 @@ export default {
         axios.get("social_affairs/students/" + JSON.parse(localStorage.getItem("studentID")))
         .then((res) => {
           this.student = res.data;
+          this.isLoadingProfile = false;
         });
       } else if (localStorage.getItem("userRole") == 'admin') {
         axios.get("social_affairs/" + JSON.parse(localStorage.getItem("userId")))
         .then((res) => {
           this.student = res.data;
+          this.isLoadingProfile = false;
         });
       }
     }
@@ -101,6 +105,11 @@ export default {
   padding: 0;
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 nav {
   background: #63bfe7;
