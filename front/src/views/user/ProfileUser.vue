@@ -1,32 +1,39 @@
 <template>
   <div class="container">
     <div class="user_profile">
-      <div class="profile w-25">
-        <div>
-          <div class="circle">
+      <div class="profile">
+        <div class="circle">
+          <input
+            id="upload-profile"
+            class="file-upload"
+            type="file"
+            @change="onChangeProfile"
+          />
+          <label class="label-file-upload" for="upload-profile">
             <img
-              class="profile-img"
-              :src="
-                student.image != undefined
-                  ? 'http://127.0.0.1:8000/api/image/' + student.image
-                  : ''
-              "
+              src="./../../assets/white_camera.png"
+              style="width: 100%"
+              alt=""
             />
-          </div>
-          <div class="btn_change">
-            <label
-              class="label-file-upload text-light text-center"
-              for="upload-profile"
-              >Change Profile</label
-            >
-            <input
-              id="upload-profile"
-              class="file-upload"
-              type="file"
-              @change="onChangeProfile"
-            />
-          </div>
+          </label>
+          <img
+            class="profile-img"
+            :src="
+              student.image != undefined
+                ? 'http://127.0.0.1:8000/api/image/' + student.image
+                : ''
+            "
+          />
+          <input
+            id="upload-profile"
+            class="file-upload"
+            type="file"
+            @change="onChangeProfile"
+          />
         </div>
+        <h2 style="margin-left: 15px; text-transform: capitalize">
+          {{ student.first_name }} {{ student.last_name }}
+        </h2>
       </div>
       <div class="user_information w-75 mt-3">
         <div
@@ -66,7 +73,7 @@
           <span style="margin-left: 13px">{{ student.email }}</span>
         </p>
         <div class="btn_reset">
-          <button>Reset password</button>
+          <button @click="openResetPs">Reset password</button>
         </div>
       </div>
     </div>
@@ -79,24 +86,116 @@
           <button @click="saveChange">Save Change</button>
         </div>
       </div>
+
+      <div class="modal-mask" v-if="showResetPs">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="reset_info">
+              <div class="group_item">
+                <h1>Reset Password</h1>
+              </div>
+              <div class="group_item">
+                <div class="item">
+                  <input
+                    type="password"
+                    placeholder="Your old password"
+                    v-model="old_password"
+                  />
+                </div>
+                <div class="item">
+                  <input
+                    type="password"
+                    placeholder="new password"
+                    v-model="new_password"
+                  />
+                </div>
+                <div class="item">
+                  <input
+                    type="password"
+                    placeholder="New password confirm"
+                    v-model="newconfirm_password"
+                  />
+                </div>
+              </div>
+              <div class="group_item footer">
+                <button @click="resetPassword">Reset</button>
+                <button id="cancle_btn" @click="cancleReset">Cancle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "../../axios-http.js";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
       user_id: null,
+      showResetPs: false,
       student: {},
       image: null,
       isFileUploaded: false,
       uploadedImage: null,
+      old_password: null,
+      new_password: null,
+      newconfirm_password: null,
       allowExtension: ["jpg", "png", "jpeg", "gif", "webp"],
     };
   },
 
   methods: {
+    resetPassword() {
+      let body = {
+        confirm_current_password: this.old_password,
+        new_password: this.new_password,
+        newpassword_confirm: this.newconfirm_password,
+      };
+      axios
+        .put(
+          "http://127.0.0.1:8000/api/students/reset_password/" + this.user_id,
+          body
+        )
+        .then((response) => {
+          if (response.data.sms == "studen password have been change!") {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Password is updated",
+              showConfirmButton: false,
+              timer: 950,
+            });
+          } else if (response.data.sms == "current password is not correct!") {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Your current password is not correct!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else if (
+            response.data.sms == "new password and new password is not equal"
+          ) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "New password and Confirm new password is not equal",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      this.old_password = null;
+      this.new_password = null;
+      this.newconfirm_password = null;
+      this.showResetPs = !this.showResetPs;
+    },
+    openResetPs() {
+      this.showResetPs = !this.showResetPs;
+    },
     onChangeProfile(event) {
       let fileExtension = event.target.files[0].name.split(".").pop();
       if (this.allowExtension.includes(fileExtension.toLowerCase())) {
@@ -126,7 +225,9 @@ export default {
         }
       });
     },
-
+    cancleReset() {
+      this.showResetPs = !this.showResetPs;
+    },
     closePreview() {
       this.isFileUploaded = false;
       this.image = null;
@@ -157,24 +258,25 @@ export default {
   background: #ffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
+
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
 }
 .circle {
-  margin-top: 1%;
   width: 200px;
   height: 200px;
-  position: absolute;
   border-radius: 50%;
   border: 2px solid rgba(183, 183, 183, 0.7);
-  overflow: hidden;
-}
-.profile-img {
   display: flex;
-  margin: auto;
-  display: inline;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  width: auto;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .card-body {
@@ -220,14 +322,24 @@ export default {
   border-radius: 7px;
   padding: 5px;
 }
+
 .label-file-upload {
-  width: 50%;
-  margin-left: 10%;
-  margin-top: 80%;
-  background: #63bfe7;
+  margin: auto;
   padding: 10px;
   border-radius: 7px;
   cursor: pointer;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: white;
+  background: #63bfe7;
+  margin-bottom: 5px;
+  margin-right: 20px;
 }
 .user_profile {
   display: flex;
@@ -260,8 +372,84 @@ export default {
   display: none;
 }
 p {
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   padding: 5px;
   margin: 2px;
+}
+.modal-mask {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-container {
+  width: 35%;
+  height: auto;
+  margin: 0px auto;
+  padding: 15px 28px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.reset_info {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px auto;
+  background-color: #ccc;
+  border-radius: 20px;
+}
+.reset_info .group_item {
+  width: 90%;
+  margin: 10px auto;
+  text-align: center;
+}
+.reset_info .group_item input {
+  width: 95%;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  outline: 1px solid #63bfe7;
+}
+button {
+  padding: 10px;
+  border: none;
+  background-color: orange;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+#cancle_btn {
+  background-color: rgb(55, 189, 241);
 }
 </style>

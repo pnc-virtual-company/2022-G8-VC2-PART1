@@ -3,15 +3,14 @@
     v-if="isLogin"
     @request-logout="logout"
     :userRole="userRole"
-    :user="user"
     ref="navigation"
+    
   ></nav-bar>
-  <router-view
-    @request-login="login"
-    :message="messageError"
-    @update-nav="$refs.navigation.getData()"
-    @update-profile="$refs.navigation.isLoadingProfile = true"
-  />
+  <router-view @request-login="login" @update-nav="$refs.navigation.getData()" @update-profile="$refs.navigation.isLoadingProfile = true" :message="messageError" />
+
+  <!-- <nav-bar v-if="isLogin" @request-logout="logout" :userRole="userRole" ></nav-bar>
+  <router-view  @request-login="login" :message="messageError"/>  -->
+
 </template>
 <script>
 import Swal from "sweetalert2";
@@ -132,12 +131,18 @@ export default {
     checklogin() {
       return localStorage.getItem("token");
     },
+    
   },
   mounted() {
     if (localStorage.getItem("token") != null) {
       this.isLogin = true;
     } else {
       this.isLogin = false;
+    }
+    if (localStorage.getItem("userRole")=="admin"){
+      this.$router.push("/studentlist")
+    }else {
+      this.$router.push("/")
     }
     this.getUserRole();
   },

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('students/login', [StudentController::class, "login"]);
 Route::post('social_affairs/login', [UserController::class,"login"]);
+//get Image
+Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
 
 Route::group(['middleware'=>['auth:sanctum']], function(){
 
@@ -75,11 +77,23 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::delete('social_affairs/{id}', [UserController::class,"destroy"]);
     //....admin profile
     Route::put('social_affairs/profile/{id}', [UserController::class, "changeProfile"]);
+    Route::put('social_affairs/resetPassword/{id}',[UserController::class,"resetPasswordAdmin"]);
+
 
     
  //logout
     Route::post('students/logout',[StudentController::class, "logout"]);
     Route::post('social_affairs/logout', [UserController::class,"logout"]);
+
+
+//get Image
+    //....student profile
+    // Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
+
+    //....admin profile
+     Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
+
+
 
     
     
@@ -87,9 +101,6 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     
     
 });
-//get Image
-    //....student profile
-    Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
 
-    //....admin profile
-     Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
+
+

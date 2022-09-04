@@ -6,9 +6,9 @@
         <p>Filter By Status</p>
         <select name="status" v-model="filterStatus" @change="getLeaveFilter">
           <option value="Show all">Show all</option>
-          <option value="Padding">Padding</option>
-          <option value="Approved">Approve</option>
-          <option value="Rejected">Reject</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
       <div class="filter_type">

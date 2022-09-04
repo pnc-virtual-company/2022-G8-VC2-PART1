@@ -32,36 +32,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->first_name=$request->first_name;
-        $user->last_name=$request->last_name;
-        $user->gender=$request->gender;
-        $user->email=$request->email;
-        $user->password= Hash::make($request->password);
-        $user->position=$request->position;
-        $user->image = 'boy.png';
+        // $user = new User();
+        // $user->first_name=$request->first_name;
+        // $user->last_name=$request->last_name;
+        // $user->gender=$request->gender;
+        // $user->email=$request->email;
+        // $user->password= Hash::make($request->password);
+        // $user->position=$request->position;
+        // $user->image = 'boy.png';
 
-        $user-> save();
-        return response()->json(['message'=>"social affair is added"]);
+        // $user-> save();
+        // return response()->json(['message'=>"social affair is added"]);
     }
-    //Get images
-    public function getProfileImage($imageName)
-    {
-        $path = public_path('images/' . $imageName);
-
-        if (File::exists($path)) {
-            $file = File::get($path);
-        } else {
-            abort(404);
-        }
-
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
-    }
-
+    
     // change profile image
 
     public function changeProfile(Request $request, $id)
@@ -133,12 +116,11 @@ class UserController extends Controller
         $user->last_name=$request->last_name;
         $user->gender=$request->gender;
         $user->email=$request->email;
-        $user->password=bcrypt($request->password);
         $user->position=$request->position;
-        $user->image =$request->image;
+        // $user->image =$request->image;
 
         $user-> save();
-        return response()->json(['message'=>"social affair is updated"]);
+        return response()->json(['sms'=>"social affair is updated"]);
     }
 
     /**
@@ -150,5 +132,21 @@ class UserController extends Controller
     public function destroy($id)
     {
         return User::destroy($id);
+    }
+
+    public function resetPasswordAdmin(Request $request, $id){
+        $user = User::find($id);
+        if (Hash::check($request->current_password,$user->password)){
+            if($request->new_password==$request->confirmnew_password){
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+                return response()->json(['sms'=>'Admin password have been change!']);
+            }else {
+                return response()->json(['sms'=>'New password and New password confirm are not equal']);
+            }
+        }else {
+            return response()->json(['sms'=>"old password is not correct"]);
+        }
+    
     }
 }

@@ -233,12 +233,23 @@
             </td>
           </tr>
         </tbody>
-        <tbody v-else>
+        <tbody v-if="!isGettingData && filterData.length <= 0">
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="text-danger fs-1">Don't have student</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tbody v-if="isGettingData">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><img src="./../../assets/loading_dotted.gif" style="width: 50px; margin-right: 10px;">Loading students...</td>
             <td></td>
             <td></td>
             <td></td>
@@ -252,7 +263,7 @@
 <script>
 import axios from "../../api/api.js";
 export default {
-  props: ["filterData"],
+  props: ["filterData", "isGettingData"],
   inject: ["students"],
   data() {
     return {

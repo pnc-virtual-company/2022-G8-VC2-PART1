@@ -118,15 +118,15 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
         if (Hash::check($request->confirm_current_password, $student->password)) {
-            if (!Hash::check($request->new_password, $student->password)) {
+            if ($request->new_password==$request->newpassword_confirm){
                 $student->password = Hash::make($request->new_password);
                 $student->save();
-                return Response()->json(['message' => 'Password is updated']);
-            } else {
-                return Response()->json(['message' => 'You must add a new password']);
+                return response()->json(['sms'=>'studen password have been change!']);
+            }else{
+                return response()->json(['sms'=>'new password and new password is not equal']);
             }
-        } else {
-            return Response()->json(['message' => 'Incorrect current password']);
+        }else {
+            return response()->json(['sms'=>'current password is not correct!']);
         }
     }
    

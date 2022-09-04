@@ -23,6 +23,8 @@
       </div>
       <div class="user_name">
         <div class="circle">
+
+          <img v-if="isLoadingProfile" style="position: absolute; width: 30px;" src="./../../assets/loading_circle.gif">
           <img
             class="profile-img"
             :src="
@@ -32,7 +34,7 @@
             "
           />
         </div>
-        <div class="user_profile">
+        <div class="user_profile" style="text-transform: capitalize;">
           <router-link to="/profile_student" v-if="userRole == 'student'"
             >{{ firstname }}{{ " " }}{{ lastname }}</router-link
           >
@@ -60,25 +62,23 @@ export default {
       last_name: "",
       student: {},
       role: "",
+      isLoadingProfile: false,
     };
   },
   methods: {
     getData() {
-      if (localStorage.getItem("userRole") == "student") {
-        axios
-          .get(
-            "social_affairs/students/" +
-              JSON.parse(localStorage.getItem("studentID"))
-          )
-          .then((res) => {
-            this.student = res.data;
-          });
-      } else if (localStorage.getItem("userRole") == "admin") {
-        axios
-          .get("social_affairs/" + JSON.parse(localStorage.getItem("userId")))
-          .then((res) => {
-            this.student = res.data;
-          });
+      if (localStorage.getItem("userRole") == 'student') {
+        axios.get("social_affairs/students/" + JSON.parse(localStorage.getItem("studentID")))
+        .then((res) => {
+          this.student = res.data;
+          this.isLoadingProfile = false;
+        });
+      } else if (localStorage.getItem("userRole") == 'admin') {
+        axios.get("social_affairs/" + JSON.parse(localStorage.getItem("userId")))
+        .then((res) => {
+          this.student = res.data;
+          this.isLoadingProfile = false;
+        });
       }
     },
   },
@@ -92,6 +92,7 @@ export default {
   },
   mounted() {
     this.getData();
+    console.log();
   },
 };
 </script>
@@ -102,6 +103,11 @@ export default {
   padding: 0;
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 nav {
   background: #63bfe7;
