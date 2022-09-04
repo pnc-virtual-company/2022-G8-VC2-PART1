@@ -85,7 +85,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::post('students/logout',[StudentController::class, "logout"]);
     Route::post('social_affairs/logout', [UserController::class,"logout"]);
 
-<<<<<<< HEAD
+
 //get Image
     //....student profile
     // Route::get('image/{imageName}', [StudentController::class, "getProfileImage"]);
@@ -94,8 +94,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
      Route::get('social_affairs/image/{imageName}', [UserController::class, "getProfileImage"]);
 
 
-=======
->>>>>>> 2e4ecdaba50e7433fa9e86cd24bea0a4015b1f89
+
     
     
     
@@ -103,8 +102,6 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     
 });
 
-<<<<<<< HEAD
+
 });
-=======
-    
->>>>>>> 2e4ecdaba50e7433fa9e86cd24bea0a4015b1f89
+
