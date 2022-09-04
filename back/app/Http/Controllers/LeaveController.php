@@ -49,7 +49,7 @@ class LeaveController extends Controller
         $leave->duration= $request->duration;
         $leave->leave_type= $request->leave_type;
         $leave->reason= $request->reason;
-        $leave->status= "Padding";
+        $leave->status= "Pending";
         $leave->save();
         
         // Sending mail to admin

@@ -51,7 +51,7 @@
             <td>{{ leave.leave_type }}</td>
             <td>{{ leave.student.email }}</td>
             <td>
-              <div class="btn_action" v-if="leave.status === 'Padding'">
+              <div class="btn_action" v-if="leave.status === 'Pending'">
                 <button
                   class="approve"
                   @click="
@@ -165,7 +165,7 @@ export default {
         axios.get("social_affairs/leaves/").then((res) => {
           this.leaves = res.data.filter(
             (leave) =>
-              leave.status == this.filterStatus &&
+              leave.status == this.filterStatus &&  
               leave.leave_type == this.filterLeaveType
           );
         });
