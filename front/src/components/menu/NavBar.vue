@@ -84,11 +84,9 @@ export default {
   },
   computed: {
     firstname() {
-      // this.first_name
       return localStorage.getItem("first_name");
     },
     lastname() {
-      // this.last_name =
       return localStorage.getItem("last_name");
     },
   },
