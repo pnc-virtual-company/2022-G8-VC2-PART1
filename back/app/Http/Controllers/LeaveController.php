@@ -6,7 +6,7 @@ use App\Models\Leave;
 use Illuminate\Http\Request;
 use App\Mail\LeaveMail;
 use App\Models\Student;
-use App\Mail\ReplyBackMail
+use App\Mail\ReplyBackMail;
 
 class LeaveController extends Controller
 {
