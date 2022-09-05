@@ -66,7 +66,7 @@
               student.batch.toLowerCase() == this.filter_by_batch.toLowerCase()
           );
         }
-        else if (this.filter_by_name != "") {
+        else if (this.filter_by_name != "" && this.filter_by_batch == "") {
           data_filter = this.students.filter(
             (student) =>
               student.first_name.toLowerCase() ===

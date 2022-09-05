@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div
-      class="form_add_student"
-    >
+    <div class="form_add_student">
       <!-- form add student -->
       <form @submit.prevent="addStudent">
+        <p class="wait" v-if="wait">Loading....</p>
         <div class="form_header d-flex justify-content-center align-center">
           <span>Add Student</span>
         </div>
@@ -184,7 +183,7 @@
               </div>
             </div>
             <!-- add phone number for student-->
-            <div class="phonenumber mt-3" >
+            <div class="phonenumber mt-3">
               <label class="form-label required" for="phonenumber">Phone</label>
               <input
                 class="form-control w-100"
@@ -204,19 +203,8 @@
         <div
           class="form_footer btn d-flex justify-content-end align-items-center"
         >
-          <!-- <div class="select_role w-50">
-            <select
-              class="form-select w-100"
-              aria-label=".form-select-lg example"
-              v-model="select_role"
-              @change="is_class_valid = false"
-            >
-              <option value="student">Student</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div> -->
           <!-- register for student -->
-          <div >
+          <div>
             <router-link to="studentlist" class="btn btn-danger btn-md m-1">
               Cancel
             </router-link>
@@ -244,10 +232,9 @@ export default {
       first_name: "",
       last_name: "",
       gender: "",
-      // select_role: "student",
       batch: "",
       email: "@student.passerellesnumeriques.org",
-      // email_admin: "@admin.passerellesnumeriques.org",
+      wait: false,
       name: "",
       password: "12345678",
       phone: "",
@@ -288,6 +275,7 @@ export default {
     },
     addStudent() {
       this.validateForm();
+      this.wait = true;
       let object = {
         user_id: 1,
         first_name: this.first_name,
@@ -311,6 +299,9 @@ export default {
         (this.image && this.email && this.student_id)
       ) {
         axios.post("/social_affairs/students", object).then(() => {
+          setTimeout(() => {
+            this.wait = false;
+          }, 500);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -323,43 +314,6 @@ export default {
         this.clearForm();
       }
     },
-    // addAdmin() {
-    //   this.validateForm();
-    //   let object = {
-    //     user_id: 1,
-    //     first_name: this.first_name,
-    //     last_name: this.last_name,
-    //     gender: this.gender,
-    //     batch: this.batch,
-    //     password: this.password,
-    //     phone: this.phone,
-    //     // image: this.image.name,
-    //     email: this.name + this.email,
-    //     studentID: this.student_id,
-    //     class: this.student_class,
-    //   };
-    //   if (
-    //     (this.first_name &&
-    //       this.last_name &&
-    //       this.gender &&
-    //       this.batch &&
-    //       this.password &&
-    //       this.phone) ||
-    //     (this.image && this.email && this.student_id)
-    //   ) {
-    //     axios.post("/social_affairs/students", object).then(() => {
-    //       Swal.fire({
-    //         position: "center",
-    //         icon: "success",
-    //         title: "Your work has been saved",
-    //         showConfirmButton: false,
-    //         timer: 1000,
-    //       });
-    //       return this.$router.push({ name: "studentlist" });
-    //     });
-    //     this.clearForm();
-    //   }
-    // },
     previewFiles(event) {
       this.image = event.target.files[0];
     },
@@ -554,5 +508,20 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 0 7px 7px 0;
+}
+.wait {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  position: absolute;
+  top: 45vh;
+  left: 40vw;
+  width: 20%;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 7px;
+  animation-name: example;
+  animation-duration: 4s;
 }
 </style>

@@ -120,8 +120,14 @@
               </div>
             </div>
             <div class="group_item footer">
-              <button class="btn_reset" @click="resetPassword">Reset</button>
-              <button id="cancle_btn" @click="cancleResetPassadmin">
+              <button @click="resetPassword" class="text-light w-25">
+                Reset
+              </button>
+              <button
+                id="cancle_btn"
+                class="w-25"
+                @click="cancleResetPassadmin"
+              >
                 Cancle
               </button>
             </div>
@@ -163,8 +169,14 @@
               </div>
             </div>
             <div class="group_item footer">
-              <button @click="updateInfoadmin">Update</button>
-              <button id="cancle_btn" @click="cancleResetAdmininfo">
+              <button @click="updateInfoadmin" class="text-light w-25">
+                Update
+              </button>
+              <button
+                id="cancle_btn"
+                @click="cancleResetAdmininfo"
+                class="text-light w-25"
+              >
                 Cancle
               </button>
             </div>
@@ -173,8 +185,6 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
-  <!-- </div> -->
 </template>
 <script>
 import axios from "../../api/api.js";
@@ -201,7 +211,6 @@ export default {
       isLoadingProfile: false,
     };
   },
-
   methods: {
     resetPassword() {
       let body = {
@@ -227,6 +236,7 @@ export default {
           } else if (response.data.sms == "old password is not correct") {
             Swal.fire({
               position: "center",
+
               icon: "error",
               title: "Your current password is not correct!",
               showConfirmButton: false,
@@ -260,7 +270,6 @@ export default {
     resetAdminInfo() {
       this.showResetAdmininfo = !this.showResetAdmininfo;
     },
-
     updateInfoadmin() {
       let body = {
         first_name: this.first_name,
@@ -287,7 +296,6 @@ export default {
       this.position = null;
       this.showResetAdmininfo = !this.showResetAdmininfo;
     },
-
     cancleResetAdmininfo() {
       this.showResetAdmininfo = !this.showResetAdmininfo;
     },
@@ -305,7 +313,6 @@ export default {
         this.isFileUploaded = true;
       }
     },
-
     saveChange() {
       let formData = new FormData();
       formData.append("_method", "PUT");
@@ -322,7 +329,6 @@ export default {
           }
         });
     },
-
     closePreview() {
       this.isFileUploaded = false;
       this.image = null;
@@ -336,14 +342,12 @@ export default {
       });
     },
   },
-
   created() {
     this.user_id = JSON.parse(localStorage.getItem("userId"));
     this.getData();
   },
 };
 </script>
-
 <style scoped>
 .info-container {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -361,17 +365,17 @@ export default {
   margin: 0;
   text-transform: capitalize;
 }
-
 .profile {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
 .container {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: -20px;
 }
 .user_profile {
   width: 90%;
@@ -385,7 +389,6 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .circle {
   width: 200px;
   height: 200px;
@@ -400,7 +403,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-
 .user_information {
   width: 85%;
 }
@@ -485,7 +487,6 @@ p {
   padding: 5px;
   margin: 2px;
 }
-
 .modal-mask {
   position: fixed;
   z-index: 10;
@@ -497,7 +498,6 @@ p {
   display: table;
   transition: opacity 0.3s ease;
 }
-
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
@@ -506,18 +506,15 @@ p {
   width: 35%;
   height: auto;
   margin: 0px auto;
-  padding: 15px 28px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 7px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
-
 .modal-body {
   margin: 20px 0;
 }
-
 .modal-default-button {
   float: right;
 }
@@ -525,19 +522,18 @@ p {
 .modal-leave-to {
   opacity: 0;
 }
-
 .modal-enter-active .modal-container,
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 .reset_info {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   margin: 100px auto;
-  background-color: #ccc;
-  border-radius: 20px;
+  border-radius: 7px;
+  background-color: rgb(255, 255, 255);
 }
 .reset_info .group_item {
   width: 90%;
@@ -549,22 +545,21 @@ p {
   margin: 10px auto;
   padding: 10px;
   border: none;
-  outline: 1px solid #63bfe7;
+  outline: 1px solid #1385b5;
 }
 button {
   padding: 10px;
   border: none;
-  background-color: orange;
+  background-color: #63bfe7;
   cursor: pointer;
   border-radius: 10px;
   margin-left: 20px;
 }
-
 #cancle_btn {
   background-color: red;
   color: #fff;
 }
 .resetadmin {
-  margin-top: 33px;
+  margin-top: -20px;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="form_request">
     <form @submit.prevent="addRequest">
+      <p class="wait" v-if="wait">Loading....</p>
       <div class="header">
         <div class=""></div>
         <span>Form Leave Request</span>
@@ -14,11 +15,18 @@
             <div class="leave_type">
               <span>Leave Type:</span>
               <div class="option_type">
-                <select name="" id="" v-model="leave_type" @change="is_select_leave_type = false">
-                  <option value="Sick Leave"> Sick Leave </option>
+                <select
+                  name=""
+                  id=""
+                  v-model="leave_type"
+                  @change="is_select_leave_type = false"
+                >
+                  <option value="Sick Leave">Sick Leave</option>
                   <option value="Family's event">Family's event</option>
                   <option value="Wedding">Wedding</option>
-                  <option value="Brother's and Sister's event">Brother's and Sister's event</option>
+                  <option value="Brother's and Sister's event">
+                    Brother's and Sister's event
+                  </option>
                   <option value="Other Event">Other Event</option>
                 </select>
                 <div class="error">
@@ -31,20 +39,32 @@
                 <span>Start Date:</span>
                 <div class="select_end_date_end_time">
                   <div class="select_start_date">
-                    <input type="date" v-model="start_date" :min="getCurrentDate"
-                      @change="is_select_start_date = false">
+                    <input
+                      type="date"
+                      v-model="start_date"
+                      :min="getCurrentDate"
+                      @change="is_select_start_date = false"
+                    />
                     <div class="error">
-                      <p v-if="is_select_start_date">Please select start date</p>
+                      <p v-if="is_select_start_date">
+                        Please select start date
+                      </p>
                     </div>
                   </div>
                   <div class="select_start_time">
-                    <select name="" class="express_time" v-model="express_time_start"
-                      @change="is_select_expression_time_start = false">
-                      <option value="morning"> Morning</option>
+                    <select
+                      name=""
+                      class="express_time"
+                      v-model="express_time_start"
+                      @change="is_select_expression_time_start = false"
+                    >
+                      <option value="morning">Morning</option>
                       <option value="afternoon">Afternoon</option>
                     </select>
                     <div class="error">
-                      <p v-if="is_select_expression_time_start">Please select start time</p>
+                      <p v-if="is_select_expression_time_start">
+                        Please select start time
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -53,19 +73,30 @@
                 <span>End Date:</span>
                 <div class="select_end_date_end_time">
                   <div class="select_end_date">
-                    <input type="date" v-model="end_date" :min="start_date" @change="is_select_end_date = false">
+                    <input
+                      type="date"
+                      v-model="end_date"
+                      :min="start_date"
+                      @change="is_select_end_date = false"
+                    />
                     <div class="error">
-                      <p v-if="is_select_end_date"> Please choose end date</p>
+                      <p v-if="is_select_end_date">Please choose end date</p>
                     </div>
                   </div>
                   <div class="select_end_time">
-                    <select name="" class="express_time" v-model="express_time_end"
-                      @change="is_select_expression_time_end = false">
-                      <option value="morning"> Morning</option>
+                    <select
+                      name=""
+                      class="express_time"
+                      v-model="express_time_end"
+                      @change="is_select_expression_time_end = false"
+                    >
+                      <option value="morning">Morning</option>
                       <option value="afternoon">Afternoon</option>
                     </select>
                     <div class="error">
-                      <p v-if="is_select_expression_time_end"> Please choose end time</p>
+                      <p v-if="is_select_expression_time_end">
+                        Please choose end time
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -74,19 +105,33 @@
           </div>
           <div class="side_right">
             <div class="duration">
-              <span v-if="changeDuration <= 1">Duration: <strong style="color:red">{{ changeDuration }}
-                  day</strong></span>
-              <span v-else>Duration: <strong style="color:red">{{ changeDuration }} days</strong></span>
+              <span v-if="changeDuration <= 1"
+                >Duration:
+                <strong style="color: red"
+                  >{{ changeDuration }} day</strong
+                ></span
+              >
+              <span v-else
+                >Duration:
+                <strong style="color: red"
+                  >{{ changeDuration }} days</strong
+                ></span
+              >
             </div>
             <div class="reason">
               <div class="header_reason">
                 <span>Cause(reason):</span>
               </div>
               <div class="input">
-                <textarea id="reason" v-model="reason" rows="6" placeholder=" you must have reason..."
-                  @change="is_reason_not_complete = false"></textarea>
+                <textarea
+                  id="reason"
+                  v-model="reason"
+                  rows="6"
+                  placeholder=" you must have reason..."
+                  @change="is_reason_not_complete = false"
+                ></textarea>
                 <div class="error">
-                  <p v-if="is_reason_not_complete"> Please write your reason!</p>
+                  <p v-if="is_reason_not_complete">Please write your reason!</p>
                 </div>
               </div>
             </div>
@@ -94,7 +139,7 @@
         </div>
         <div class="btn">
           <div class="btn_cancel">
-            <router-link to="/" class="btn btn-md btn_cancel ">
+            <router-link to="/" class="btn btn-md btn_cancel">
               CANCEL
             </router-link>
           </div>
@@ -109,10 +154,10 @@
 
 <script>
 import moment from "moment";
-import axios from "../../api/api.js"
+import axios from "../../api/api.js";
 import Swal from "sweetalert2";
 export default {
-  name:'new-request',
+  name: "new-request",
   data() {
     return {
       leave_type: "",
@@ -130,44 +175,55 @@ export default {
       is_select_start_date: false,
       is_select_end_date: false,
       is_reason_not_complete: false,
+      wait: false,
       is_already_complete: false,
-    }
+    };
   },
   methods: {
-
     addRequest() {
       this.checkValidation();
-      let object = { leave_type: this.leave_type, start_date: this.start_date, 
-        end_date: this.end_date, reason: this.reason, duration: this.changeDuration, 
-        status: this.status, user_id: this.user_id, student_id: localStorage.getItem('studentID'), }
-        
-      if (this.start_date != "" &&
+      this.wait = true;
+      let object = {
+        leave_type: this.leave_type,
+        start_date: this.start_date,
+        end_date: this.end_date,
+        reason: this.reason,
+        duration: this.changeDuration,
+        status: this.status,
+        user_id: this.user_id,
+        student_id: localStorage.getItem("studentID"),
+      };
+
+      if (
+        this.start_date != "" &&
         this.end_date != "" &&
         this.express_time_start != "" &&
         this.express_time_end != "" &&
         this.leave_type != "" &&
         this.reason != "" &&
-        this.status != "") {
+        this.status != ""
+      ) {
         axios.post("/students/leaves", object).then((res) => {
           console.log(res);
+          setTimeout(() => {
+            this.wait = false;
+          }, 500);
           return this.$router.push({ name: "list_all_leave" });
-        }
-        )
+        });
         this.clearForm();
       }
-
     },
     clearForm() {
-      this.start_date = '';
-      this.end_date = '';
-      this.leave_type = '';
-      this.express_time_start = '';
-      this.express_time_end = '';
-      this.reason = '';
+      this.start_date = "";
+      this.end_date = "";
+      this.leave_type = "";
+      this.express_time_start = "";
+      this.express_time_end = "";
+      this.reason = "";
     },
     // validation form request
     checkValidation() {
-      this.is_select_leave_type = false
+      this.is_select_leave_type = false;
       this.is_select_start_date = false;
       this.is_select_end_date = false;
       this.is_select_expression_time_start = false;
@@ -189,18 +245,18 @@ export default {
         this.is_select_end_date = true;
       }
       if (this.reason == "") {
-        this.is_reason_not_complete = true
+        this.is_reason_not_complete = true;
       }
     },
 
     submitSave() {
       Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Your work has been saved',
+        position: "center",
+        icon: "success",
+        title: "Your work has been saved",
         showConfirmButton: false,
-        timer: 2000
-      })
+        timer: 2000,
+      });
     },
   },
   computed: {
@@ -214,13 +270,17 @@ export default {
         if (!isNaN(end.diff(start, "days"))) {
           result += end.diff(start, "days");
           if (
-            (express_time_start == "morning" && express_time_end == "morning") || (express_time_start == "afternoon" && express_time_end == "afternoon")
+            (express_time_start == "morning" &&
+              express_time_end == "morning") ||
+            (express_time_start == "afternoon" &&
+              express_time_end == "afternoon")
           ) {
             result += 0.5;
           }
 
           if (
-            (express_time_start == "morning" && express_time_end == "afternoon")
+            express_time_start == "morning" &&
+            express_time_end == "afternoon"
           ) {
             result += 1;
           }
@@ -234,27 +294,32 @@ export default {
       var month = date.getMonth() + 1;
       var year = date.getUTCFullYear();
       if (tday < 10) {
-        tday = "0" + tday
+        tday = "0" + tday;
       }
       if (month < 10) {
-        month = "0" + month
+        month = "0" + month;
       }
-      return year + "-" + month + "-" + tday
+      return year + "-" + month + "-" + tday;
     },
     disableButton() {
       let btn_disabled = true;
-      if (this.leave_type || this.start_date || this.end_date || this.reasons
-        || this.express_time_start || this.express_time_end) {
+      if (
+        this.leave_type ||
+        this.start_date ||
+        this.end_date ||
+        this.reasons ||
+        this.express_time_start ||
+        this.express_time_end
+      ) {
         btn_disabled = false;
       }
-      return btn_disabled
+      return btn_disabled;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 .form_request {
   width: 60%;
   margin-left: 20%;
@@ -266,9 +331,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px, rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
   border-radius: 7px 7px 0 0;
-  color: #63BFE7;
+  color: #63bfe7;
   padding: 10px;
 }
 
@@ -276,10 +342,26 @@ export default {
   font-size: 1.3rem;
   font-weight: bold;
 }
+.wait {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  position: absolute;
+  top: 45vh;
+  left: 40vw;
+  width: 20%;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 7px;
+  animation-name: example;
+  animation-duration: 4s;
+}
 
 .body {
   border-radius: 0 0 7px 7px;
-  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px, rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.7) 0px 1px 3px -1px;
 }
 
 .body span {
@@ -406,13 +488,14 @@ export default {
   cursor: pointer;
   background: none;
   border: none;
-  background: #63BFE7;
+  background: #63bfe7;
   color: #ffff;
   border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .btn_cancel a {
@@ -436,7 +519,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .btn_close button {

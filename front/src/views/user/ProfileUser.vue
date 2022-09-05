@@ -86,41 +86,49 @@
           <button @click="saveChange">Save Change</button>
         </div>
       </div>
+    </div>
 
-      <div class="modal-mask" v-if="showResetPs">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="reset_info">
-              <div class="group_item">
-                <h1>Reset Password</h1>
+    <div class="modal-mask" v-if="showResetPs">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="reset_info">
+            <div class="group_item">
+              <h1>Reset Password</h1>
+            </div>
+            <div class="group_item">
+              <div class="item">
+                <input
+                  type="password"
+                  placeholder="Your old password"
+                  v-model="old_password"
+                />
               </div>
-              <div class="group_item">
-                <div class="item">
-                  <input
-                    type="password"
-                    placeholder="Your old password"
-                    v-model="old_password"
-                  />
-                </div>
-                <div class="item">
-                  <input
-                    type="password"
-                    placeholder="new password"
-                    v-model="new_password"
-                  />
-                </div>
-                <div class="item">
-                  <input
-                    type="password"
-                    placeholder="New password confirm"
-                    v-model="newconfirm_password"
-                  />
-                </div>
+              <div class="item">
+                <input
+                  type="password"
+                  placeholder="new password"
+                  v-model="new_password"
+                />
               </div>
-              <div class="group_item footer">
-                <button @click="resetPassword">Reset</button>
-                <button id="cancle_btn" @click="cancleReset">Cancle</button>
+              <div class="item">
+                <input
+                  type="password"
+                  placeholder="New password confirm"
+                  v-model="newconfirm_password"
+                />
               </div>
+            </div>
+            <div class="group_item footer">
+              <button @click="resetPassword" class="text-light w-25">
+                Reset
+              </button>
+              <button
+                id="cancle_btn"
+                @click="cancleReset"
+                class="text-light w-25"
+              >
+                Cancle
+              </button>
             </div>
           </div>
         </div>
@@ -129,7 +137,7 @@
   </div>
 </template>
 <script>
-import axios from "../../axios-http.js";
+import axios from "../../api/api";
 import Swal from "sweetalert2";
 export default {
   data() {
@@ -195,6 +203,7 @@ export default {
     },
     openResetPs() {
       this.showResetPs = !this.showResetPs;
+      console.log(this.showResetPs);
     },
     onChangeProfile(event) {
       let fileExtension = event.target.files[0].name.split(".").pop();
@@ -396,7 +405,7 @@ p {
   width: 35%;
   height: auto;
   margin: 0px auto;
-  padding: 15px 28px;
+  border-radius: 20px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -422,12 +431,12 @@ p {
   transform: scale(1.1);
 }
 .reset_info {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  border-radius: 7px;
   margin: 100px auto;
-  background-color: #ccc;
-  border-radius: 20px;
+  background-color: rgb(247, 247, 247);
 }
 .reset_info .group_item {
   width: 90%;
@@ -439,17 +448,17 @@ p {
   margin: 10px auto;
   padding: 10px;
   border: none;
-  outline: 1px solid #63bfe7;
+  outline: 1px solid #1a99d0;
 }
 button {
   padding: 10px;
   border: none;
-  background-color: orange;
+  background-color: #63bfe7;
   cursor: pointer;
   border-radius: 10px;
   margin-left: 20px;
 }
 #cancle_btn {
-  background-color: rgb(55, 189, 241);
+  background-color: red;
 }
 </style>
